@@ -19,5 +19,10 @@
 
 node.default['encrypted'] = Chef::EncryptedAttribute.create("OK")
 
-Chef::Log.info(node['encrypted'].inspect)
-Chef::Log.info(Chef::EncryptedAttribute.load(node['encrypted']).inspect)
+Chef::Log.info("Attribute encrypted: #{node['encrypted'].inspect}")
+
+encrypted_attribute = Chef::EncryptedAttribute.load(node['encrypted'])
+Chef::Log.info("Local attribute: #{encrypted_attribute.inspect}")
+
+remote_encrypted_attribute = Chef::EncryptedAttribute.load_from_node(Chef::Config[:node_name], ['encrypted'])
+Chef::Log.info("Remote attribute: #{remote_encrypted_attribute.inspect}")

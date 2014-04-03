@@ -44,7 +44,7 @@ class Chef
     def self.load_clients(search=nil)
       return Hash.new if search == false
       Hash[
-        query.search(:client, search || 'admin:true').shift.map do |client|
+        query.search(:client, search || 'admin:true')[0].map do |client|
           [ client.name, client.public_key ]
         end
       ]
@@ -65,6 +65,35 @@ class Chef
 
       value = hs['value'][Chef::Config[:node_name]]
       decrypt(value)
+    end
+
+    # TODO does not work, why?
+    # def self.get_node_attribute_old(name, attr_ary)
+    #   escaped_query = URI.escape("name:#{name}", Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    #   node = query.search(:node, escaped_query)[0]
+    #   attr_ary.reduce(node) do |n, k|
+    #     n.respond_to?(:has_key?) && n.has_key?(k) ? n[k] : nil
+    #   end
+    # end
+
+    # TODO test this, uses partial search, may not work with old chef servers
+    def self.get_node_attribute(node, attr_ary)
+      escaped_query = "search/node?q=#{URI.escape("name:#{node}")}&sort=#{URI.escape('X_CHEF_id_CHEF_X asc')}&start=0&rows=1000"
+      rest = Chef::REST.new(Chef::Config[:chef_server_url])
+      response = rest.post_rest(escaped_query, { 'value' => attr_ary })
+      if response['rows'].kind_of?(Array) and
+         response['rows'][0].kind_of?(Hash) and
+         response['rows'][0]['data'].kind_of?(Hash)
+        response['rows'][0]['data']['value']
+      else
+        Chef::Log.warn('Node or attribute not found.')
+        nil
+      end
+    end
+
+    def self.load_from_node(name, attr_ary)
+      attr = get_node_attribute(name, attr_ary)
+      self.load(attr)
     end
 
     def self.create(o, search=nil)

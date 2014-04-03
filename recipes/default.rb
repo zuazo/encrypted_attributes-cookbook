@@ -18,6 +18,7 @@
 #
 
 node.default['encrypted'] = Chef::EncryptedAttribute.create("OK")
+node.save
 
 Chef::Log.info("Attribute encrypted: #{node['encrypted'].inspect}")
 

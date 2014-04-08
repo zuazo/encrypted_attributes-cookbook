@@ -7,3 +7,6 @@ Berksfile.lock
 test/kitchen/.kitchen/
 nodes/
 .kitchen.local.yml
+*.gem
+Gemfile.lock
+coverage

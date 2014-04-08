@@ -13,5 +13,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[encrypted_attributes::default]
+      - recipe[encrypted_attributes_test::default]
     attributes:

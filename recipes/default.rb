@@ -17,13 +17,13 @@
 # limitations under the License.
 #
 
-node.default['encrypted'] = Chef::EncryptedAttribute.create("OK")
-node.save
+# TODO replace this by a simple chef_gem when released
+encrypted_attribute_file = "chef-encrypted-attributes-#{node['encrypted_attributes']['version']}.gem"
+remote_file "/tmp/#{encrypted_attribute_file}" do
+  source "#{node['encrypted_attributes']['mirror_url']}/#{encrypted_attribute_file}"
+end.run_action(:create)
+gem_package 'chef-encrypted-attributes' do
+  source "/tmp/#{encrypted_attribute_file}"
+end.run_action(:install)
 
-Chef::Log.info("Attribute encrypted: #{node['encrypted'].inspect}")
-
-encrypted_attribute = Chef::EncryptedAttribute.load(node['encrypted'])
-Chef::Log.info("Local attribute: #{encrypted_attribute.inspect}")
-
-remote_encrypted_attribute = Chef::EncryptedAttribute.load_from_node(Chef::Config[:node_name], ['encrypted'])
-Chef::Log.info("Remote attribute: #{remote_encrypted_attribute.inspect}")
+require 'chef/encrypted_attribute'

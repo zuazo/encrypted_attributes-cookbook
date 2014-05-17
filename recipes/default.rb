@@ -17,13 +17,25 @@
 # limitations under the License.
 #
 
-# TODO replace this by a simple chef_gem when released
-encrypted_attribute_file = "chef-encrypted-attributes-#{node['encrypted_attributes']['version']}.gem"
-remote_file "/tmp/#{encrypted_attribute_file}" do
-  source "#{node['encrypted_attributes']['mirror_url']}/#{encrypted_attribute_file}"
-end.run_action(:create)
-gem_package 'chef-encrypted-attributes' do
-  source "/tmp/#{encrypted_attribute_file}"
-end.run_action(:install)
+def prerelease(version)
+  version.kind_of?(String) and version.match(/^[0-9.]+$/) != true
+end
 
-require 'chef/encrypted_attribute'
+if node['encrypted_attributes']['mirror_url'].kind_of?(String) and node['encrypted_attributes']['version'].kind_of?(String)
+  # install from a mirror
+  encrypted_attribute_file = "chef-encrypted-attributes-#{node['encrypted_attributes']['version']}.gem"
+  remote_file ::File.join(Chef::Config[:file_cache_path], encrypted_attribute_file) do
+    source "#{node['encrypted_attributes']['mirror_url']}/#{encrypted_attribute_file}"
+  end.run_action(:create)
+  gem_package 'chef-encrypted-attributes' do
+    source ::File.join(Chef::Config[:file_cache_path], encrypted_attribute_file)
+  end.run_action(:install)
+else
+  # install from rubygems
+  chef_gem 'chef-encrypted-attributes' do
+    version gem_version
+    options(:prerelease => true) if prerelease(version)
+  end
+end
+
+require 'chef-encrypted-attributes'

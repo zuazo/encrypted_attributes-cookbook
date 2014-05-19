@@ -17,10 +17,6 @@
 # limitations under the License.
 #
 
-def prerelease(version)
-  version.kind_of?(String) and version.match(/^[0-9.]+$/) != true
-end
-
 if node['encrypted_attributes']['mirror_url'].kind_of?(String) and node['encrypted_attributes']['version'].kind_of?(String)
   # install from a mirror
   encrypted_attribute_file = "chef-encrypted-attributes-#{node['encrypted_attributes']['version']}.gem"
@@ -32,9 +28,10 @@ if node['encrypted_attributes']['mirror_url'].kind_of?(String) and node['encrypt
   end.run_action(:install)
 else
   # install from rubygems
+  prerelease = node['encrypted_attributes']['version'].kind_of?(String) && node['encrypted_attributes']['version'].match(/^[0-9.]+$/) != true
   chef_gem 'chef-encrypted-attributes' do
-    version gem_version
-    options(:prerelease => true) if prerelease(version)
+    version node['encrypted_attributes']['version']
+    options(:prerelease => true) if prerelease
   end
 end
 

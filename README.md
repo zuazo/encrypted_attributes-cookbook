@@ -45,11 +45,11 @@ Recipes
 
 ### encrypted_attributes::default
 
-Installs and loads the chef-encrypted-attributes gem.
+Installs and loads the `chef-encrypted-attributes` gem.
 
 ### encrypted_attributes::users_data_bag
 
-Configures chef-encrypted-attributes Chef User keys reading them from a data bag. This is a workaround for the [Chef Users Limitation problem](http://onddo.github.io/chef-encrypted-attributes/#chef-users-limitation).
+Configures `chef-encrypted-attributes` Chef User keys reading them from a data bag. This is a workaround for the [Chef Users Limitation problem](http://onddo.github.io/chef-encrypted-attributes/#chef-users-limitation).
 
 Usage Examples
 ==============
@@ -146,6 +146,8 @@ The keys can be set in *array of strings* format if you prefer:
 }
 ```
 
+You can retrieve user public keys with `knife user show USER -a public_key -f json`.
+
 Then, you can use this data bag to configure the `Chef::Config[:encrypted_attributes][:keys]` chef-encrypted-attributes configuration only by calling the recipe:
 
 ```ruby
@@ -159,27 +161,44 @@ include_recipe "encrypted_attributes::users_data_bag"
 # ...
 ```
 
+**Note:** This data bag does not need to be encrypted, because it only stores public keys.
+
 Testing
 =======
 
 ## Requirements
 
 * `vagrant`
-* `berkshelf` >= `2.0.0`
+* `foodcritic` ~> `3.0`
+* `berkshelf` >= `2.0`
+* `chefspec` ~> `3.2`
 * `test-kitchen` >= `1.2`
 * `kitchen-vagrant` >= `0.10`
 
-## Running the Tests
+## Running the Syntax Style Tests
 
-```bash
-$ kitchen test
-$ kitchen verify
-[...]
-```
+    $ rake style
 
-### Running the tests in the cloud
+## Running the Unit Tests
 
-#### Requirements:
+    $ rake unit
+
+Or:
+
+    $ rspec
+
+## Running the Integration Tests
+
+    $ rake integration
+
+Or:
+
+    $ kitchen test
+    $ kitchen verify
+
+### Running Integration Tests in the Cloud
+
+#### Requirements
 
 * `kitchen-vagrant` >= `0.10`
 * `kitchen-digitalocean` >= `0.5`
@@ -198,11 +217,9 @@ You can run the tests in the cloud instead of using vagrant. First, you must set
 
 Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
 
-```
-$ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
-$ kitchen list
-[...]
-```
+    $ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
+    $ kitchen list
+    [...]
 
 Contributing
 ============

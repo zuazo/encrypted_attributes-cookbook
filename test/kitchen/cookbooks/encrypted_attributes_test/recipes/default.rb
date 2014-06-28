@@ -24,7 +24,7 @@ orig_value = { 'a_key' => 'Some random string', 'primitives' => [ 0, 0.2, true, 
 Chef::Log.info("Attribute decrypted: #{orig_value}")
 
 node.default['encrypted'] = Chef::EncryptedAttribute.create(orig_value)
-node.save
+node.save unless Chef::Config[:solo]
 Chef::Log.info("Attribute encrypted: #{node['encrypted'].inspect}")
 
 decrypted_attribute = Chef::EncryptedAttribute.load(node['encrypted'])

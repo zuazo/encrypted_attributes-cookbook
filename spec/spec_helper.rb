@@ -33,7 +33,7 @@ RSpec.configure do |config|
 
   # ChefSpec configuration
   config.log_level = :fatal
-  config.color_enabled = true
+  config.color = true
   config.formatter = :documentation
 end
 

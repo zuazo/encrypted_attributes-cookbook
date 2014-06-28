@@ -8,6 +8,7 @@ group :test, :development do
 end
 
 group :test do
+  gem 'rspec', '~> 2.14.0'
   gem 'berkshelf', '~> 2.0'
   gem 'chefspec', '~> 3.2'
   gem 'foodcritic', '~> 3.0'

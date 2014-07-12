@@ -44,11 +44,11 @@ Attributes
 Recipes
 =======
 
-### encrypted_attributes::default
+## encrypted_attributes::default
 
 Installs and loads the `chef-encrypted-attributes` gem.
 
-### encrypted_attributes::users_data_bag
+## encrypted_attributes::users_data_bag
 
 Configures `chef-encrypted-attributes` Chef User keys reading them from a data bag. This is a workaround for the [Chef Users Limitation problem](http://onddo.github.io/chef-encrypted-attributes/#chef-users-limitation).
 

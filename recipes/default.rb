@@ -17,6 +17,9 @@
 # limitations under the License.
 #
 
+node.default['build-essential']['compile_time'] = true
+include_recipe 'build-essential'
+
 if node['encrypted_attributes']['mirror_url'].kind_of?(String) and node['encrypted_attributes']['version'].kind_of?(String)
   # install from a mirror
   encrypted_attribute_file = "chef-encrypted-attributes-#{node['encrypted_attributes']['version']}.gem"

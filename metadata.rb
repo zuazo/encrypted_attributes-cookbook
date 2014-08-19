@@ -6,6 +6,8 @@ description      'Installs and enables chef-encrypted-attributes gem: Chef plugi
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.1' # WiP
 
+depends 'build-essential'
+
 recipe 'encrypted_attributes::default', 'Installs and loads the chef-encrypted-attributes gem.'
 recipe 'encrypted_attributes::users_data_bag', 'Configures chef-encrypted-attributes Chef User keys reading them from a data bag. This is a workaround for the Chef Users Limitation problem.'
 

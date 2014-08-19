@@ -8,7 +8,9 @@ Installs and enables [chef-encrypted-attributes](http://onddo.github.io/chef-enc
 Requirements
 ============
 
-No special requirements.
+## Required Cookbooks
+
+* [build-essential](https://supermarket.getchef.com/cookbooks/build-essential)
 
 Attributes
 ==========

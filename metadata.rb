@@ -4,7 +4,7 @@ maintainer_email 'team@onddo.com'
 license          'Apache 2.0'
 description      'Installs and enables chef-encrypted-attributes gem: Chef plugin to add Node encrypted attributes support using client keys.'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.1' # WiP
+version          '0.2.0' # WiP
 
 depends 'build-essential'
 

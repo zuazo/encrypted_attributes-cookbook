@@ -54,6 +54,103 @@ Installs and loads the `chef-encrypted-attributes` gem.
 
 Configures `chef-encrypted-attributes` Chef User keys reading them from a data bag. This is a workaround for the [Chef Users Limitation problem](http://onddo.github.io/chef-encrypted-attributes/#chef-users-limitation).
 
+Helper Libraries
+================
+
+## Chef::EncryptedAttributesHelpers
+
+This library adds some helper methods to try to cover the more common use cases.
+
+Automatically includes the required recipes (`encrypted_attributes`) and gems (`chef-encrypted-attributes`), so you do not have to worry about them.
+
+Also tries to simulate encrypted attributes creation (using clear attributes instead) in some testing environments:
+
+* With *Chef Solo*.
+* When `node["dev_mode"]` is set to `true`.
+
+You must explicitly include the library before using it from recipes or resources:
+
+```ruby
+self.class.send(:include, Chef::EncryptedAttributesHelpers)
+```
+
+These are the available methods:
+
+### encrypted_attributes_enabled?
+
+Whether encryted attributes are enabled underneath.
+
+### encrypted_attribute_read(attr_ary)
+
+Reads an encrypted attribute.
+
+Parameters:
+
+* `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
+
+Returns the attribute value in clear text.
+
+### encrypted_attribute_read_from_node(node, attr_ary)
+
+Reads an encrypted attribute from a remote node.
+
+Parameters:
+
+* `node`: Node name.
+* `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
+
+Returns the attribute value in clear text.
+
+### encrypted_attribute_write(attr_ary) {}
+
+Creates and writes an encrypted attribute.
+
+The attribute will be written only on first run and updated on the next runs. Because of this, the attribute value has to be set as a block, and the block will be run only the first time:
+
+```ruby
+clear_pass = encrypted_attribute_write(["ftp", "password"]) do
+  self.class.send(:include, Opscode::OpenSSL::Password)
+  secure_password
+end
+```
+
+Parameters:
+
+* `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
+
+Returns the attribute value in clear text, that is, the value returned by the block.
+
+### encrypted_attributes_enabled
+
+This class attribute allows you to explicitly enable or disable encrypted attributes. This attribute value is *calculated* by default.
+
+### Chef::EncryptedAttributesHelpers Example
+
+Here a simple example to save a password encrypted:
+
+```ruby
+self.class.send(:include, Chef::EncryptedAttributesHelpers)
+
+ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do
+  self.class.send(:include, Opscode::OpenSSL::Password)
+  secure_password
+end
+```
+
+You can then read the attribute as follows:
+
+```ruby
+ftp_pass = encrypted_attribute_read(["myapp", "ftp_password"])
+```
+
+Or read it from a remote node:
+
+```ruby
+self.class.send(:include, Chef::EncryptedAttributesHelpers)
+
+ftp_pass = encrypted_attribute_remote_read("myapp.example.com", ["myapp", "ftp_password"])
+```
+
 Usage Examples
 ==============
 
@@ -76,7 +173,7 @@ depends "encrypted_attributes"
 
 ## Including in the Run List
 
-Another alternative is to include the default recipe in your Run List:
+Another alternative is to include the default recipe in your *Run List*:
 
 ```json
 {
@@ -109,6 +206,17 @@ else
 end
 
 # use `ftp_pass` for something here ...
+```
+
+You can also use the `Chef::EncryptedAttributesHelpers` helpers to simplify its use:
+
+```ruby
+self.class.send(:include, Chef::EncryptedAttributesHelpers)
+
+ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do
+  self.class.send(:include, Opscode::OpenSSL::Password)
+  secure_password
+end
 ```
 
 **Note:** This example requires the [openssl](http://community.opscode.com/cookbooks/openssl) cookbook.

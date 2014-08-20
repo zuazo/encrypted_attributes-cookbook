@@ -125,6 +125,14 @@ Parameters:
 
 Returns the attribute value in clear text, that is, the value returned by the block.
 
+### encrypted_attributes_allow(search)
+
+Allows some nodes to read my encrypted attributes.
+
+Parameters:
+
+* `search`: Search query for nodes that will be allowed to decrypt the attributes.
+
 ### encrypted_attributes_enabled
 
 This class attribute allows you to explicitly enable or disable encrypted attributes. This attribute value is *calculated* by default.
@@ -137,7 +145,7 @@ Here a simple example to save a password encrypted:
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
 # Allow all webapp nodes to read the attributes encrypted by me
-Chef::Config[:encrypted_attributes][:client_search] = "role:webapp"
+encrypted_attributes_allow("role:webapp")
 
 ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do
   self.class.send(:include, Opscode::OpenSSL::Password)

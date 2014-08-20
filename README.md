@@ -167,6 +167,15 @@ self.class.send(:include, Chef::EncryptedAttributesHelpers)
 ftp_pass = encrypted_attribute_read_from_node("myapp.example.com", ["myapp", "ftp_password"])
 ```
 
+Don't forget to include the `encrypted_attributes` cookbook as a dependency in the metadata.
+
+```ruby
+# metadata.rb
+[...]
+
+depends "encrypted_attributes"
+```
+
 Usage Examples
 ==============
 

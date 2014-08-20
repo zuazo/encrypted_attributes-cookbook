@@ -109,8 +109,7 @@ class Chef
         encrypted_attribute_load(attr_r)
       else
         value = block.call
-        enc_value = encrypted_attribute_create(value)
-        attr_set_from_ary(attr_ary, enc_value)
+        attr_set_from_ary(attr_ary, encrypted_attribute_create(value))
         value
       end
     end
@@ -119,10 +118,10 @@ class Chef
       if search.is_a?(String)
         Chef::Config[:encrypted_attributes][:client_search] = search
       else
-        fail "Unknown #encrypted_attributes_allow argument, you passed "\
+        fail 'Unknown #encrypted_attributes_allow argument, you passed '\
           "#{search.class.name}"
       end
     end
-    alias :encrypted_attribute_allow :encrypted_attributes_allow
+    alias_method :encrypted_attribute_allow, :encrypted_attributes_allow
   end
 end

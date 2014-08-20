@@ -38,3 +38,10 @@ attribute 'encrypted_attributes/data_bag/item',
   :type => 'string',
   :required => 'optional',
   :default => '"chef_users"'
+
+attribute 'dev_mode',
+  :display_name => 'dev mode',
+  :description => 'If this is true, the Chef::EncryptedAttributesHelpers library will work with clear attributes instead of encrypted attributes.',
+  :type => 'string',
+  :required => 'optional',
+  :calculated => true

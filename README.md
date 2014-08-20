@@ -41,6 +41,11 @@ Attributes
     <td>chef-encrypted-attributes user keys data bag item name.</td>
     <td><code>"chef_users"</code></td>
   </tr>
+  <tr>
+    <td><code>node["dev_mode"]</code></td>
+    <td>If this is <code>true</code>, the <code>Chef::EncryptedAttributesHelpers</code> library will work with clear attributes instead of encrypted attributes.</td>
+    <td><em>calculated</em></td>
+  </tr>
 </table>
 
 Recipes

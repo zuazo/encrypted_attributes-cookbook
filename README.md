@@ -302,70 +302,20 @@ include_recipe "encrypted_attributes::users_data_bag"
 Testing
 =======
 
-## Requirements
-
-* `vagrant`
-* `foodcritic` ~> `3.0`
-* `berkshelf` >= `2.0`
-* `chefspec` ~> `3.2`
-* `test-kitchen` >= `1.2`
-* `kitchen-vagrant` >= `0.10`
-
-## Running the Syntax Style Tests
-
-    $ rake style
-
-## Running the Unit Tests
-
-    $ rake unit
-
-Or:
-
-    $ rspec
-
-## Running the Integration Tests
-
-    $ rake integration
-
-Or:
-
-    $ kitchen test
-    $ kitchen verify
-
-### Running Integration Tests in the Cloud
-
-#### Requirements
-
-* `kitchen-vagrant` >= `0.10`
-* `kitchen-digitalocean` >= `0.5`
-* `kitchen-ec2` >= `0.8`
-
-You can run the tests in the cloud instead of using vagrant. First, you must set the following environment variables:
-
-* `AWS_ACCESS_KEY_ID`
-* `AWS_SECRET_ACCESS_KEY`
-* `AWS_KEYPAIR_NAME`: EC2 SSH public key name. This is the name used in Amazon EC2 Console's Key Pars section.
-* `EC2_SSH_KEY_PATH`: EC2 SSH private key local full path. Only when you are not using an SSH Agent.
-* `DIGITAL_OCEAN_CLIENT_ID`
-* `DIGITAL_OCEAN_API_KEY`
-* `DIGITAL_OCEAN_SSH_KEY_IDS`: DigitalOcean SSH numeric key IDs.
-* `DIGITAL_OCEAN_SSH_KEY_PATH`: DigitalOcean SSH private key local full path. Only when you are not using an SSH Agent.
-
-Then, you must configure test-kitchen to use `.kitchen.cloud.yml` configuration file:
-
-    $ export KITCHEN_LOCAL_YAML=".kitchen.cloud.yml"
-    $ kitchen list
-    [...]
+See [TESTING.md](https://github.com/onddo/encrypted_attributes-cookbook/blob/master/TESTING.md).
 
 Contributing
 ============
 
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+Please do not hesitate to [open an issue](https://github.com/onddo/encrypted_attributes-cookbook/issues/new) with any questions or problems.
+
+See [CONTRIBUTING.md](https://github.com/onddo/encrypted_attributes-cookbook/blob/master/CONTRIBUTING.md).
+
+TODO
+====
+
+See [TODO.md](https://github.com/onddo/encrypted_attributes-cookbook/blob/master/TODO.md).
+
 
 License and Author
 =====================

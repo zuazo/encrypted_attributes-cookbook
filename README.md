@@ -153,7 +153,7 @@ Or read it from a remote node:
 ```ruby
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
-ftp_pass = encrypted_attribute_remote_read("myapp.example.com", ["myapp", "ftp_password"])
+ftp_pass = encrypted_attribute_read_from_node("myapp.example.com", ["myapp", "ftp_password"])
 ```
 
 Usage Examples

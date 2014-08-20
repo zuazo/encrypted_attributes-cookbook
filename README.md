@@ -136,6 +136,9 @@ Here a simple example to save a password encrypted:
 ```ruby
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
+# Allow all webapp nodes to read the attributes encrypted by me
+Chef::Config[:encrypted_attributes][:client_search] = "role:webapp"
+
 ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do
   self.class.send(:include, Opscode::OpenSSL::Password)
   secure_password

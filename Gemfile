@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 
 group :test, :development do
   gem 'rake'
+  gem 'chef-encrypted-attributes'
 end
 
 group :test do

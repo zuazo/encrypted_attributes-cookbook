@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: encrypted_attributes
 # Recipe:: default
@@ -20,23 +21,32 @@
 node.default['build-essential']['compile_time'] = true
 include_recipe 'build-essential'
 
-if node['encrypted_attributes']['mirror_url'].kind_of?(String) and node['encrypted_attributes']['version'].kind_of?(String)
+if node['encrypted_attributes']['mirror_url'].is_a?(String) &&
+   node['encrypted_attributes']['version'].is_a?(String)
   # install from a mirror
-  encrypted_attribute_file = "chef-encrypted-attributes-#{node['encrypted_attributes']['version']}.gem"
-  remote_file ::File.join(Chef::Config[:file_cache_path], encrypted_attribute_file) do
-    source "#{node['encrypted_attributes']['mirror_url']}/#{encrypted_attribute_file}"
+  encrypted_attribute_file =
+    "chef-encrypted-attributes-#{node['encrypted_attributes']['version']}.gem"
+  file_path = ::File.join(
+    Chef::Config[:file_cache_path],
+    encrypted_attribute_file
+  )
+  file_url =
+    "#{node['encrypted_attributes']['mirror_url']}/#{encrypted_attribute_file}"
+  remote_file file_path do
+    source file_url
   end.run_action(:create)
   gem_package 'chef-encrypted-attributes' do
     source ::File.join(Chef::Config[:file_cache_path], encrypted_attribute_file)
   end.run_action(:install)
 else
   # install from rubygems
-  prerelease = node['encrypted_attributes']['version'].kind_of?(String) && node['encrypted_attributes']['version'].match(/^[0-9.]+$/) != true
+  prerelease = node['encrypted_attributes']['version'].is_a?(String) &&
+    node['encrypted_attributes']['version'].match(/^[0-9.]+$/) != true
   chef_gem 'chef-encrypted-attributes' do
-    if node['encrypted_attributes']['version'].kind_of?(String)
+    if node['encrypted_attributes']['version'].is_a?(String)
       version node['encrypted_attributes']['version']
     end
-    options(:prerelease => true) if prerelease
+    options(prerelease: true) if prerelease
   end
 end
 

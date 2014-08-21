@@ -12,6 +12,10 @@ Requirements
 
 * [build-essential](https://supermarket.getchef.com/cookbooks/build-essential)
 
+## Required Applications
+
+* Ruby `1.9.3` or higher.
+
 Attributes
 ==========
 

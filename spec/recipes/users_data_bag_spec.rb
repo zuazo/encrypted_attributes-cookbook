@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
@@ -41,13 +42,15 @@ describe 'encrypted_attributes::users_data_bag' do
   end
 
   it 'should read the data bag' do
-    expect(Chef::DataBagItem).to receive(:load).with('global', 'chef_users').and_return(@data_bag_item)
+    expect(Chef::DataBagItem).to receive(:load).with('global', 'chef_users')
+      .and_return(@data_bag_item)
     chef_run
   end
 
   it 'should set the configuration keys' do
     chef_run
-    expect(Chef::Config[:encrypted_attributes][:keys]).to eql([ @bob_key, @alice_key ])
+    expect(Chef::Config[:encrypted_attributes][:keys])
+      .to eql([@bob_key, @alice_key])
   end
 
 end

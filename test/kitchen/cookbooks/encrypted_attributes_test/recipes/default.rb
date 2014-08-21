@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: encrypted_attributes_test
 # Recipe:: default
@@ -19,7 +20,10 @@
 
 include_recipe 'encrypted_attributes'
 
-orig_value = { 'a_key' => 'Some random string', 'primitives' => [ 0, 0.2, true, false, nil ] }
+orig_value = {
+  'a_key' => 'Some random string',
+  'primitives' => [0, 0.2, true, false, nil]
+}
 
 Chef::Log.info("Attribute decrypted: #{orig_value}")
 
@@ -30,11 +34,15 @@ Chef::Log.info("Attribute encrypted: #{node['encrypted'].inspect}")
 decrypted_attribute = Chef::EncryptedAttribute.load(node['encrypted'])
 Chef::Log.info("Local attribute: #{decrypted_attribute.inspect}")
 unless decrypted_attribute == orig_value
-  raise 'Error reading the attribute locally.'
+  fail 'Error reading the attribute locally.'
 end
 
-remote_decrypted_attribute = Chef::EncryptedAttribute.load_from_node(Chef::Config[:node_name], ['encrypted'])
+remote_decrypted_attribute =
+  Chef::EncryptedAttribute.load_from_node(
+    Chef::Config[:node_name],
+    %w(encrypted)
+  )
 Chef::Log.info("Remote attribute: #{remote_decrypted_attribute.inspect}")
 unless remote_decrypted_attribute == orig_value
-  raise 'Error reading the attribute remotelly.'
+  fail 'Error reading the attribute remotelly.'
 end

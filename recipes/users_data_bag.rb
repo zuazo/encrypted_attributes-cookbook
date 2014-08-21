@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Cookbook Name:: encrypted_attributes
 # Recipe:: users_data_bag
@@ -19,16 +20,23 @@
 
 include_recipe 'encrypted_attributes::default'
 
-chef_users = Chef::DataBagItem.load(node['encrypted_attributes']['data_bag']['name'], node['encrypted_attributes']['data_bag']['item']).to_hash
+chef_users = Chef::DataBagItem.load(
+  node['encrypted_attributes']['data_bag']['name'],
+  node['encrypted_attributes']['data_bag']['item']
+).to_hash
 chef_users.delete('id')
 chef_users.delete('chef_type')
 chef_users.delete('data_bag')
 Chef::Log.debug("Chef users data bag content: #{chef_users.inspect}")
 
-user_keys = chef_users.map do |user, public_key|
-  public_key.kind_of?(Array) ? public_key.join("\n") : public_key
+user_keys = chef_users.map do |_user, public_key|
+  public_key.is_a?(Array) ? public_key.join("\n") : public_key
 end
-Chef::Log.debug("Admin users able to read Encrypted Attributes: #{user_keys.inspect}")
+Chef::Log.debug(
+  "Admin users able to read Encrypted Attributes: #{user_keys.inspect}"
+)
 
-Chef::Config[:encrypted_attributes][:keys] = Array.new unless Chef::Config[:encrypted_attributes][:keys].kind_of?(Array)
+unless Chef::Config[:encrypted_attributes][:keys].is_a?(Array)
+  Chef::Config[:encrypted_attributes][:keys] = []
+end
 Chef::Config[:encrypted_attributes][:keys] |= user_keys

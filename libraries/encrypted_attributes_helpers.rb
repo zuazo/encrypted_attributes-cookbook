@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 class Chef
   # Encrypted Attribute Helpers to use from recipes/resources
   module EncryptedAttributesHelpers

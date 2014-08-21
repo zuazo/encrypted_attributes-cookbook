@@ -1,17 +1,22 @@
-#!/usr/bin/env rake
-# encoding: utf-8
+# encoding: UTF-8
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
 # Based on magic_shell cookbook code, thanks Seth.
 
 require 'bundler/setup'
 
 namespace :style do
+  require 'rubocop/rake_task'
+  desc 'Run Ruby style checks'
+  RuboCop::RakeTask.new(:ruby)
+
   require 'foodcritic'
   desc 'Run Chef style checks'
   FoodCritic::Rake::LintTask.new(:chef)
 end
 
 desc 'Run all style checks'
-task style: [ 'style:chef' ]
+task style: %w(style:chef)
 
 require 'rspec/core/rake_task'
 desc 'Run ChefSpec unit tests'
@@ -30,7 +35,7 @@ end
 
 namespace :travis do
   desc 'Run tests on Travis'
-  task ci: [ 'style', 'unit' ]
+  task ci: %w(style unit)
 end
 
-task default: [ 'style', 'unit', 'integration' ]
+task default: %w(style unit integration)

@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
 # Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
@@ -18,10 +19,12 @@
 
 require_relative '../spec_helper'
 
-# make `Kernel#require` mockable
-class Chef::Recipe
-  def require(string)
-    Kernel.require(string)
+class Chef
+  # make `Kernel#require` mockable
+  class Recipe
+    def require(string)
+      Kernel.require(string)
+    end
   end
 end
 

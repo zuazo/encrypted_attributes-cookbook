@@ -28,7 +28,7 @@ Attributes
   </tr>
   <tr>
     <td><code>node["encrypted_attributes"]["mirror"]</code></td>
-    <td>chef-encrypted-attributes mirror to download the gem from. For cases where you do not want to use rubygems.</td>
+    <td>chef-encrypted-attributes mirror to download the gem from. For cases where you do not want to use RubyGems.</td>
     <td><code>nil</code></td>
   </tr>
   <tr>
@@ -83,7 +83,7 @@ These are the available methods:
 
 ### encrypted_attributes_enabled?
 
-Whether encryted attributes are enabled underneath.
+Whether encrypted attributes are enabled underneath.
 
 ### encrypted_attribute_read(attr_ary)
 

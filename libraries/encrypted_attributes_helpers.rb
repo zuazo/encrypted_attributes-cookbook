@@ -118,8 +118,8 @@ class Chef
       if search.is_a?(String)
         Chef::Config[:encrypted_attributes][:client_search] = search
       else
-        fail 'Unknown #encrypted_attributes_allow argument, you passed '\
-          "#{search.class.name}"
+        fail 'Unknown #encrypted_attributes_allow argument, '\
+          "you passed #{search.class.name}"
       end
     end
     alias_method :encrypted_attribute_allow, :encrypted_attributes_allow

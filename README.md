@@ -248,7 +248,7 @@ ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do
 end
 ```
 
-**Note:** This example requires the [openssl](http://community.opscode.com/cookbooks/openssl) cookbook.
+**Note:** This example requires the [openssl](https://supermarket.getchef.com/cookbooks/openssl) cookbook.
 
 See the [`chef-encrypted-attributes` gem Usage](http://onddo.github.io/chef-encrypted-attributes/#usage-in-recipes) section for more examples.
 

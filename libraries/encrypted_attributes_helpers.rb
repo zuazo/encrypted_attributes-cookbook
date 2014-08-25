@@ -12,11 +12,7 @@ class Chef
 
     def attr_get_from_ary(attr_ary)
       attr_ary.reduce(node) do |n, k|
-        if n.respond_to?(:key?) && n.key?(k)
-          n[k]
-        else
-          fail "EncryptedAttributesHelpers: #{k} key not found."
-        end
+        n.respond_to?(:key?) && n.key?(k) ? n[k] : nil
       end
     end
 
@@ -40,7 +36,11 @@ class Chef
     def encrypted_attribute_exist?(raw_attr)
       if encrypted_attributes_enabled?
         encrypted_attributes_include
-        Chef::EncryptedAttribute.exist?(raw_attr)
+        if Chef::EncryptedAttribute.respond_to?(:exist?)
+          Chef::EncryptedAttribute.exist?(raw_attr)
+        else
+          Chef::EncryptedAttribute.exists?(raw_attr)
+        end
       else
         !raw_attr.nil?
       end

@@ -156,7 +156,7 @@ Here a simple example to save a password encrypted:
 ```ruby
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
-# Allow all webapp nodes and admin clients to read the attributes encrypted by me
+# Allow all admin clients and webapp nodes to read the attributes encrypted by me
 encrypted_attributes_allow_clients("admin:true")
 encrypted_attributes_allow_nodes("role:webapp")
 

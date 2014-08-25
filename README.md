@@ -135,7 +135,7 @@ Allows some *Chef Clients* to read my encrypted attributes.
 
 Parameters:
 
-* `search`: Search query for clients that will be allowed to decrypt the attributes. For example `admin:true`.
+* `search`: Search query for clients that will be allowed to decrypt the attributes. For example `"admin:true"`.
 
 ### encrypted_attributes_allow_nodes(search)
 
@@ -143,7 +143,7 @@ Allows some *Chef Nodes* to read my encrypted attributes.
 
 Parameters:
 
-* `search`: Search query for nodes that will be allowed to decrypt the attributes. For example `role:webapp`.
+* `search`: Search query for nodes that will be allowed to decrypt the attributes. For example `"role:webapp"`.
 
 ### encrypted_attributes_enabled
 

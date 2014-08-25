@@ -182,12 +182,23 @@ describe Chef::EncryptedAttributesHelpers do
 
   end
 
-  context '#encrypted_attributes_allow' do
+  context '#encrypted_attributes_allow_clients' do
 
     it 'should set Chef::Config[:encrypted_attributes][:client_search]' do
       Chef::Config[:encrypted_attributes][:client_search] = nil
-      helpers.encrypted_attributes_allow('SEARCH_QUERY')
+      helpers.encrypted_attributes_allow_clients('SEARCH_QUERY')
       expect(Chef::Config[:encrypted_attributes][:client_search])
+        .to eq('SEARCH_QUERY')
+    end
+
+  end
+
+  context '#encrypted_attributes_allow_nodes' do
+
+    it 'should set Chef::Config[:encrypted_attributes][:node_search]' do
+      Chef::Config[:encrypted_attributes][:node_search] = nil
+      helpers.encrypted_attributes_allow_nodes('SEARCH_QUERY')
+      expect(Chef::Config[:encrypted_attributes][:node_search])
         .to eq('SEARCH_QUERY')
     end
 

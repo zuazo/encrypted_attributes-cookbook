@@ -116,14 +116,22 @@ class Chef
       end
     end
 
-    def encrypted_attributes_allow(search)
+    def encrypted_attributes_allow_clients(search)
       if search.is_a?(String)
         Chef::Config[:encrypted_attributes][:client_search] = search
       else
-        fail 'Unknown #encrypted_attributes_allow argument, '\
+        fail 'Unknown #encrypted_attributes_allow_clients argument, '\
           "you passed #{search.class.name}"
       end
     end
-    alias_method :encrypted_attribute_allow, :encrypted_attributes_allow
+
+    def encrypted_attributes_allow_nodes(search)
+      if search.is_a?(String)
+        Chef::Config[:encrypted_attributes][:node_search] = search
+      else
+        fail 'Unknown #encrypted_attributes_allow_nodes argument, '\
+          "you passed #{search.class.name}"
+      end
+    end
   end
 end

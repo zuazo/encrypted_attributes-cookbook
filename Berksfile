@@ -4,4 +4,4 @@
 site :opscode
 
 metadata
-cookbook 'encrypted_attributes_test', path: 'test/kitchen/cookbooks/encrypted_attributes_test'
+cookbook 'encrypted_attributes_test', path: 'test/cookbooks/encrypted_attributes_test'

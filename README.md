@@ -39,17 +39,17 @@ Attributes
   </tr>
   <tr>
     <td><code>node["encrypted_attributes"]["data_bag"]["name"]</code></td>
-    <td>chef-encrypted-attributes user keys data bag item name.</td>
+    <td>chef-encrypted-attributes user keys, data bag name.</td>
     <td><code>"global"</code></td>
   </tr>
   <tr>
     <td><code>node["encrypted_attributes"]["data_bag"]["item"]</code></td>
-    <td>chef-encrypted-attributes user keys data bag item name.</td>
+    <td>chef-encrypted-attributes user keys, data bag item name.</td>
     <td><code>"chef_users"</code></td>
   </tr>
   <tr>
     <td><code>node["dev_mode"]</code></td>
-    <td>If this is <code>true</code>, the <code>Chef::EncryptedAttributesHelpers</code> library will work with unencrypted attributes instead of encrypted attributes.</td>
+    <td>If this is <code>true</code>, the <code>Chef::EncryptedAttributesHelpers</code> library will work with unencrypted attributes instead of encrypted attributes. For testing purposes.</td>
     <td><em>calculated</em></td>
   </tr>
 </table>

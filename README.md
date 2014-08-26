@@ -303,7 +303,7 @@ Then, you can use this data bag to configure the `Chef::Config[:encrypted_attrib
 node.default["encrypted_attributes"]["data_bag"]["name"] = "global_data"
 include_recipe "encrypted_attributes::users_data_bag"
 
-# if Chef::EncryptedAttribute.exists_on_node?(...)
+# if Chef::EncryptedAttribute.exist?(...)
 #   Chef::EncryptedAttribute.update(...)
 # else
 #   node.set[...][...] = Chef::EncryptedAttribute.create(...)

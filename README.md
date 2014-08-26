@@ -49,7 +49,7 @@ Attributes
   </tr>
   <tr>
     <td><code>node["dev_mode"]</code></td>
-    <td>If this is <code>true</code>, the <code>Chef::EncryptedAttributesHelpers</code> library will work with clear attributes instead of encrypted attributes.</td>
+    <td>If this is <code>true</code>, the <code>Chef::EncryptedAttributesHelpers</code> library will work with unencrypted attributes instead of encrypted attributes.</td>
     <td><em>calculated</em></td>
   </tr>
 </table>
@@ -74,7 +74,7 @@ This library adds some helper methods to try to cover the more common use cases.
 
 Automatically includes the required recipes (`encrypted_attributes`) and gems (`chef-encrypted-attributes`), so you do not have to worry about them.
 
-Also tries to simulate encrypted attributes creation (using clear attributes instead) in some testing environments:
+Also tries to simulate encrypted attributes creation (using unencrypted attributes instead) in some testing environments:
 
 * With *Chef Solo*.
 * When `node["dev_mode"]` is set to `true`.
@@ -99,7 +99,7 @@ Parameters:
 
 * `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
 
-Returns the attribute value in clear text.
+Returns the attribute value unencrypted.
 
 ### encrypted_attribute_read_from_node(node, attr_ary)
 
@@ -110,7 +110,7 @@ Parameters:
 * `node`: Node name.
 * `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
 
-Returns the attribute value in clear text.
+Returns the attribute value unencrypted.
 
 ### encrypted_attribute_write(attr_ary) {}
 
@@ -119,7 +119,7 @@ Creates and writes an encrypted attribute.
 The attribute will be written only on first run and updated on the next runs. Because of this, the attribute value has to be set as a block, and the block will be run only the first time:
 
 ```ruby
-clear_pass = encrypted_attribute_write(["ftp", "password"]) do
+unencrypted_pass = encrypted_attribute_write(["ftp", "password"]) do
   self.class.send(:include, Opscode::OpenSSL::Password)
   secure_password
 end
@@ -129,7 +129,7 @@ Parameters:
 
 * `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
 
-Returns the attribute value in clear text, that is, the value returned by the block.
+Returns the attribute value unencrypted, that is, the value returned by the block.
 
 ### encrypted_attributes_allow_clients(search)
 

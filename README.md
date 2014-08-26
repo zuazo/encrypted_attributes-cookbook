@@ -16,7 +16,7 @@ Requirements
 
 * Ruby `1.9.3` or higher.
 
-See also [`chef-encrypted-attributes` gem requirements](http://onddo.github.io/chef-encrypted-attributes/#requirements).
+See also [the requirements of the `chef-encrypted-attributes` gem](http://onddo.github.io/chef-encrypted-attributes/#requirements).
 
 Attributes
 ==========

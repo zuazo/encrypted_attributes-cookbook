@@ -263,6 +263,8 @@ See the [`chef-encrypted-attributes` gem Usage](http://onddo.github.io/chef-encr
 
 ## *encrypted_attributes::users_data_bag* Recipe Usage Example
 
+This recipe should be called before using the encrypted attributes. It sets the `Chef::Config[:encrypted_attributes][:keys]` option reading the keys from a data bag.
+
 Before using this recipe, you must create the required data bag:
 
     $ knife data bag create global_data chef_users

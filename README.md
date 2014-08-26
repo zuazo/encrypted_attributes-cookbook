@@ -3,7 +3,7 @@ Description
 [![Cookbook Version](https://img.shields.io/cookbook/v/encrypted_attributes.svg?style=flat)](https://supermarket.getchef.com/cookbooks/encrypted_attributes)
 [![Build Status](http://img.shields.io/travis/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://travis-ci.org/onddo/encrypted_attributes-cookbook)
 
-Installs and enables [chef-encrypted-attributes](http://onddo.github.io/chef-encrypted-attributes/) gem: Chef plugin to add Node encrypted attributes support using client keys.
+Installs and enables [`chef-encrypted-attributes`](http://onddo.github.io/chef-encrypted-attributes/) gem: Chef plugin to add Node encrypted attributes support using client keys.
 
 Requirements
 ============
@@ -301,7 +301,7 @@ The keys can be set in *array of strings* format if you prefer:
 
 You can retrieve user public keys with `knife user show USER -a public_key -f json`.
 
-Then, you can use this data bag to configure the `Chef::Config[:encrypted_attributes][:keys]` chef-encrypted-attributes configuration only by calling the recipe:
+Then, you can use this data bag to configure the `Chef::Config[:encrypted_attributes][:keys]` `chef-encrypted-attributes` configuration only by calling the recipe:
 
 ```ruby
 node.default["encrypted_attributes"]["data_bag"]["name"] = "global_data"

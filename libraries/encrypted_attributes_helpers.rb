@@ -23,7 +23,7 @@ class Chef
         a[k]
       end
       node_attr[last] = value
-      node.save
+      node.save unless Chef::Config[:solo]
       value
     end
 

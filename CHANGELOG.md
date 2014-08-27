@@ -3,7 +3,13 @@ encrypted_attributes CHANGELOG
 
 This file is used to list changes made in each version of the `encrypted_attributes` cookbook.
 
-## 0.2.0:
+## v0.2.1 (2014-08-28)
+
+* EncryptedAttributesHelpers bugfix: avoid `#node.save` on chef-solo
+* EncryptedAttributesHelpers: some code duplication removed
+* README: added gemnasium and codeclimate badges
+
+## v0.2.0 (2014-08-26)
 
 * `encrypted_attributes_test::default`: `node#save` unless chef-solo
 * Gemfile:
@@ -25,6 +31,6 @@ This file is used to list changes made in each version of the `encrypted_attribu
 * TODO: added verify gem task
 * test/kitchen directory removed
 
-## 0.1.0:
+## v0.1.0 (2014-05-22)
 
 * Initial release of `encrypted_attributes`

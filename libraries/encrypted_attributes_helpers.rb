@@ -33,6 +33,15 @@ class Chef
       end
     end
 
+    def config_set(opt, val, klass = String)
+      if val.is_a?(klass)
+        Chef::Config[:encrypted_attributes][opt] = val
+      else
+        fail "Unknown configuration value for #{opt}, "\
+          "you passed #{val.class.name}"
+      end
+    end
+
     def encrypted_attribute_exist?(raw_attr)
       if encrypted_attributes_enabled?
         encrypted_attributes_include
@@ -117,21 +126,11 @@ class Chef
     end
 
     def encrypted_attributes_allow_clients(search)
-      if search.is_a?(String)
-        Chef::Config[:encrypted_attributes][:client_search] = search
-      else
-        fail 'Unknown #encrypted_attributes_allow_clients argument, '\
-          "you passed #{search.class.name}"
-      end
+      config_set(:client_search, search)
     end
 
     def encrypted_attributes_allow_nodes(search)
-      if search.is_a?(String)
-        Chef::Config[:encrypted_attributes][:node_search] = search
-      else
-        fail 'Unknown #encrypted_attributes_allow_nodes argument, '\
-          "you passed #{search.class.name}"
-      end
+      config_set(:node_search, search)
     end
   end
 end

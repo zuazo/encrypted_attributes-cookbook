@@ -9,6 +9,13 @@ description 'Installs and enables chef-encrypted-attributes gem: Chef plugin '\
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '0.3.0' # WiP
 
+supports 'amazon'
+supports 'debian'
+supports 'centos'
+supports 'fedora'
+supports 'redhat'
+supports 'ubuntu'
+
 depends 'build-essential'
 
 recipe 'encrypted_attributes::default',

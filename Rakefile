@@ -16,7 +16,7 @@ namespace :style do
 end
 
 desc 'Run all style checks'
-task style: %w(style:chef)
+task style: %w(style:chef style:ruby)
 
 require 'rspec/core/rake_task'
 desc 'Run ChefSpec unit tests'

@@ -1,7 +1,9 @@
+# encoding: UTF-8
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-site :opscode
+source 'https://supermarket.getchef.com'
 
 metadata
-cookbook 'encrypted_attributes_test', path: 'test/cookbooks/encrypted_attributes_test'
+cookbook 'encrypted_attributes_test',
+         path: 'test/cookbooks/encrypted_attributes_test'

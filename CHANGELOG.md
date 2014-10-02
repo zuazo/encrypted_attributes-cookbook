@@ -3,13 +3,25 @@ encrypted_attributes CHANGELOG
 
 This file is used to list changes made in each version of the `encrypted_attributes` cookbook.
 
-## v0.2.1 (2014-08-28)
+## 0.2.2 (2014-10-02)
+
+* Added platform support documentation
+* `kitchen.yml` file updated
+* Rakefile: rubocop enabled
+* Gemfile:
+  * Replaced vagrant by vagrant-wrapper
+  * Added vagrant-wrapper version with pessimistic operator
+  * Berkshelf updated to 3.1
+* Guardfile added
+* TODO: use checkboxes
+
+## 0.2.1 (2014-08-28)
 
 * EncryptedAttributesHelpers bugfix: avoid `#node.save` on chef-solo
 * EncryptedAttributesHelpers: some code duplication removed
 * README: added gemnasium and codeclimate badges
 
-## v0.2.0 (2014-08-26)
+## 0.2.0 (2014-08-26)
 
 * `encrypted_attributes_test::default`: `node#save` unless chef-solo
 * Gemfile:
@@ -31,6 +43,6 @@ This file is used to list changes made in each version of the `encrypted_attribu
 * TODO: added verify gem task
 * test/kitchen directory removed
 
-## v0.1.0 (2014-05-22)
+## 0.1.0 (2014-05-22)
 
 * Initial release of `encrypted_attributes`

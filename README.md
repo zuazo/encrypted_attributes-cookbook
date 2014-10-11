@@ -87,7 +87,7 @@ Helper Libraries
 
 This library adds some helper methods to try to cover the more common use cases.
 
-Automatically includes the required recipes (`encrypted_attributes`) and gems (`chef-encrypted-attributes`), so you do not have to worry about them.
+Automatically includes the required gems (`chef-encrypted-attributes`), so you do not have to worry about them.
 
 Also tries to simulate encrypted attributes creation (using unencrypted attributes instead) in some testing environments:
 
@@ -97,6 +97,7 @@ Also tries to simulate encrypted attributes creation (using unencrypted attribut
 You must explicitly include the library before using it from recipes or resources:
 
 ```ruby
+include_recipe "encrypted_attributes"
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 ```
 
@@ -171,6 +172,7 @@ This class attribute allows you to explicitly enable or disable encrypted attrib
 Here a simple example to save a password encrypted:
 
 ```ruby
+include_recipe "encrypted_attributes"
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
 # Allow all admin clients and webapp nodes to read the attributes encrypted by me
@@ -192,6 +194,7 @@ ftp_pass = encrypted_attribute_read(["myapp", "ftp_password"])
 Or read it from a remote node:
 
 ```ruby
+include_recipe "encrypted_attributes"
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
 ftp_pass = encrypted_attribute_read_from_node("myapp.example.com", ["myapp", "ftp_password"])
@@ -266,6 +269,7 @@ end
 You can also use the `Chef::EncryptedAttributesHelpers` helpers to simplify its use:
 
 ```ruby
+include_recipe "encrypted_attributes"
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
 ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do

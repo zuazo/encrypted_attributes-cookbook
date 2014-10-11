@@ -331,6 +331,54 @@ include_recipe "encrypted_attributes::users_data_bag"
 
 **Note:** This data bag does not need to be encrypted, because it only stores public keys.
 
+### Using Chef::EncryptedAttributesHelpers to Encrypt MySQL Passwords
+
+In the following example we use the official [mysql](https://supermarket.getchef.com/cookbooks/mysql) coookbok and its `mysql_service` resource to save the passwords encrypted in this attributes:
+
+* `node['myapp']['mysql']['server_root_password']`
+* `node['myapp']['mysql']['server_debian_password']`
+* `node['myapp']['mysql']['server_repl_password']`
+
+```ruby
+# Include the #secure_password method from the openssl cookbook
+Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+
+# Install Encrypted Attributes gem
+include_recipe 'encrypted_attributes'
+
+# Include the Encrypted Attributes cookbook helpers
+Chef::Recipe.send(:include, Chef::EncryptedAttributesHelpers)
+
+# We can use an attribute to enable or disable encryption (recommended for tests)
+# self.encrypted_attributes_enabled = node['myapp']['encrypt_attributes']
+
+# Encrypted Attributes will be generated randomly and saved in in the
+# node['myapp']['mysql'] attribute encrypted.
+def generate_mysql_password(user)
+  key = "server_#{user}_password"
+  encrypted_attribute_write(['myapp', 'mysql', key]) { secure_password }
+end
+
+# Generate the encrypted passwords
+mysql_root_password = generate_mysql_password('root')
+mysql_debian_password = generate_mysql_password('debian')
+mysql_repl_password = generate_mysql_password('repl')
+
+mysql_service node['mysql']['service_name'] do
+  version node['mysql']['version']
+  port node['mysql']['port']
+  data_dir node['mysql']['data_dir']
+  server_root_password mysql_root_password
+  server_debian_password mysql_debian_password
+  server_repl_password mysql_repl_password
+  allow_remote_root node['mysql']['allow_remote_root']
+  remove_anonymous_users node['mysql']['remove_anonymous_users']
+  remove_test_database node['mysql']['remove_test_database']
+  root_network_acl node['mysql']['root_network_acl']
+  action :create
+end
+```
+
 Testing
 =======
 

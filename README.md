@@ -43,27 +43,27 @@ Attributes
     <th>Default</th>
   </tr>
   <tr>
-    <td><code>node["encrypted_attributes"]["version"]</code></td>
+    <td><code>node['encrypted_attributes']['version']</code></td>
     <td>chef-encrypted-attributes gem version to install. The latest stable version is installed by default.</td>
     <td><em>calculated</em></td>
   </tr>
   <tr>
-    <td><code>node["encrypted_attributes"]["mirror"]</code></td>
+    <td><code>node['encrypted_attributes']['mirror']</code></td>
     <td>chef-encrypted-attributes mirror to download the gem from. For cases where you do not want to use RubyGems.</td>
     <td><code>nil</code></td>
   </tr>
   <tr>
-    <td><code>node["encrypted_attributes"]["data_bag"]["name"]</code></td>
+    <td><code>node['encrypted_attributes']['data_bag']['name']</code></td>
     <td>chef-encrypted-attributes user keys, data bag name.</td>
-    <td><code>"global"</code></td>
+    <td><code>'global'</code></td>
   </tr>
   <tr>
-    <td><code>node["encrypted_attributes"]["data_bag"]["item"]</code></td>
+    <td><code>node['encrypted_attributes']['data_bag']['item']</code></td>
     <td>chef-encrypted-attributes user keys, data bag item name.</td>
-    <td><code>"chef_users"</code></td>
+    <td><code>'chef_users'</code></td>
   </tr>
   <tr>
-    <td><code>node["dev_mode"]</code></td>
+    <td><code>node['dev_mode']</code></td>
     <td>If this is <code>true</code>, the <code>Chef::EncryptedAttributesHelpers</code> library will work with unencrypted attributes instead of encrypted attributes. For testing purposes.</td>
     <td><em>calculated</em></td>
   </tr>
@@ -92,12 +92,12 @@ Automatically includes the required gems (`chef-encrypted-attributes`), so you d
 Also tries to simulate encrypted attributes creation (using unencrypted attributes instead) in some testing environments:
 
 * With *Chef Solo*.
-* When `node["dev_mode"]` is set to `true`.
+* When `node['dev_mode']` is set to `true`.
 
 You must explicitly include the library before using it from recipes or resources:
 
 ```ruby
-include_recipe "encrypted_attributes"
+include_recipe 'encrypted_attributes'
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 ```
 
@@ -113,7 +113,7 @@ Reads an encrypted attribute.
 
 Parameters:
 
-* `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
+* `attr_ary`: attribute path as array. For example: `['ftp', 'password']`.
 
 Returns the attribute value unencrypted.
 
@@ -124,7 +124,7 @@ Reads an encrypted attribute from a remote node.
 Parameters:
 
 * `node`: Node name.
-* `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
+* `attr_ary`: attribute path as array. For example: `['ftp', 'password']`.
 
 Returns the attribute value unencrypted.
 
@@ -135,7 +135,7 @@ Creates and writes an encrypted attribute.
 The attribute will be written only on first run and updated on the next runs. Because of this, the attribute value has to be set as a block, and the block will be run only the first time:
 
 ```ruby
-unencrypted_pass = encrypted_attribute_write(["ftp", "password"]) do
+unencrypted_pass = encrypted_attribute_write(['ftp', 'password']) do
   self.class.send(:include, Opscode::OpenSSL::Password)
   secure_password
 end
@@ -143,7 +143,7 @@ end
 
 Parameters:
 
-* `attr_ary`: attribute path as array. For example: `["ftp", "password"]`.
+* `attr_ary`: attribute path as array. For example: `['ftp', 'password']`.
 
 Returns the attribute value unencrypted, that is, the value returned by the block.
 
@@ -153,7 +153,7 @@ Allows some *Chef Clients* to read my encrypted attributes.
 
 Parameters:
 
-* `search`: Search query for clients that will be allowed to decrypt the attributes. For example `"admin:true"`.
+* `search`: Search query for clients that will be allowed to decrypt the attributes. For example `'admin:true'`.
 
 ### encrypted_attributes_allow_nodes(search)
 
@@ -161,7 +161,7 @@ Allows some *Chef Nodes* to read my encrypted attributes.
 
 Parameters:
 
-* `search`: Search query for nodes that will be allowed to decrypt the attributes. For example `"role:webapp"`.
+* `search`: Search query for nodes that will be allowed to decrypt the attributes. For example `'role:webapp'`.
 
 ### encrypted_attributes_enabled
 
@@ -172,14 +172,14 @@ This class attribute allows you to explicitly enable or disable encrypted attrib
 Here a simple example to save a password encrypted:
 
 ```ruby
-include_recipe "encrypted_attributes"
+include_recipe 'encrypted_attributes'
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
 # Allow all admin clients and webapp nodes to read the attributes encrypted by me
-encrypted_attributes_allow_clients("admin:true")
-encrypted_attributes_allow_nodes("role:webapp")
+encrypted_attributes_allow_clients('admin:true')
+encrypted_attributes_allow_nodes('role:webapp')
 
-ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do
+ftp_pass = encrypted_attribute_write(['myapp', 'ftp_password']) do
   self.class.send(:include, Opscode::OpenSSL::Password)
   secure_password
 end
@@ -188,16 +188,16 @@ end
 You can then read the attribute as follows:
 
 ```ruby
-ftp_pass = encrypted_attribute_read(["myapp", "ftp_password"])
+ftp_pass = encrypted_attribute_read(['myapp', 'ftp_password'])
 ```
 
 Or read it from a remote node:
 
 ```ruby
-include_recipe "encrypted_attributes"
+include_recipe 'encrypted_attributes'
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
-ftp_pass = encrypted_attribute_read_from_node("myapp.example.com", ["myapp", "ftp_password"])
+ftp_pass = encrypted_attribute_read_from_node('myapp.example.com', ['myapp', 'ftp_password'])
 ```
 
 Don't forget to include the `encrypted_attributes` cookbook as a dependency in the metadata.
@@ -206,7 +206,7 @@ Don't forget to include the `encrypted_attributes` cookbook as a dependency in t
 # metadata.rb
 [...]
 
-depends "encrypted_attributes"
+depends 'encrypted_attributes'
 ```
 
 Usage Examples
@@ -217,7 +217,7 @@ Usage Examples
 You can simply include it in a recipe:
 
 ```ruby
-include_recipe "encrypted_attributes"
+include_recipe 'encrypted_attributes'
 ```
 
 Don't forget to include the `encrypted_attributes` cookbook as a dependency in the metadata.
@@ -226,7 +226,7 @@ Don't forget to include the `encrypted_attributes` cookbook as a dependency in t
 # metadata.rb
 [...]
 
-depends "encrypted_attributes"
+depends 'encrypted_attributes'
 ```
 
 ## Including in the Run List
@@ -247,20 +247,20 @@ Another alternative is to include the default recipe in your *Run List*:
 ## *encrypted_attributes::default* Recipe Usage Example
 
 ```ruby
-include_recipe "encrypted_attributes"
+include_recipe 'encrypted_attributes'
 
 Chef::Recipe.send(:include, Opscode::OpenSSL::Password) # include the #secure_password method
 
-if Chef::EncryptedAttribute.exists?(node["myapp"]["ftp_password"])
+if Chef::EncryptedAttribute.exists?(node['myapp']['ftp_password'])
   # update with the new keys
-  Chef::EncryptedAttribute.update(node.set["myapp"]["ftp_password"])
+  Chef::EncryptedAttribute.update(node.set['myapp']['ftp_password'])
 
   # read the password
-  ftp_pass = Chef::EncryptedAttribute.load(node["myapp"]["ftp_password"])
+  ftp_pass = Chef::EncryptedAttribute.load(node['myapp']['ftp_password'])
 else
   # create the password and save it
   ftp_pass = secure_password
-  node.set["myapp"]["ftp_password"] = Chef::EncryptedAttribute.create(ftp_pass)
+  node.set['myapp']['ftp_password'] = Chef::EncryptedAttribute.create(ftp_pass)
 end
 
 # use `ftp_pass` for something here ...
@@ -269,10 +269,10 @@ end
 You can also use the `Chef::EncryptedAttributesHelpers` helpers to simplify its use:
 
 ```ruby
-include_recipe "encrypted_attributes"
+include_recipe 'encrypted_attributes'
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
-ftp_pass = encrypted_attribute_write(["myapp", "ftp_password"]) do
+ftp_pass = encrypted_attribute_write(['myapp', 'ftp_password']) do
   self.class.send(:include, Opscode::OpenSSL::Password)
   secure_password
 end
@@ -323,8 +323,8 @@ You can retrieve user public keys with `knife user show USER -a public_key -f js
 Then, you can use this data bag to configure the `Chef::Config[:encrypted_attributes][:keys]` `chef-encrypted-attributes` configuration only by calling the recipe:
 
 ```ruby
-node.default["encrypted_attributes"]["data_bag"]["name"] = "global_data"
-include_recipe "encrypted_attributes::users_data_bag"
+node.default['encrypted_attributes']['data_bag']['name'] = 'global_data'
+include_recipe 'encrypted_attributes::users_data_bag'
 
 # if Chef::EncryptedAttribute.exist?(...)
 #   Chef::EncryptedAttribute.update(...)

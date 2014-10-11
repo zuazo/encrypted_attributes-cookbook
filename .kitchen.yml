@@ -22,4 +22,3 @@ suites:
 - name: default
   run_list:
     - recipe[encrypted_attributes_test::default]
-  attributes:

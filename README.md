@@ -333,7 +333,7 @@ include_recipe "encrypted_attributes::users_data_bag"
 
 ### Using Chef::EncryptedAttributesHelpers to Encrypt MySQL Passwords
 
-In the following example we use the official [mysql](https://supermarket.getchef.com/cookbooks/mysql) coookbok and its `mysql_service` resource to save the passwords encrypted in this attributes:
+In the following example we use the official [mysql](https://supermarket.getchef.com/cookbooks/mysql) cookbook and its `mysql_service` resource to save the passwords encrypted in these attributes:
 
 * `node['myapp']['mysql']['server_root_password']`
 * `node['myapp']['mysql']['server_debian_password']`

@@ -37,38 +37,13 @@ See also [the requirements of the `chef-encrypted-attributes` gem](http://onddo.
 Attributes
 ==========
 
-<table>
-  <tr>
-    <th>Attribute</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><code>node['encrypted_attributes']['version']</code></td>
-    <td>chef-encrypted-attributes gem version to install. The latest stable version is installed by default.</td>
-    <td><em>calculated</em></td>
-  </tr>
-  <tr>
-    <td><code>node['encrypted_attributes']['mirror']</code></td>
-    <td>chef-encrypted-attributes mirror to download the gem from. For cases where you do not want to use RubyGems.</td>
-    <td><code>nil</code></td>
-  </tr>
-  <tr>
-    <td><code>node['encrypted_attributes']['data_bag']['name']</code></td>
-    <td>chef-encrypted-attributes user keys, data bag name.</td>
-    <td><code>'global'</code></td>
-  </tr>
-  <tr>
-    <td><code>node['encrypted_attributes']['data_bag']['item']</code></td>
-    <td>chef-encrypted-attributes user keys, data bag item name.</td>
-    <td><code>'chef_users'</code></td>
-  </tr>
-  <tr>
-    <td><code>node['dev_mode']</code></td>
-    <td>If this is <code>true</code>, the <code>Chef::EncryptedAttributesHelpers</code> library will work with unencrypted attributes instead of encrypted attributes. For testing purposes.</td>
-    <td><em>calculated</em></td>
-  </tr>
-</table>
+| Attribute                                          | Default        | Description                       |
+|----------------------------------------------------|:--------------:|-----------------------------------|
+| `node['encrypted_attributes']['version']`          | *calculated*   | chef-encrypted-attributes gem version to install. The latest stable version is installed by default. |
+| `node['encrypted_attributes']['mirror']`           | `nil`          | chef-encrypted-attributes mirror to download the gem from. For cases where you do not want to use RubyGems. |
+| `node['encrypted_attributes']['data_bag']['name']` | `'global'`     | chef-encrypted-attributes user keys, data bag name. |
+| `node['encrypted_attributes']['data_bag']['item']` | `'chef_users'` | chef-encrypted-attributes user keys, data bag item name. |
+| `node['dev_mode']`                                 | *calculated*   | If this is `true`, the `Chef::EncryptedAttributesHelpers` library will work with unencrypted attributes instead of encrypted attributes. For testing purposes. |
 
 Recipes
 =======

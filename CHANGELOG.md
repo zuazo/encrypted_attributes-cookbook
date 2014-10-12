@@ -3,7 +3,21 @@ encrypted_attributes CHANGELOG
 
 This file is used to list changes made in each version of the `encrypted_attributes` cookbook.
 
-## 0.2.2 (2014-10-02)
+## v0.3.0 (2014-10-21)
+
+* Add FreeBSD support
+* Berksfile, Rakefile and Guarfile, generic templates copied
+* Added `rubocop.yml` with *AllCops:Include*
+* README:
+ * Add an example to encrypt MySQL passwords
+ * Always include encrypted_attributes recipe to force compile time build-essentials
+ * Use single quotes in examples
+ * Use markdown for tables
+* Add LICENSE file
+* kitchen.yml: remove empty attributes key
+* License headers homogenized
+
+## v0.2.2 (2014-10-02)
 
 * Added platform support documentation
 * `kitchen.yml` file updated
@@ -15,13 +29,13 @@ This file is used to list changes made in each version of the `encrypted_attribu
 * Guardfile added
 * TODO: use checkboxes
 
-## 0.2.1 (2014-08-28)
+## v0.2.1 (2014-08-28)
 
 * EncryptedAttributesHelpers bugfix: avoid `#node.save` on chef-solo
 * EncryptedAttributesHelpers: some code duplication removed
 * README: added gemnasium and codeclimate badges
 
-## 0.2.0 (2014-08-26)
+## v0.2.0 (2014-08-26)
 
 * `encrypted_attributes_test::default`: `node#save` unless chef-solo
 * Gemfile:
@@ -39,10 +53,10 @@ This file is used to list changes made in each version of the `encrypted_attribu
 * Install `gcc` dependency (`build-essential` cookbook)
 * Added `Chef::EncryptedAttributesHelpers` helper library
  * Added `EncryptedAttributesHelpers` unit tests
-* Added RuboCop checking, all ofenses fixed
+* Added RuboCop checking, all offenses fixed
 * TODO: added verify gem task
 * test/kitchen directory removed
 
-## 0.1.0 (2014-05-22)
+## v0.1.0 (2014-05-22)
 
 * Initial release of `encrypted_attributes`

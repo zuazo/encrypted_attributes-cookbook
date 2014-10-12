@@ -19,5 +19,7 @@
 # limitations under the License.
 #
 
+default['freebsd']['compiletime'] = true if node['platform'] == 'freebsd'
+
 default['encrypted_attributes']['version'] = nil
 default['encrypted_attributes']['mirror_url'] = nil

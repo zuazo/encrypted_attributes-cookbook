@@ -14,6 +14,7 @@ end
 
 metadata
 cookbook 'apt'
+cookbook 'freebsd'
 
 # Minitest Chef Handler
 # More info at https://github.com/calavera/minitest-chef-handler

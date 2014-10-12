@@ -18,6 +18,7 @@ This cookbook has been tested on the following platforms:
 * CentOS
 * Debian
 * Fedora
+* FreeBSD
 * RedHat
 * Ubuntu
 

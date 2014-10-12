@@ -14,6 +14,8 @@ platforms:
 - name: fedora-20
 - name: debian-6.0.10
 - name: debian-7.6
+- name: freebsd-9.2
+  run_list: ["recipe[freebsd::portsnap]"]
 - name: ubuntu-10.04
 - name: ubuntu-12.04
 - name: ubuntu-14.04

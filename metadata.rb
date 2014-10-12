@@ -31,6 +31,7 @@ supports 'amazon'
 supports 'debian'
 supports 'centos'
 supports 'fedora'
+supports 'freebsd'
 supports 'redhat'
 supports 'ubuntu'
 

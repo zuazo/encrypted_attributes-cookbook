@@ -15,6 +15,7 @@ group :style do
 end
 
 group :unit do
+  gem 'simplecov', '~> 0.9'
   gem 'chefspec', '~> 4.0'
   gem 'chef-encrypted-attributes'
 end
@@ -36,4 +37,8 @@ group :guard do
   gem 'guard-rubocop', '~> 1.1'
   gem 'guard-rspec', '~> 4.3'
   gem 'guard-kitchen', '~> 0.0'
+end
+
+group :travis do
+  gem 'coveralls', '~> 0.7', require: false
 end

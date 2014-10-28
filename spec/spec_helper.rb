@@ -19,6 +19,13 @@
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 
+require 'simplecov'
+if ENV['TRAVIS'] && RUBY_VERSION >= '2.0'
+  require 'coveralls'
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
+SimpleCov.start
+
 require 'chefspec'
 require 'chefspec/berkshelf'
 
@@ -40,4 +47,4 @@ RSpec.configure do |config|
   config.formatter = :documentation
 end
 
-# at_exit { ChefSpec::Coverage.report! } # still in beta
+at_exit { ChefSpec::Coverage.report! }

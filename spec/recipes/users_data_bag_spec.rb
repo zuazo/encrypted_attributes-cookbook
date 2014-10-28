@@ -35,7 +35,7 @@ describe 'encrypted_attributes::users_data_bag' do
     allow(Chef::DataBagItem).to receive(:load).and_return(@data_bag_item)
     allow(Kernel).to receive(:require).with('chef-encrypted-attributes')
   end
-  let(:chef_run) { ChefSpec::Runner.new.converge(described_recipe) }
+  let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
   it 'should include encrypted_attributes::default recipe' do
     expect(chef_run).to include_recipe('encrypted_attributes::default')

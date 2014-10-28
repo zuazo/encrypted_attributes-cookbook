@@ -16,7 +16,7 @@ end
 
 group :unit do
   gem 'simplecov', '~> 0.9'
-  gem 'chefspec', '~> 4.0'
+  gem 'chefspec', '~> 4.1'
   gem 'chef-encrypted-attributes'
 end
 

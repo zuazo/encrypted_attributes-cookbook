@@ -28,10 +28,10 @@ end
 SimpleCov.start do
   add_group 'Libraries', '/libraries'
   add_group 'ChefSpec' do |src|
-    %r(/spec/(recipes|resources|providers)).match(src.filename)
+    %r{/spec/(recipes|resources|providers)}.match(src.filename)
   end
   add_group 'RSpec' do |src|
-    %r(/spec/(unit|functional|integration)).match(src.filename)
+    %r{/spec/(unit|functional|integration)}.match(src.filename)
   end
 end
 
@@ -49,7 +49,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   # --seed 1234
   config.order = 'random'
-  config.seed = 27187 if ENV['TRAVIS']
+  config.seed = 27_187 if ENV['TRAVIS']
 
   # ChefSpec configuration
   config.log_level = :fatal

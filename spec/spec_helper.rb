@@ -19,25 +19,10 @@
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 
-# Coverage
-if ENV['TRAVIS']
-  require 'coveralls'
-  Coveralls.wear!
-else
-  require 'simplecov'
-  SimpleCov.start do
-    add_group 'Libraries', '/libraries'
-    add_group 'ChefSpec' do |src|
-      %r{/spec/(recipes|resources|providers)}.match(src.filename)
-    end
-    add_group 'RSpec' do |src|
-      %r{/spec/(unit|functional|integration|libraries)}.match(src.filename)
-    end
-  end
-end
-
 require 'chefspec'
 require 'chefspec/berkshelf'
+
+require 'support/coverage'
 
 RSpec.configure do |config|
   # Prohibit using the should syntax
@@ -55,6 +40,9 @@ RSpec.configure do |config|
   config.log_level = :fatal
   config.color = true
   config.formatter = :documentation
+  config.tty = true
+  config.platform = 'ubuntu'
+  config.version = '12.04'
 end
 
 at_exit { ChefSpec::Coverage.report! }

@@ -20,18 +20,19 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'libraries'))
 
 # Coverage
-require 'simplecov'
-if ENV['TRAVIS'] && RUBY_VERSION >= '2.0'
+if ENV['TRAVIS']
   require 'coveralls'
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
-end
-SimpleCov.start do
-  add_group 'Libraries', '/libraries'
-  add_group 'ChefSpec' do |src|
-    %r{/spec/(recipes|resources|providers)}.match(src.filename)
-  end
-  add_group 'RSpec' do |src|
-    %r{/spec/(unit|functional|integration)}.match(src.filename)
+  Coveralls.wear!
+else
+  require 'simplecov'
+  SimpleCov.start do
+    add_group 'Libraries', '/libraries'
+    add_group 'ChefSpec' do |src|
+      %r{/spec/(recipes|resources|providers)}.match(src.filename)
+    end
+    add_group 'RSpec' do |src|
+      %r{/spec/(unit|functional|integration)}.match(src.filename)
+    end
   end
 end
 
@@ -49,7 +50,6 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   # --seed 1234
   config.order = 'random'
-  config.seed = 27_187 if ENV['TRAVIS']
 
   # ChefSpec configuration
   config.log_level = :fatal

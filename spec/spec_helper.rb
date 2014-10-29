@@ -31,7 +31,7 @@ else
       %r{/spec/(recipes|resources|providers)}.match(src.filename)
     end
     add_group 'RSpec' do |src|
-      %r{/spec/(unit|functional|integration)}.match(src.filename)
+      %r{/spec/(unit|functional|integration|libraries)}.match(src.filename)
     end
   end
 end

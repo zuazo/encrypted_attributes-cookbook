@@ -41,7 +41,8 @@ if node['encrypted_attributes']['mirror_url'].is_a?(String) &&
   end.run_action(:install)
 else
   # install from rubygems
-  prerelease = node['encrypted_attributes']['version'].is_a?(String) &&
+  prerelease =
+    node['encrypted_attributes']['version'].is_a?(String) &&
     node['encrypted_attributes']['version'].match(/^[0-9.]+$/) != true
   chef_gem 'chef-encrypted-attributes' do
     if node['encrypted_attributes']['version'].is_a?(String)

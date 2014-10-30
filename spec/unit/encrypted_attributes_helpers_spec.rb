@@ -63,16 +63,16 @@ describe Chef::EncryptedAttributesHelpers do
 
   context '#encrypted_attributes_enabled?' do
 
-    it 'should return true by default' do
+    it 'returns true by default' do
       expect(helpers.encrypted_attributes_enabled?).to eq(true)
     end
 
-    it 'should return false with chef-solo' do
+    it 'returns false with chef-solo' do
       Chef::Config[:solo] = true
       expect(helpers.encrypted_attributes_enabled?).to eq(false)
     end
 
-    it 'should return false when node["dev_mode"] set' do
+    it 'returns false when node["dev_mode"] set' do
       node.set['dev_mode'] = true
       expect(helpers.encrypted_attributes_enabled?).to eq(false)
     end
@@ -86,19 +86,19 @@ describe Chef::EncryptedAttributesHelpers do
       allow(Chef::EncryptedAttribute).to receive(:load).and_return('OK')
     end
 
-    it 'should include encrypted_attributes recipe' do
+    it 'includes encrypted_attributes recipe' do
       expect(helpers).to receive(:include_recipe).with('encrypted_attributes')
         .and_return(true)
       helpers.encrypted_attribute_read(%w(ftp password))
     end
 
-    it 'should call EncryptedAttribute#load' do
+    it 'calls EncryptedAttribute#load' do
       expect(Chef::EncryptedAttribute).to receive(:load).with(secret)
         .and_return('OK').once
       expect(helpers.encrypted_attribute_read(%w(ftp password))).to eq('OK')
     end
 
-    it 'should not call EncryptedAttribute#load when disabled' do
+    it 'does not call EncryptedAttribute#load when disabled' do
       helpers.encrypted_attributes_enabled = false
       expect(Chef::EncryptedAttribute).to_not receive(:load)
       expect(helpers).to_not receive(:include_recipe)
@@ -115,13 +115,13 @@ describe Chef::EncryptedAttributesHelpers do
         .and_return('OK')
     end
 
-    it 'should include encrypted_attributes recipe' do
+    it 'includes encrypted_attributes recipe' do
       expect(helpers).to receive(:include_recipe).with('encrypted_attributes')
         .and_return(true)
       helpers.encrypted_attribute_read_from_node('node1', %w(ftp password))
     end
 
-    it 'should call EncryptedAttribute#load_from_node' do
+    it 'calls EncryptedAttribute#load_from_node' do
       expect(Chef::EncryptedAttribute).to receive(:load_from_node)
         .with('node1', %w(ftp password)).and_return('OK').once
       expect(
@@ -129,7 +129,7 @@ describe Chef::EncryptedAttributesHelpers do
       ).to eq('OK')
     end
 
-    it 'should not call EncryptedAttribute#load_from_node when disabled' do
+    it 'does not call EncryptedAttribute#load_from_node when disabled' do
       helpers.encrypted_attributes_enabled = false
       expect(Chef::EncryptedAttribute).to_not receive(:load_from_node)
       expect(helpers).to_not receive(:include_recipe)
@@ -153,13 +153,13 @@ describe Chef::EncryptedAttributesHelpers do
       allow(Chef::EncryptedAttribute).to receive(:update).and_return(true)
     end
 
-    it 'should include encrypted_attributes recipe' do
+    it 'includes encrypted_attributes recipe' do
       expect(helpers).to receive(:include_recipe).with('encrypted_attributes')
         .and_return(true)
       helpers.encrypted_attribute_write(%w(ftp password)) { secret }
     end
 
-    it 'should call EncryptedAttribute#exist?' do
+    it 'calls EncryptedAttribute#exist?' do
       expect(Chef::EncryptedAttribute).to receive(:exist?).with(encrypted)
         .and_return(true).once
       helpers.encrypted_attribute_write(%w(ftp password)) { secret }
@@ -171,7 +171,7 @@ describe Chef::EncryptedAttributesHelpers do
           .with(:exist?).and_return(false)
       end
 
-      it 'should call EncryptedAttribute#exists?' do
+      it 'calls EncryptedAttribute#exists?' do
         expect(Chef::EncryptedAttribute).to receive(:exists?).with(encrypted)
           .and_return(true).once
         helpers.encrypted_attribute_write(%w(ftp password)) { secret }
@@ -179,13 +179,13 @@ describe Chef::EncryptedAttributesHelpers do
 
     end
 
-    it 'should not call EncryptedAttribute#exist? when disabled' do
+    it 'does not call EncryptedAttribute#exist? when disabled' do
       helpers.encrypted_attributes_enabled = false
       expect(Chef::EncryptedAttribute).to_not receive(:exist?)
       helpers.encrypted_attribute_write(%w(ftp password)) { secret }
     end
 
-    it 'should call EncryptedAttribute#create when does not exist' do
+    it 'calls EncryptedAttribute#create when does not exist' do
       expect(Chef::EncryptedAttribute).to receive(:exist?).with(encrypted)
         .and_return(false).once
       expect(Chef::EncryptedAttribute).to receive(:create).with(secret)
@@ -200,7 +200,7 @@ describe Chef::EncryptedAttributesHelpers do
       helpers.encrypted_attribute_write(%w(ftp password)) { secret }
     end
 
-    it 'should return clear value when does not exist' do
+    it 'returns clear value when does not exist' do
       allow(Chef::EncryptedAttribute).to receive(:exist?).with(encrypted)
         .and_return(false)
       allow(Chef::EncryptedAttribute).to receive(:create).with(secret)
@@ -209,7 +209,7 @@ describe Chef::EncryptedAttributesHelpers do
         .to eq(secret)
     end
 
-    it 'should call EncryptedAttribute#update when exist' do
+    it 'calls EncryptedAttribute#update when exist' do
       expect(Chef::EncryptedAttribute).to receive(:exist?).with(encrypted)
         .and_return(true).once
       expect(Chef::EncryptedAttribute).to receive(:update).with(encrypted)
@@ -217,7 +217,7 @@ describe Chef::EncryptedAttributesHelpers do
       helpers.encrypted_attribute_write(%w(ftp password)) { secret }
     end
 
-    it 'should call EncryptedAttribute#load when exist' do
+    it 'calls EncryptedAttribute#load when exist' do
       expect(Chef::EncryptedAttribute).to receive(:exist?).with(encrypted)
         .and_return(true).once
       expect(Chef::EncryptedAttribute).to receive(:update).with(encrypted)
@@ -232,7 +232,7 @@ describe Chef::EncryptedAttributesHelpers do
 
   context '#encrypted_attributes_allow_clients' do
 
-    it 'should set Chef::Config[:encrypted_attributes][:client_search]' do
+    it 'sets Chef::Config[:encrypted_attributes][:client_search]' do
       Chef::Config[:encrypted_attributes][:client_search] = nil
       helpers.encrypted_attributes_allow_clients('SEARCH_QUERY')
       expect(Chef::Config[:encrypted_attributes][:client_search])
@@ -243,7 +243,7 @@ describe Chef::EncryptedAttributesHelpers do
 
   context '#encrypted_attributes_allow_nodes' do
 
-    it 'should set Chef::Config[:encrypted_attributes][:node_search]' do
+    it 'sets Chef::Config[:encrypted_attributes][:node_search]' do
       Chef::Config[:encrypted_attributes][:node_search] = nil
       helpers.encrypted_attributes_allow_nodes('SEARCH_QUERY')
       expect(Chef::Config[:encrypted_attributes][:node_search])
@@ -261,12 +261,12 @@ describe Chef::EncryptedAttributesHelpers do
 
   context '#encrypted_attributes_enabled' do
 
-    it 'should enable encrypted attributes when true' do
+    it 'enables encrypted attributes when true' do
       helpers.encrypted_attributes_enabled = true
       expect(helpers.encrypted_attributes_enabled?).to eq(true)
     end
 
-    it 'should disable encrypted attributes when false' do
+    it 'disables encrypted attributes when false' do
       helpers.encrypted_attributes_enabled = false
       expect(helpers.encrypted_attributes_enabled?).to eq(false)
     end

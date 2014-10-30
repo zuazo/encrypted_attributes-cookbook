@@ -10,6 +10,7 @@ Testing
 * `rubocop`
 * `berkshelf`
 * `simplecov`
+* `should_not`
 * `chefspec`
 * `test-kitchen`
 * `kitchen-vagrant`

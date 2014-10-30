@@ -36,23 +36,23 @@ describe 'encrypted_attributes::default' do
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_run.node }
 
-  it 'should install chef-encrypted-attributes gem' do
+  it 'installs chef-encrypted-attributes gem' do
     expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
   end
 
-  it 'should require chef-encrypted-attributes gem' do
+  it 'installs require chef-encrypted-attributes gem' do
     expect(Kernel).to receive(:require).with('chef-encrypted-attributes')
     chef_run
   end
 
-  context 'on FreeBSD' do
+  context 'with FreeBSD' do
     let(:chef_runner) do
       ChefSpec::SoloRunner.new(platform: 'freebsd', version: '9.2')
     end
 
-    it 'should set freebsd cookbook compile time' do
+    it 'sets freebsd cookbook compile time' do
       expect(node['freebsd']['compiletime']).to be(true)
     end
-  end # context on FreeBSD
+  end # context with FreeBSD
 
 end

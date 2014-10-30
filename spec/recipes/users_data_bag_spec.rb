@@ -37,17 +37,17 @@ describe 'encrypted_attributes::users_data_bag' do
   end
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 
-  it 'should include encrypted_attributes::default recipe' do
+  it 'includes encrypted_attributes::default recipe' do
     expect(chef_run).to include_recipe('encrypted_attributes::default')
   end
 
-  it 'should read the data bag' do
+  it 'reads the data bag' do
     expect(Chef::DataBagItem).to receive(:load).with('global', 'chef_users')
       .and_return(@data_bag_item)
     chef_run
   end
 
-  it 'should set the configuration keys' do
+  it 'sets the configuration keys' do
     chef_run
     expect(Chef::Config[:encrypted_attributes][:keys])
       .to eql([@bob_key, @alice_key])

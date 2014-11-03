@@ -19,7 +19,9 @@
 # limitations under the License.
 #
 
-default['freebsd']['compiletime'] = true if node['platform'] == 'freebsd'
+if node['platform'] == 'freebsd'
+  default['freebsd']['compiletime_portsnap'] = true
+end
 
 default['encrypted_attributes']['version'] = nil
 default['encrypted_attributes']['mirror_url'] = nil

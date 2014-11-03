@@ -51,7 +51,7 @@ describe 'encrypted_attributes::default' do
     end
 
     it 'sets freebsd cookbook compile time' do
-      expect(node['freebsd']['compiletime']).to be(true)
+      expect(node['freebsd']['compiletime_portsnap']).to be(true)
     end
   end # context with FreeBSD
 

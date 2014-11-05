@@ -28,7 +28,7 @@ class Chef
   end
 end
 
-describe 'encrypted_attributes::default' do
+describe 'encrypted_attributes::default', order: :random do
   before do
     allow(Kernel).to receive(:require).with('chef-encrypted-attributes')
   end

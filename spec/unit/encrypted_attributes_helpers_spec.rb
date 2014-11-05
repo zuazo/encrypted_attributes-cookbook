@@ -18,14 +18,15 @@
 #
 
 require 'spec_helper'
-load 'support/libraries.rb'
+require 'chef-encrypted-attributes'
+require 'encrypted_attributes_helpers.rb'
 
 # A recipe which includes EncryptedAttributesHelpers
 class FakeRecipe
   include Chef::EncryptedAttributesHelpers
 end
 
-describe Chef::EncryptedAttributesHelpers do
+describe Chef::EncryptedAttributesHelpers, order: :random do
   let(:helpers) { FakeRecipe.new }
   let(:node) { Chef::Node.new }
   before do

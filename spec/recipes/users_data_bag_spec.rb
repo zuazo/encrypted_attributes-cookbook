@@ -19,7 +19,7 @@
 
 require 'spec_helper'
 
-describe 'encrypted_attributes::users_data_bag' do
+describe 'encrypted_attributes::users_data_bag', order: :random do
   before do
     @bob_key = OpenSSL::PKey::RSA.new(2048).public_key.to_s.strip
     @alice_key = OpenSSL::PKey::RSA.new(2048).public_key.to_s.strip

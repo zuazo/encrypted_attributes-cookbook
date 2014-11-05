@@ -18,8 +18,7 @@
 #
 
 require 'spec_helper'
-require 'encrypted_attributes_helpers'
-require 'chef-encrypted-attributes'
+load 'support/libraries.rb'
 
 # A recipe which includes EncryptedAttributesHelpers
 class FakeRecipe

@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-require_relative '../spec_helper'
+require 'spec_helper'
 
 describe 'encrypted_attributes::users_data_bag' do
   before do

@@ -31,6 +31,7 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
   let(:node) { Chef::Node.new }
   before do
     Chef::Config[:solo] = false
+    allow(helpers).to receive(:run_context).and_return(helpers)
     allow(helpers).to receive(:node).and_return(node)
     allow(helpers).to receive(:include_recipe).and_return(true)
   end

@@ -226,7 +226,7 @@ Another alternative is to include the default recipe in your *Run List*:
 ```ruby
 include_recipe 'encrypted_attributes'
 
-Chef::Recipe.send(:include, Opscode::OpenSSL::Password) # include the #secure_password method
+self.class.send(:include, Opscode::OpenSSL::Password) # include the #secure_password method
 
 if Chef::EncryptedAttribute.exists?(node['myapp']['ftp_password'])
   # update with the new keys
@@ -322,13 +322,13 @@ In the following example we use the official [mysql](https://supermarket.getchef
 
 ```ruby
 # Include the #secure_password method from the openssl cookbook
-Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+self.class.send(:include, Opscode::OpenSSL::Password)
 
 # Install Encrypted Attributes gem
 include_recipe 'encrypted_attributes'
 
 # Include the Encrypted Attributes cookbook helpers
-Chef::Recipe.send(:include, Chef::EncryptedAttributesHelpers)
+self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
 # We can use an attribute to enable or disable encryption (recommended for tests)
 # self.encrypted_attributes_enabled = node['myapp']['encrypt_attributes']

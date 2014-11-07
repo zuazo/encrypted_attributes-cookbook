@@ -25,7 +25,7 @@ class Chef
     attr_writer :encrypted_attributes_enabled
 
     def encrypted_attributes_include
-      include_recipe 'encrypted_attributes'
+      run_context.include_recipe 'encrypted_attributes'
       require 'chef-encrypted-attributes'
     end
 

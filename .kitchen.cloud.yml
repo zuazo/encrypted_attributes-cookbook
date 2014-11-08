@@ -7,70 +7,55 @@ driver:
     forward_agent: true
 
 platforms:
-- name: centos-6.4
+- name: centos-5-8-x64
   driver_plugin: digitalocean
   driver_config:
-    image_id: 562354
-    flavor_id: 66
-    region_id: 4
-    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
-<% if ENV['SSH_AGENT_PID'].nil? %>
-    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
-<% end %>
-  run_list:
-  - recipe[yum]
+    flavor: 512MB
 
-- name: fedora-19
+- name: centos-6-5-x64
   driver_plugin: digitalocean
   driver_config:
-    image_id: 696598
-    flavor_id: 66
-    region_id: 4
-    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
-<% if ENV['SSH_AGENT_PID'].nil? %>
-    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
-<% end %>
-  run_list:
-  - recipe[yum]
+    flavor: 512MB
 
-- name: debian-7
+- name: centos-7-0-x64
   driver_plugin: digitalocean
   driver_config:
-    image_id: 308287
-    flavor_id: 66
-    region_id: 4
-    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
-<% if ENV['SSH_AGENT_PID'].nil? %>
-    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
-<% end %>
-  run_list:
-  - recipe[apt]
+    flavor: 512MB
 
-- name: ubuntu-1204
+- name: debian-6-0-x64
   driver_plugin: digitalocean
   driver_config:
-    image_id: 1505447
-    flavor_id: 66
-    region_id: 4
-    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
-<% if ENV['SSH_AGENT_PID'].nil? %>
-    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
-<% end %>
-  run_list:
-  - recipe[apt]
+    flavor: 512MB
 
-- name: ubuntu-1310
+- name: debian-7-0-x64
   driver_plugin: digitalocean
   driver_config:
-    image_id: 1505699
-    flavor_id: 66
-    region_id: 4
-    ssh_key_ids: <%= ENV['DIGITAL_OCEAN_SSH_KEY_IDS'] %>
-<% if ENV['SSH_AGENT_PID'].nil? %>
-    ssh_key: <%= ENV['DIGITAL_OCEAN_SSH_KEY_PATH'] %>
-<% end %>
-  run_list:
-  - recipe[apt]
+    flavor: 512MB
+
+- name: fedora-19-x64
+  driver_plugin: digitalocean
+  driver_config:
+    flavor: 512MB
+
+- name: fedora-20-x64
+  driver_plugin: digitalocean
+  driver_config:
+    flavor: 512MB
+
+- name: ubuntu-10-04-x64
+  driver_plugin: digitalocean
+  driver_config:
+    flavor: 512MB
+
+- name: ubuntu-12-04-x64
+  driver_plugin: digitalocean
+  driver_config:
+    flavor: 512MB
+
+- name: ubuntu-14-04-x64
+  driver_plugin: digitalocean
+  driver_config:
+    flavor: 512MB
 
 - name: amazon-2011.02.1
   driver_plugin: ec2
@@ -81,8 +66,6 @@ platforms:
 <% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
 <% end %>
-  run_list:
-  - recipe[yum]
 
 - name: amazon-2013.09.2
   driver_plugin: ec2
@@ -93,5 +76,3 @@ platforms:
 <% if ENV['SSH_AGENT_PID'].nil? %>
     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
 <% end %>
-  run_list:
-  - recipe[yum]

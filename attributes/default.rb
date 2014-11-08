@@ -21,7 +21,10 @@
 
 if node['platform'] == 'freebsd'
   default['freebsd']['compiletime_portsnap'] = true
+elsif %w(debian ubuntu).include?(node['platform'])
+  default['apt']['compile_time_update'] = true
 end
+default['build-essential']['compile_time'] = true
 
 default['encrypted_attributes']['version'] = nil
 default['encrypted_attributes']['mirror_url'] = nil

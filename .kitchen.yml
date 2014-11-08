@@ -13,12 +13,17 @@ platforms:
 - name: fedora-19
 - name: fedora-20
 - name: debian-6.0.10
+  run_list: ["recipe[apt]"]
 - name: debian-7.6
+  run_list: ["recipe[apt]"]
 - name: freebsd-9.2
   run_list: ["recipe[freebsd::portsnap]"]
 - name: ubuntu-10.04
+  run_list: ["recipe[apt]"]
 - name: ubuntu-12.04
+  run_list: ["recipe[apt]"]
 - name: ubuntu-14.04
+  run_list: ["recipe[apt]"]
 
 suites:
 - name: default

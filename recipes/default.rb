@@ -19,7 +19,6 @@
 # limitations under the License.
 #
 
-node.default['build-essential']['compile_time'] = true
 include_recipe 'build-essential'
 
 if node['encrypted_attributes']['mirror_url'].is_a?(String) &&

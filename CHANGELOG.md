@@ -3,6 +3,21 @@ encrypted_attributes CHANGELOG
 
 This file is used to list changes made in each version of the `encrypted_attributes` cookbook.
 
+## v0.4.0 (2014-11-08)
+
+* Allow `Chef::EncryptedAttributesHelpers` to be used from LWRPs.
+* Enable apt *compile time update*, required by `build-essential`.
+* FreeBSD compiletime attribute changed to `compiletime_portsnap`.
+* Add more unit tests: coverage **100%**.
+* Integrate tests with coveralls.io.
+* Integrate tests with `should_not` gem.
+* Fix new RuboCop offenses.
+* Update to ChefSpec `4.1`.
+* Update .kitchen.cloud.yml file.
+* TESTING.md:
+ * Add Guarfile requirements.
+ * Use DO access token and some titles changed.
+
 ## v0.3.0 (2014-10-21)
 
 * Add FreeBSD support

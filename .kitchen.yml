@@ -29,3 +29,6 @@ suites:
 - name: default
   run_list:
     - recipe[encrypted_attributes_test::default]
+- name: key
+  run_list:
+    - recipe[encrypted_attributes_test::expose_key]

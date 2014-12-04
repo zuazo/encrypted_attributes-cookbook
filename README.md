@@ -53,6 +53,10 @@ Recipes
 
 Installs and loads the `chef-encrypted-attributes` gem.
 
+## encrypted_attributes::expose_key
+
+Exposes the Client Public Key in attributes. This is a workaround for the Chef Clients Limitation problem. Should be included by all nodes that need to have read privileges on the attributes.
+
 ## encrypted_attributes::users_data_bag
 
 Configures `chef-encrypted-attributes` Chef User keys reading them from a data bag. This is a workaround for the [Chef Users Limitation problem](http://onddo.github.io/chef-encrypted-attributes/#chef-users-limitation).
@@ -171,9 +175,16 @@ ftp_pass = encrypted_attribute_read(['myapp', 'ftp_password'])
 Or read it from a remote node:
 
 ```ruby
+# Make the Client Public Key public in the node attributes
+include_recipe 'encrypted_attributes::expose_key'
+
+# Install the chef-encrypted_attributes gem
 include_recipe 'encrypted_attributes'
+
+# Include the helper libraries
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
+# Read the encrypted attribute using the helpers
 ftp_pass = encrypted_attribute_read_from_node('myapp.example.com', ['myapp', 'ftp_password'])
 ```
 

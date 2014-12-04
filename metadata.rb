@@ -39,6 +39,10 @@ depends 'build-essential'
 
 recipe 'encrypted_attributes::default',
        'Installs and loads the chef-encrypted-attributes gem.'
+recipe 'encrypted_attributes::expose_key',
+       'Exposes the Client Public Key in attributes. This is a workaround for '\
+       'the Chef Clients Limitation problem. Should be included by all nodes '\
+       'that need to have read privileges on the attributes.'
 recipe 'encrypted_attributes::users_data_bag',
        'Configures chef-encrypted-attributes Chef User keys reading them from '\
        'a data bag. This is a workaround for the Chef Users Limitation problem.'

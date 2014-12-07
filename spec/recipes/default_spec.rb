@@ -30,7 +30,7 @@ end
 
 describe 'encrypted_attributes::default', order: :random do
   before do
-    allow(Kernel).to receive(:require).with('chef-encrypted-attributes')
+    allow(Kernel).to receive(:require).with('chef/encrypted_attributes')
   end
   let(:chef_runner) { ChefSpec::SoloRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
@@ -41,7 +41,7 @@ describe 'encrypted_attributes::default', order: :random do
   end
 
   it 'installs require chef-encrypted-attributes gem' do
-    expect(Kernel).to receive(:require).with('chef-encrypted-attributes')
+    expect(Kernel).to receive(:require).with('chef/encrypted_attributes')
     chef_run
   end
 

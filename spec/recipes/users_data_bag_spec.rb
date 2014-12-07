@@ -33,7 +33,7 @@ describe 'encrypted_attributes::users_data_bag', order: :random do
     Chef::Config[:encrypted_attributes] = Mash.new
     Chef::Config[:encrypted_attributes][:keys] = nil
     allow(Chef::DataBagItem).to receive(:load).and_return(@data_bag_item)
-    allow(Kernel).to receive(:require).with('chef-encrypted-attributes')
+    allow(Kernel).to receive(:require).with('chef/encrypted_attributes')
   end
   let(:chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
 

@@ -51,4 +51,4 @@ else
   end
 end
 
-require 'chef-encrypted-attributes'
+require 'chef/encrypted_attributes'

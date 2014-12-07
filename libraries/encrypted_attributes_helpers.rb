@@ -26,7 +26,7 @@ class Chef
 
     def encrypted_attributes_include
       run_context.include_recipe 'encrypted_attributes'
-      require 'chef-encrypted-attributes'
+      require 'chef/encrypted_attributes'
     end
 
     def attr_get_from_ary(attr_ary)

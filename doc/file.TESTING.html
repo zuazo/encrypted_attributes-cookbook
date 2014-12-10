@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: TESTING
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!file.TESTING.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: TESTING</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'>
+<h1 id="label-Testing">Testing</h1>
+
+<h2 id="label-Required+Gems">Required Gems</h2>
+<ul><li>
+<p><code>yard</code></p>
+</li><li>
+<p><code>vagrant</code></p>
+</li><li>
+<p><code>foodcritic</code></p>
+</li><li>
+<p><code>rubocop</code></p>
+</li><li>
+<p><code>berkshelf</code></p>
+</li><li>
+<p><code>simplecov</code></p>
+</li><li>
+<p><code>should_not</code></p>
+</li><li>
+<p><code>chefspec</code></p>
+</li><li>
+<p><code>test-kitchen</code></p>
+</li><li>
+<p><code>kitchen-vagrant</code></p>
+</li></ul>
+
+<h3 id="label-Required+Gems+for+Guard">Required Gems for Guard</h3>
+<ul><li>
+<p><code>guard</code></p>
+</li><li>
+<p><code>guard-foodcritic</code></p>
+</li><li>
+<p><code>guard-rubocop</code></p>
+</li><li>
+<p><code>guard-rspec</code></p>
+</li><li>
+<p><code>guard-kitchen</code></p>
+</li></ul>
+
+<p>More info at <a href="https://github.com/guard/guard#readme">Guard
+Readme</a>.</p>
+
+<h2 id="label-Installing+the+Requirements">Installing the Requirements</h2>
+
+<p>You must have <a href="https://www.virtualbox.org/">VirtualBox</a> and <a
+href="http://www.vagrantup.com/">Vagrant</a> installed.</p>
+
+<p>You can install gem dependencies with bundler:</p>
+
+<pre class="code ruby"><code class="ruby">$ gem install bundler
+$ bundle install --without travis</code></pre>
+
+<h2 id="label-Generating+the+Documentation">Generating the Documentation</h2>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec rake doc</code></pre>
+
+<h2 id="label-Running+the+Syntax+Style+Tests">Running the Syntax Style Tests</h2>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec rake style</code></pre>
+
+<h2 id="label-Running+the+Unit+Tests">Running the Unit Tests</h2>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec rake unit</code></pre>
+
+<h2 id="label-Running+the+Integration+Tests">Running the Integration Tests</h2>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec rake integration</code></pre>
+
+<p>Or:</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec kitchen list
+$ bundle exec kitchen test
+[...]</code></pre>
+
+<h3 id="label-Running+Integration+Tests+in+the+Cloud">Running Integration Tests in the Cloud</h3>
+
+<h4 id="label-Requirements">Requirements</h4>
+<ul><li>
+<p><code>kitchen-vagrant</code></p>
+</li><li>
+<p><code>kitchen-digitalocean</code></p>
+</li><li>
+<p><code>kitchen-ec2</code></p>
+</li></ul>
+
+<p>You can run the tests in the cloud instead of using vagrant. First, you
+must set the following environment variables:</p>
+<ul><li>
+<p><code>AWS_ACCESS_KEY_ID</code></p>
+</li><li>
+<p><code>AWS_SECRET_ACCESS_KEY</code></p>
+</li><li>
+<p><code>AWS_KEYPAIR_NAME</code>: EC2 SSH public key name. This is the name
+used in Amazon EC2 Console&#39;s Key Pars section.</p>
+</li><li>
+<p><code>EC2_SSH_KEY_PATH</code>: EC2 SSH private key local full path. Only
+when you are not using an SSH Agent.</p>
+</li><li>
+<p><code>DIGITALOCEAN_ACCESS_TOKEN</code></p>
+</li><li>
+<p><code>DIGITALOCEAN_SSH_KEY_IDS</code>: DigitalOcean SSH numeric key IDs.</p>
+</li><li>
+<p><code>DIGITALOCEAN_SSH_KEY_PATH</code>: DigitalOcean SSH private key local
+full path. Only when you are not using an SSH Agent.</p>
+</li></ul>
+
+<p>Then, you must configure test-kitchen to use
+<code>.kitchen.cloud.yml</code> configuration file:</p>
+
+<pre class="code ruby"><code class="ruby">$ export KITCHEN_LOCAL_YAML=&quot;.kitchen.cloud.yml&quot;
+$ bundle exec kitchen list
+[...]</code></pre>
+</div></div>
+
+    <div id="footer">
+  Generated on Wed Dec 10 06:27:28 2014 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.1.2).
+</div>
+
+  </body>
+</html>

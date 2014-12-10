@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!file.README.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'>
+<h1 id="label-Description">Description</h1>
+
+<p><a
+href="https://supermarket.getchef.com/cookbooks/encrypted_attributes"><img
+src="https://img.shields.io/cookbook/v/encrypted_attributes.svg?style=flat"></a>
+<a href="https://gemnasium.com/onddo/encrypted_attributes-cookbook"><img
+src="http://img.shields.io/gemnasium/onddo/encrypted_attributes-cookbook.svg?style=flat"></a>
+<a
+href="https://codeclimate.com/github/onddo/encrypted_attributes-cookbook"><img
+src="http://img.shields.io/codeclimate/github/onddo/encrypted_attributes-cookbook.svg?style=flat"></a>
+<a href="https://travis-ci.org/onddo/encrypted_attributes-cookbook"><img
+src="http://img.shields.io/travis/onddo/encrypted_attributes-cookbook.svg?style=flat"></a>
+<a
+href="https://coveralls.io/r/onddo/encrypted_attributes-cookbook?branch=master"><img
+src="http://img.shields.io/coveralls/onddo/encrypted_attributes-cookbook.svg?style=flat"></a></p>
+
+<p>Installs and enables <a
+href="http://onddo.github.io/chef-encrypted-attributes/">chef-encrypted-attributes</a>
+gem: Chef plugin to add Node encrypted attributes support using client
+keys.</p>
+
+<h1 id="label-Requirements">Requirements</h1>
+
+<h2 id="label-Supported+Platforms">Supported Platforms</h2>
+
+<p>This cookbook has been tested on the following platforms:</p>
+<ul><li>
+<p>Amazon Linux</p>
+</li><li>
+<p>CentOS</p>
+</li><li>
+<p>Debian</p>
+</li><li>
+<p>Fedora</p>
+</li><li>
+<p>FreeBSD</p>
+</li><li>
+<p>RedHat</p>
+</li><li>
+<p>Ubuntu</p>
+</li></ul>
+
+<p>Please, <a
+href="https://github.com/onddo/encrypted_attributes-cookbook/issues/new?title=I%20have%20used%20it%20successfully%20on%20...">let
+us know</a> if you use it successfully on any other platform.</p>
+
+<h2 id="label-Required+Cookbooks">Required Cookbooks</h2>
+<ul><li>
+<p><a
+href="https://supermarket.getchef.com/cookbooks/build-essential">build-essential</a></p>
+</li></ul>
+
+<h2 id="label-Required+Applications">Required Applications</h2>
+<ul><li>
+<p>Ruby <code>1.9.3</code> or higher.</p>
+</li></ul>
+
+<p>See also <a
+href="http://onddo.github.io/chef-encrypted-attributes/#requirements">the
+requirements of the chef-encrypted-attributes gem</a>.</p>
+
+<h1 id="label-Attributes">Attributes</h1>
+
+<p>| Attribute | Default | Description |
+|—————————————————-|:————–:|———————————–| |
+<code>node['encrypted_attributes'][&#39;version&#39;]</code> |
+<em>calculated</em> | chef-encrypted-attributes gem version to install. The
+latest stable version is installed by default. | |
+<code>node['encrypted_attributes'][&#39;mirror&#39;]</code> |
+<code>nil</code> | chef-encrypted-attributes mirror to download the gem
+from. For cases where you do not want to use RubyGems. | |
+<code>node['encrypted_attributes'][&#39;data_bag']['name']</code> |
+<code>&#39;global&#39;</code> | chef-encrypted-attributes user keys, data
+bag name. | |
+<code>node['encrypted_attributes'][&#39;data_bag']['item']</code> |
+<code>&#39;chef_users&#39;</code> | chef-encrypted-attributes user keys,
+data bag item name. | | <code>node['dev_mode']</code> | <em>calculated</em>
+| If this is <code>true</code>, the
+<code>Chef::EncryptedAttributesHelpers</code> library will work with
+unencrypted attributes instead of encrypted attributes. For testing
+purposes. |</p>
+
+<h1 id="label-Recipes">Recipes</h1>
+
+<h2 id="label-encrypted_attributes%3A%3Adefault">encrypted_attributes::default</h2>
+
+<p>Installs and loads the <code>chef-encrypted-attributes</code> gem.</p>
+
+<h2 id="label-encrypted_attributes%3A%3Aexpose_key">encrypted_attributes::expose_key</h2>
+
+<p>Exposes the Client Public Key in attributes. This is a workaround for the
+Chef Clients Limitation problem. Should be included by all nodes that need
+to have read privileges on the attributes.</p>
+
+<h2 id="label-encrypted_attributes%3A%3Ausers_data_bag">encrypted_attributes::users_data_bag</h2>
+
+<p>Configures <code>chef-encrypted-attributes</code> Chef User keys reading
+them from a data bag. This is a workaround for the <a
+href="http://onddo.github.io/chef-encrypted-attributes/#chef-users-limitation">Chef
+Users Limitation problem</a>.</p>
+
+<h1 id="label-Helper+Libraries">Helper Libraries</h1>
+
+<h2 id="label-Chef%3A%3AEncryptedAttributesHelpers">Chef::EncryptedAttributesHelpers</h2>
+
+<p>This library adds some helper methods to try to cover the more common use
+cases.</p>
+
+<p>Automatically includes the required gems
+(<code>chef-encrypted-attributes</code>), so you do not have to worry about
+them.</p>
+
+<p>Also tries to simulate encrypted attributes creation (using unencrypted
+attributes instead) in some testing environments:</p>
+<ul><li>
+<p>With <em>Chef Solo</em>.</p>
+</li><li>
+<p>When <code>node['dev_mode']</code> is set to <code>true</code>.</p>
+</li></ul>
+
+<p>You must explicitly include the library before using it from recipes or
+resources:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttributesHelpers</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>These are the available methods:</p>
+
+<h3 id="label-encrypted_attributes_enabled%3F">encrypted_attributes_enabled?</h3>
+
+<p>Whether encrypted attributes are enabled underneath.</p>
+
+<h3 id="label-encrypted_attribute_read%28attr_ary%29">encrypted_attribute_read(attr_ary)</h3>
+
+<p>Reads an encrypted attribute.</p>
+
+<p>Parameters:</p>
+<ul><li>
+<p><code>attr_ary</code>: attribute path as array. For example:
+<code>[&#39;ftp&#39;, &#39;password&#39;]</code>.</p>
+</li></ul>
+
+<p>Returns the attribute value unencrypted.</p>
+
+<h3 id="label-encrypted_attribute_read_from_node%28node%2C+attr_ary%29">encrypted_attribute_read_from_node(node, attr_ary)</h3>
+
+<p>Reads an encrypted attribute from a remote node.</p>
+
+<p>Parameters:</p>
+<ul><li>
+<p><code>node</code>: Node name.</p>
+</li><li>
+<p><code>attr_ary</code>: attribute path as array. For example:
+<code>[&#39;ftp&#39;, &#39;password&#39;]</code>.</p>
+</li></ul>
+
+<p>Returns the attribute value unencrypted.</p>
+
+<h3 id="label-encrypted_attribute_write%28attr_ary%29+%7B%7D">encrypted_attribute_write(attr_ary) {}</h3>
+
+<p>Creates and writes an encrypted attribute.</p>
+
+<p>The attribute will be written only on first run and updated on the next
+runs. Because of this, the attribute value has to be set as a block, and
+the block will be run only the first time:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_unencrypted_pass'>unencrypted_pass</span> <span class='op'>=</span> <span class='id identifier rubyid_encrypted_attribute_write'>encrypted_attribute_write</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Opscode</span><span class='op'>::</span><span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>Password</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_secure_password'>secure_password</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Parameters:</p>
+<ul><li>
+<p><code>attr_ary</code>: attribute path as array. For example:
+<code>[&#39;ftp&#39;, &#39;password&#39;]</code>.</p>
+</li></ul>
+
+<p>Returns the attribute value unencrypted, that is, the value returned by the
+block.</p>
+
+<h3 id="label-encrypted_attributes_allow_clients%28search%29">encrypted_attributes_allow_clients(search)</h3>
+
+<p>Allows some <em>Chef Clients</em> to read my encrypted attributes.</p>
+
+<p>Parameters:</p>
+<ul><li>
+<p><code>search</code>: Search query for clients that will be allowed to
+decrypt the attributes. For example <code>&#39;admin:true&#39;</code>.</p>
+</li></ul>
+
+<h3 id="label-encrypted_attributes_allow_nodes%28search%29">encrypted_attributes_allow_nodes(search)</h3>
+
+<p>Allows some <em>Chef Nodes</em> to read my encrypted attributes.</p>
+
+<p>Parameters:</p>
+<ul><li>
+<p><code>search</code>: Search query for nodes that will be allowed to decrypt
+the attributes. For example <code>&#39;role:webapp&#39;</code>.</p>
+</li></ul>
+
+<h3 id="label-encrypted_attributes_enabled">encrypted_attributes_enabled</h3>
+
+<p>This class attribute allows you to explicitly enable or disable encrypted
+attributes. This attribute value is <em>calculated</em> by default.</p>
+
+<h3 id="label-Chef%3A%3AEncryptedAttributesHelpers+Example">Chef::EncryptedAttributesHelpers Example</h3>
+
+<p>Here a simple example to save a password encrypted:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttributesHelpers</span><span class='rparen'>)</span>
+
+<span class='comment'># Allow all admin clients and webapp nodes to read the attributes encrypted by me
+</span><span class='id identifier rubyid_encrypted_attributes_allow_clients'>encrypted_attributes_allow_clients</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>admin:true</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_encrypted_attributes_allow_nodes'>encrypted_attributes_allow_nodes</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>role:webapp</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_ftp_pass'>ftp_pass</span> <span class='op'>=</span> <span class='id identifier rubyid_encrypted_attribute_write'>encrypted_attribute_write</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Opscode</span><span class='op'>::</span><span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>Password</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_secure_password'>secure_password</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>You can then read the attribute as follows:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_ftp_pass'>ftp_pass</span> <span class='op'>=</span> <span class='id identifier rubyid_encrypted_attribute_read'>encrypted_attribute_read</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>Or read it from a remote node:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Make the Client Public Key public in the node attributes
+</span><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes::expose_key</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># Install the chef-encrypted_attributes gem
+</span><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># Include the helper libraries
+</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttributesHelpers</span><span class='rparen'>)</span>
+
+<span class='comment'># Read the encrypted attribute using the helpers
+</span><span class='id identifier rubyid_ftp_pass'>ftp_pass</span> <span class='op'>=</span> <span class='id identifier rubyid_encrypted_attribute_read_from_node'>encrypted_attribute_read_from_node</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp.example.com</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>Don&#39;t forget to include the <code>encrypted_attributes</code> cookbook
+as a dependency in the metadata.</p>
+
+<pre class="code ruby"><code class="ruby"># metadata.rb
+[...]
+
+depends &#39;encrypted_attributes&#39;
+</code></pre>
+
+<h1 id="label-Usage+Examples">Usage Examples</h1>
+
+<h2 id="label-Including+in+a+Cookbook+Recipe">Including in a Cookbook Recipe</h2>
+
+<p>You can simply include it in a recipe:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<p>Don&#39;t forget to include the <code>encrypted_attributes</code> cookbook
+as a dependency in the metadata.</p>
+
+<pre class="code ruby"><code class="ruby"># metadata.rb
+[...]
+
+depends &#39;encrypted_attributes&#39;
+</code></pre>
+
+<h2 id="label-Including+in+the+Run+List">Including in the Run List</h2>
+
+<p>Another alternative is to include the default recipe in your <em>Run
+List</em>:</p>
+
+<pre class="code ruby"><code class="ruby">{
+  &quot;name&quot;: &quot;ftp.onddo.com&quot;,
+  [...]
+  &quot;run_list&quot;: [
+    [...]
+    &quot;recipe[encrypted_attributes]&quot;
+  ]
+}</code></pre>
+
+<h2 id="label-encrypted_attributes%3A%3Adefault+Recipe+Usage+Example"><em>encrypted_attributes::default</em> Recipe Usage Example</h2>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Opscode</span><span class='op'>::</span><span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>Password</span><span class='rparen'>)</span> <span class='comment'># include the #secure_password method
+</span>
+<span class='kw'>if</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttribute</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='comment'># update with the new keys
+</span>  <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttribute</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_set'>set</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+
+  <span class='comment'># read the password
+</span>  <span class='id identifier rubyid_ftp_pass'>ftp_pass</span> <span class='op'>=</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttribute</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>else</span>
+  <span class='comment'># create the password and save it
+</span>  <span class='id identifier rubyid_ftp_pass'>ftp_pass</span> <span class='op'>=</span> <span class='id identifier rubyid_secure_password'>secure_password</span>
+  <span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_set'>set</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttribute</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_ftp_pass'>ftp_pass</span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+
+<span class='comment'># use `ftp_pass` for something here ...
+</span></code></pre>
+
+<p>You can also use the <code>Chef::EncryptedAttributesHelpers</code> helpers
+to simplify its use:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttributesHelpers</span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_ftp_pass'>ftp_pass</span> <span class='op'>=</span> <span class='id identifier rubyid_encrypted_attribute_write'>encrypted_attribute_write</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ftp_password</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>do</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Opscode</span><span class='op'>::</span><span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>Password</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_secure_password'>secure_password</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p><strong>Note:</strong> This example requires the <a
+href="https://supermarket.getchef.com/cookbooks/openssl">openssl</a>
+cookbook.</p>
+
+<p>See the <a
+href="http://onddo.github.io/chef-encrypted-attributes/#usage-in-recipes">chef-encrypted-attributes
+gem Usage</a> section for more examples.</p>
+
+<h2 id="label-encrypted_attributes%3A%3Ausers_data_bag+Recipe+Usage+Example"><em>encrypted_attributes::users_data_bag</em> Recipe Usage Example</h2>
+
+<p>This recipe should be called before using the encrypted attributes. It sets
+the <code>Chef::Config[:encrypted_attributes][:keys]</code> option reading
+the keys from a data bag.</p>
+
+<p>Before using this recipe, you must create the required data bag:</p>
+
+<pre class="code ruby"><code class="ruby">$ knife data bag create global_data chef_users</code></pre>
+
+<p>You should create a data bag item with the following format:</p>
+
+<pre class="code ruby"><code class="ruby">{
+  &quot;id&quot;: &quot;chef_users&quot;,
+  &quot;bob&quot;: &quot;-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFA...&quot;,
+  &quot;alice&quot;: &quot;-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFA...&quot;
+}</code></pre>
+
+<p>The keys can be set in <em>array of strings</em> format if you prefer:</p>
+
+<pre class="code ruby"><code class="ruby">{
+  &quot;id&quot;: &quot;chef_users&quot;,
+  &quot;bob&quot;: [
+    &quot;-----BEGIN PUBLIC KEY-----&quot;,
+    &quot;MIIBIjANBgkqhkiG9w0BAQEFA...&quot;,
+    ...
+  ],
+  &quot;alice&quot;: [
+    &quot;-----BEGIN PUBLIC KEY-----&quot;,
+    &quot;MIIBIjANBgkqhkiG9w0BAQEFA...&quot;,
+    ...
+  ]
+}</code></pre>
+
+<p>You can retrieve user public keys with <code>knife user show USER -a
+public_key -f json</code>.</p>
+
+<p>Then, you can use this data bag to configure the
+<code>Chef::Config[:encrypted_attributes][:keys]</code>
+<code>chef-encrypted-attributes</code> configuration only by calling the
+recipe:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_node'>node</span><span class='period'>.</span><span class='id identifier rubyid_default'>default</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>data_bag</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>name</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>global_data</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes::users_data_bag</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># if Chef::EncryptedAttribute.exist?(...)
+</span><span class='comment'>#   Chef::EncryptedAttribute.update(...)
+</span><span class='comment'># else
+</span><span class='comment'>#   node.set[...][...] = Chef::EncryptedAttribute.create(...)
+</span><span class='comment'># ...
+</span></code></pre>
+
+<p><strong>Note:</strong> This data bag does not need to be encrypted, because
+it only stores public keys.</p>
+
+<h3 id="label-Using+Chef%3A%3AEncryptedAttributesHelpers+to+Encrypt+MySQL+Passwords">Using Chef::EncryptedAttributesHelpers to Encrypt MySQL Passwords</h3>
+
+<p>In the following example we use the official <a
+href="https://supermarket.getchef.com/cookbooks/mysql">mysql</a> cookbook
+and its <code>mysql_service</code> resource to save the passwords encrypted
+in these attributes:</p>
+<ul><li>
+<p><code>node['myapp'][&#39;mysql']['server_root_password']</code></p>
+</li><li>
+<p><code>node['myapp'][&#39;mysql']['server_debian_password']</code></p>
+</li><li>
+<p><code>node['myapp'][&#39;mysql']['server_repl_password']</code></p>
+</li></ul>
+
+<pre class="code ruby"><code class="ruby"><span class='comment'># Include the #secure_password method from the openssl cookbook
+</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Opscode</span><span class='op'>::</span><span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>Password</span><span class='rparen'>)</span>
+
+<span class='comment'># Install Encrypted Attributes gem
+</span><span class='id identifier rubyid_include_recipe'>include_recipe</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>encrypted_attributes</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># Include the Encrypted Attributes cookbook helpers
+</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:include</span><span class='comma'>,</span> <span class='const'>Chef</span><span class='op'>::</span><span class='const'>EncryptedAttributesHelpers</span><span class='rparen'>)</span>
+
+<span class='comment'># We can use an attribute to enable or disable encryption (recommended for tests)
+</span><span class='comment'># self.encrypted_attributes_enabled = node[&#39;myapp&#39;][&#39;encrypt_attributes&#39;]
+</span>
+<span class='comment'># Encrypted Attributes will be generated randomly and saved in in the
+</span><span class='comment'># node[&#39;myapp&#39;][&#39;mysql&#39;] attribute encrypted.
+</span><span class='kw'>def</span> <span class='id identifier rubyid_generate_mysql_password'>generate_mysql_password</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>server_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='embexpr_end'>}</span><span class='tstring_content'>_password</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_encrypted_attribute_write'>encrypted_attribute_write</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>myapp</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_secure_password'>secure_password</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span>
+
+<span class='comment'># Generate the encrypted passwords
+</span><span class='id identifier rubyid_mysql_root_password'>mysql_root_password</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_mysql_password'>generate_mysql_password</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>root</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_mysql_debian_password'>mysql_debian_password</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_mysql_password'>generate_mysql_password</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>debian</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_mysql_repl_password'>mysql_repl_password</span> <span class='op'>=</span> <span class='id identifier rubyid_generate_mysql_password'>generate_mysql_password</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>repl</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+<span class='id identifier rubyid_mysql_service'>mysql_service</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>service_name</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='kw'>do</span>
+  <span class='id identifier rubyid_version'>version</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>version</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_port'>port</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>port</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_data_dir'>data_dir</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>data_dir</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_server_root_password'>server_root_password</span> <span class='id identifier rubyid_mysql_root_password'>mysql_root_password</span>
+  <span class='id identifier rubyid_server_debian_password'>server_debian_password</span> <span class='id identifier rubyid_mysql_debian_password'>mysql_debian_password</span>
+  <span class='id identifier rubyid_server_repl_password'>server_repl_password</span> <span class='id identifier rubyid_mysql_repl_password'>mysql_repl_password</span>
+  <span class='id identifier rubyid_allow_remote_root'>allow_remote_root</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>allow_remote_root</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_remove_anonymous_users'>remove_anonymous_users</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>remove_anonymous_users</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_remove_test_database'>remove_test_database</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>remove_test_database</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_root_network_acl'>root_network_acl</span> <span class='id identifier rubyid_node'>node</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mysql</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>root_network_acl</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_action'>action</span> <span class='symbol'>:create</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h1 id="label-Testing">Testing</h1>
+
+<p>See <a
+href="https://github.com/onddo/encrypted_attributes-cookbook/blob/master/TESTING.md">TESTING.md</a>.</p>
+
+<h1 id="label-Contributing">Contributing</h1>
+
+<p>Please do not hesitate to <a
+href="https://github.com/onddo/encrypted_attributes-cookbook/issues/new">open
+an issue</a> with any questions or problems.</p>
+
+<p>See <a
+href="https://github.com/onddo/encrypted_attributes-cookbook/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+
+<h1 id="label-TODO">TODO</h1>
+
+<p>See <a
+href="https://github.com/onddo/encrypted_attributes-cookbook/blob/master/TODO.md">TODO.md</a>.</p>
+
+<h1 id="label-License+and+Author">License and Author</h1>
+
+<p>| | | |:———————|:—————————————–| | <strong>Author:</strong> | <a
+href="https://github.com/zuazo">Xabier de Zuazo</a> (<a
+href="mailto:xabier@onddo.com">xabier@onddo.com</a>) |
+<strong>Copyright:</strong> | Copyright © 2014, Onddo Labs, SL. (<a
+href="www.onddo.com">www.onddo.com</a>) | <strong>License:</strong> |
+Apache License, Version 2.0</p>
+
+<pre class="code ruby"><code class="ruby">Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</code></pre>
+</div></div>
+
+    <div id="footer">
+  Generated on Wed Dec 10 06:27:28 2014 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.1.2).
+</div>
+
+  </body>
+</html>

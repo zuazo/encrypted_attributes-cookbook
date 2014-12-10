@@ -7,6 +7,16 @@
 
 require 'bundler/setup'
 
+desc 'Generate Ruby documentation'
+task :yard do
+  require 'yard'
+  YARD::Rake::YardocTask.new do |t|
+    t.stats_options = %w(--list-undoc)
+  end
+end
+
+task doc: %w(yard)
+
 namespace :style do
   require 'rubocop/rake_task'
   desc 'Run Ruby style checks'
@@ -40,4 +50,4 @@ namespace :travis do
   task ci: %w(style unit)
 end
 
-task default: %w(style unit integration)
+task default: %w(doc style unit integration)

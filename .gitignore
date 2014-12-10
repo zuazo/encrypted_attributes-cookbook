@@ -1,6 +1,7 @@
 .bundle
 .cache
 .kitchen
+.yardoc
 metadata.json
 Gemfile.lock
 Berksfile.lock

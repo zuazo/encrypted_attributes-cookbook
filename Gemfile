@@ -4,6 +4,10 @@
 
 source 'https://rubygems.org'
 
+group :doc do
+  gem 'yard', '~> 0.8'
+end
+
 group :test do
   gem 'rake'
   gem 'berkshelf', '~> 3.1'

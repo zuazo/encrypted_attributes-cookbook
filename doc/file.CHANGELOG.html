@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: CHANGELOG
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!file.CHANGELOG.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: CHANGELOG</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><div id='filecontents'>
+<h1 id="label-encrypted_attributes+CHANGELOG">encrypted_attributes CHANGELOG</h1>
+
+<p>This file is used to list changes made in each version of the
+<code>encrypted_attributes</code> cookbook.</p>
+
+<h2 id="label-v0.4.0+%282014-11-08%29">v0.4.0 (2014-11-08)</h2>
+<ul><li>
+<p>Allow <code>Chef::EncryptedAttributesHelpers</code> to be used from LWRPs.</p>
+</li><li>
+<p>Enable apt <em>compile time update</em>, required by
+<code>build-essential</code>.</p>
+</li><li>
+<p>FreeBSD compiletime attribute changed to <code>compiletime_portsnap</code>.</p>
+</li><li>
+<p>Add more unit tests: coverage <strong>100%</strong>.</p>
+</li><li>
+<p>Integrate tests with coveralls.io.</p>
+</li><li>
+<p>Integrate tests with <code>should_not</code> gem.</p>
+</li><li>
+<p>Fix new RuboCop offenses.</p>
+</li><li>
+<p>Update to ChefSpec <code>4.1</code>.</p>
+</li><li>
+<p>Update .kitchen.cloud.yml file.</p>
+</li><li>
+<p>TESTING.md:</p>
+</li><li>
+<p>Add Guarfile requirements.</p>
+</li><li>
+<p>Use DO access token and some titles changed.</p>
+</li></ul>
+
+<h2 id="label-v0.3.0+%282014-10-21%29">v0.3.0 (2014-10-21)</h2>
+<ul><li>
+<p>Add FreeBSD support</p>
+</li><li>
+<p>Berksfile, Rakefile and Guarfile, generic templates copied</p>
+</li><li>
+<p>Added <code>rubocop.yml</code> with <em>AllCops:Include</em></p>
+</li><li>
+<p>README:</p>
+</li><li>
+<p>Add an example to encrypt MySQL passwords</p>
+</li><li>
+<p>Always include encrypted_attributes recipe to force compile time
+build-essentials</p>
+</li><li>
+<p>Use single quotes in examples</p>
+</li><li>
+<p>Use markdown for tables</p>
+</li><li>
+<p>Add LICENSE file</p>
+</li><li>
+<p>kitchen.yml: remove empty attributes key</p>
+</li><li>
+<p>License headers homogenized</p>
+</li></ul>
+
+<h2 id="label-v0.2.2+%282014-10-02%29">v0.2.2 (2014-10-02)</h2>
+<ul><li>
+<p>Added platform support documentation</p>
+</li><li>
+<p><code>kitchen.yml</code> file updated</p>
+</li><li>
+<p>Rakefile: rubocop enabled</p>
+</li><li>
+<p>Gemfile:</p>
+</li><li>
+<p>Replaced vagrant by vagrant-wrapper</p>
+</li><li>
+<p>Added vagrant-wrapper version with pessimistic operator</p>
+</li><li>
+<p>Berkshelf updated to 3.1</p>
+</li><li>
+<p>Guardfile added</p>
+</li><li>
+<p>TODO: use checkboxes</p>
+</li></ul>
+
+<h2 id="label-v0.2.1+%282014-08-28%29">v0.2.1 (2014-08-28)</h2>
+<ul><li>
+<p>EncryptedAttributesHelpers bugfix: avoid <code>#node.save</code> on
+chef-solo</p>
+</li><li>
+<p>EncryptedAttributesHelpers: some code duplication removed</p>
+</li><li>
+<p>README: added gemnasium and codeclimate badges</p>
+</li></ul>
+
+<h2 id="label-v0.2.0+%282014-08-26%29">v0.2.0 (2014-08-26)</h2>
+<ul><li>
+<p><code>encrypted_attributes_test::default</code>: <code>node#save</code>
+unless chef-solo</p>
+</li><li>
+<p>Gemfile:</p>
+</li><li>
+<p>RSpec <code>~&gt; 2.14.0</code> to avoid <code>uninitialized constant
+RSpec::Matchers::BuiltIn::RaiseError::MatchAliases</code> error</p>
+</li><li>
+<p>Updates: ChefSpec <code>4</code> and foodcritic <code>4</code></p>
+</li><li>
+<p>Added chef-encrypted-attributes gem for unit tests</p>
+</li><li>
+<p>Gemfile clean up</p>
+</li><li>
+<p>README:</p>
+</li><li>
+<p>README file split in multiple files</p>
+</li><li>
+<p>Replace community links by Supermarket links</p>
+</li><li>
+<p>Fixed <code>::users_data_bag</code> example using <code>#exist?</code>
+instead of <code>#exists_on_node?</code></p>
+</li><li>
+<p>Added a link to <code>chef-encrypted-attributes</code> gem requirements</p>
+</li><li>
+<p>Multiple small fixes and improvements</p>
+</li><li>
+<p><code>::default</code>: avoid gem install error when no version is
+specified</p>
+</li><li>
+<p>Install <code>gcc</code> dependency (<code>build-essential</code> cookbook)</p>
+</li><li>
+<p>Added <code>Chef::EncryptedAttributesHelpers</code> helper library</p>
+</li><li>
+<p>Added <code>EncryptedAttributesHelpers</code> unit tests</p>
+</li><li>
+<p>Added RuboCop checking, all offenses fixed</p>
+</li><li>
+<p>TODO: added verify gem task</p>
+</li><li>
+<p>test/kitchen directory removed</p>
+</li></ul>
+
+<h2 id="label-v0.1.0+%282014-05-22%29">v0.1.0 (2014-05-22)</h2>
+<ul><li>
+<p>Initial release of <code>encrypted_attributes</code></p>
+</li></ul>
+</div></div>
+
+    <div id="footer">
+  Generated on Wed Dec 10 06:27:28 2014 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.1.2).
+</div>
+
+  </body>
+</html>

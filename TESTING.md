@@ -3,6 +3,7 @@ Testing
 
 ## Required Gems
 
+* `yard`
 * `vagrant`
 * `foodcritic`
 * `rubocop`
@@ -31,6 +32,10 @@ You can install gem dependencies with bundler:
 
     $ gem install bundler
     $ bundle install --without travis
+
+## Generating the Documentation
+
+    $ bundle exec rake doc
 
 ## Running the Syntax Style Tests
 

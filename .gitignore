@@ -11,3 +11,4 @@ nodes/
 *.gem
 Gemfile.lock
 coverage
+doc

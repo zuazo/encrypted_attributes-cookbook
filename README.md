@@ -67,8 +67,6 @@ Helper Libraries
 
 See the [Chef::EncryptedAttributesHelpers documentation](http://www.rubydoc.info/github/onddo/encrypted_attributes-cookbook/master/Chef/EncryptedAttributesHelpers).
 
-You can also browse the [`doc/`](https://github.com/onddo/encrypted_attributes-cookbook/tree/master/doc) directory.
-
 Usage Examples
 ==============
 

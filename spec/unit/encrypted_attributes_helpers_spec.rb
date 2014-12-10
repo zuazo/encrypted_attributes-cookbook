@@ -18,7 +18,7 @@
 #
 
 require 'spec_helper'
-require 'chef/encrypted_attributes'
+require 'support/encrypted_attributes'
 require 'encrypted_attributes_helpers.rb'
 
 # A recipe which includes EncryptedAttributesHelpers

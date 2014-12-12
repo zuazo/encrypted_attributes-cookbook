@@ -32,25 +32,47 @@ describe 'encrypted_attributes::default', order: :random do
   before do
     allow(Kernel).to receive(:require).with('chef/encrypted_attributes')
   end
-  let(:chef_runner) { ChefSpec::SoloRunner.new }
+  let(:chef_runner) { ChefSpec::ServerRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
-  let(:node) { chef_run.node }
+  let(:node) { chef_runner.node }
 
   it 'installs chef-encrypted-attributes gem' do
     expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
   end
 
-  it 'installs require chef-encrypted-attributes gem' do
+  it 'requires chef-encrypted-attributes gem' do
     expect(Kernel).to receive(:require).with('chef/encrypted_attributes')
     chef_run
   end
 
+  context 'with specific version' do
+    let(:version) { '0.3.0' }
+    before { node.set['encrypted_attributes']['version'] = version }
+
+    it 'installs chef-encrypted-attributes gem specific version' do
+      expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
+        .with_version(version)
+    end
+  end
+
+  context 'with prerelease version' do
+    let(:version) { '0.5.0.beta' }
+    before { node.set['encrypted_attributes']['version'] = version }
+
+    it 'installs chef-encrypted-attributes gem prerelease version' do
+      expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
+        .with_version(version)
+        .with_options('--prerelease')
+    end
+  end
+
   context 'with FreeBSD' do
     let(:chef_runner) do
-      ChefSpec::SoloRunner.new(platform: 'freebsd', version: '9.2')
+      ChefSpec::ServerRunner.new(platform: 'freebsd', version: '9.2')
     end
 
     it 'sets freebsd cookbook compile time' do
+      chef_run
       expect(node['freebsd']['compiletime_portsnap']).to be(true)
     end
   end # context with FreeBSD

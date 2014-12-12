@@ -42,12 +42,12 @@ else
   # install from rubygems
   prerelease =
     node['encrypted_attributes']['version'].is_a?(String) &&
-    node['encrypted_attributes']['version'].match(/^[0-9.]+$/) != true
+    node['encrypted_attributes']['version'].match(/^[0-9.]+$/).nil?
   chef_gem 'chef-encrypted-attributes' do
     if node['encrypted_attributes']['version'].is_a?(String)
       version node['encrypted_attributes']['version']
     end
-    options(prerelease: true) if prerelease
+    options('--prerelease') if prerelease
   end
 end
 

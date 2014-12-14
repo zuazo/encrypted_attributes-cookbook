@@ -63,7 +63,6 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
   end
 
   context '#encrypted_attributes_enabled?' do
-
     it 'returns true by default' do
       expect(helpers.encrypted_attributes_enabled?).to eq(true)
     end
@@ -77,7 +76,6 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
       node.set['dev_mode'] = true
       expect(helpers.encrypted_attributes_enabled?).to eq(false)
     end
-
   end
 
   context '#encrypted_attribute_read' do
@@ -105,7 +103,6 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
       expect(helpers).to_not receive(:include_recipe)
       expect(helpers.encrypted_attribute_read(%w(ftp password))).to eq(secret)
     end
-
   end
 
   context '#encrypted_attribute_read_from_node' do
@@ -138,7 +135,6 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
         helpers.encrypted_attribute_read_from_node('node1', %w(ftp password))
       ).to eq(nil)
     end
-
   end
 
   context '#encrypted_attribute_write' do
@@ -177,7 +173,6 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
           .and_return(true).once
         helpers.encrypted_attribute_write(%w(ftp password)) { secret }
       end
-
     end
 
     it 'does not call EncryptedAttribute#exist? when disabled' do
@@ -228,29 +223,24 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
       expect(helpers.encrypted_attribute_write(%w(ftp password)) { secret })
         .to eq(secret)
     end
-
   end
 
   context '#encrypted_attributes_allow_clients' do
-
     it 'sets Chef::Config[:encrypted_attributes][:client_search]' do
       Chef::Config[:encrypted_attributes][:client_search] = nil
       helpers.encrypted_attributes_allow_clients('SEARCH_QUERY')
       expect(Chef::Config[:encrypted_attributes][:client_search])
         .to eq('SEARCH_QUERY')
     end
-
   end
 
   context '#encrypted_attributes_allow_nodes' do
-
     it 'sets Chef::Config[:encrypted_attributes][:node_search]' do
       Chef::Config[:encrypted_attributes][:node_search] = nil
       helpers.encrypted_attributes_allow_nodes('SEARCH_QUERY')
       expect(Chef::Config[:encrypted_attributes][:node_search])
         .to eq('SEARCH_QUERY')
     end
-
   end
 
   context '#encrypted_attributes_disable' do
@@ -261,7 +251,6 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
   end
 
   context '#encrypted_attributes_enabled' do
-
     it 'enables encrypted attributes when true' do
       helpers.encrypted_attributes_enabled = true
       expect(helpers.encrypted_attributes_enabled?).to eq(true)
@@ -271,7 +260,5 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
       helpers.encrypted_attributes_enabled = false
       expect(helpers.encrypted_attributes_enabled?).to eq(false)
     end
-
   end
-
 end

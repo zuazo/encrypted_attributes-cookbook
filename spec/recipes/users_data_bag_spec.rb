@@ -52,5 +52,4 @@ describe 'encrypted_attributes::users_data_bag', order: :random do
     expect(Chef::Config[:encrypted_attributes][:keys])
       .to eql([@bob_key, @alice_key])
   end
-
 end

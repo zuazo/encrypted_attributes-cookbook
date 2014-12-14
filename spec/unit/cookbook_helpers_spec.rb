@@ -42,7 +42,6 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
           expect(helpers.require_build_essential?(test[:gem_version]))
             .to be(test[:result])
         end
-
       end # context with Chef x and gem version y
     end # each test
 
@@ -71,7 +70,6 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
           expect(helpers.skip_gem_dependencies?(test[:gem_version]))
             .to be(test[:result])
         end
-
       end # context with Chef x and gem version y
     end # each test
 

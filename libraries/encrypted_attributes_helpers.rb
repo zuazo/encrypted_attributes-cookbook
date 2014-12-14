@@ -266,12 +266,9 @@ class Chef
     #   structure is wrong.
     # @private
     def encrypted_attribute_load_from_node(node, attr_ary)
-      if encrypted_attributes_enabled?
-        encrypted_attributes_include
-        Chef::EncryptedAttribute.load_from_node(node, attr_ary)
-      else
-        nil
-      end
+      return nil unless encrypted_attributes_enabled?
+      encrypted_attributes_include
+      Chef::EncryptedAttribute.load_from_node(node, attr_ary)
     end
 
     # Creates an encrypted attribute on the local node.

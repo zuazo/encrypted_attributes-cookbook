@@ -114,7 +114,6 @@ describe 'encrypted_attributes::default', order: :random do
             .with_options(/--ignore-dependencies/)
         end
       end # else test[:builds]
-
     end # context with Chef x and gem version y
   end # each test
 end

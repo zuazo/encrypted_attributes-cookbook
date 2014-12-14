@@ -34,6 +34,11 @@ suites:
     - recipe[encrypted_attributes_test::default]
   provisioner:
     require_chef_omnibus: 11.16.4
+- name: chef11old
+  run_list:
+    - recipe[encrypted_attributes_test::default]
+  provisioner:
+    require_chef_omnibus: 11.12.8
 # chef-encrypted-attributes 0.3.0 only works with Chef 11 due to depends
 # - name: oldgem
 #   run_list:
@@ -44,6 +49,14 @@ suites:
 - name: oldgem-chef11
   provisioner:
     require_chef_omnibus: 11.16.4
+  run_list:
+    - recipe[encrypted_attributes_test::default]
+  attributes:
+    encrypted_attributes:
+      version: 0.3.0
+- name: oldgem-chef11old
+  provisioner:
+    require_chef_omnibus: 11.12.8
   run_list:
     - recipe[encrypted_attributes_test::default]
   attributes:

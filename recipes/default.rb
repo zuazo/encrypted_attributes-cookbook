@@ -19,7 +19,18 @@
 # limitations under the License.
 #
 
-include_recipe 'build-essential'
+gem_version = node['encrypted_attributes']['version']
+gem_options = []
+
+if EncryptedAttributesCookbook::Helpers.require_build_essential?(gem_version)
+  include_recipe 'build-essential'
+end
+if EncryptedAttributesCookbook::Helpers.skip_gem_dependencies?(gem_version)
+  gem_options << '--ignore-dependencies'
+end
+if EncryptedAttributesCookbook::Helpers.prerelease?(gem_version)
+  gem_options << '--prerelease'
+end
 
 if node['encrypted_attributes']['mirror_url'].is_a?(String) &&
    node['encrypted_attributes']['version'].is_a?(String)
@@ -32,22 +43,22 @@ if node['encrypted_attributes']['mirror_url'].is_a?(String) &&
   )
   file_url =
     "#{node['encrypted_attributes']['mirror_url']}/#{encrypted_attribute_file}"
+
   remote_file file_path do
     source file_url
   end.run_action(:create)
+
   gem_package 'chef-encrypted-attributes' do
     source ::File.join(Chef::Config[:file_cache_path], encrypted_attribute_file)
+    options(gem_options.join(' '))
   end.run_action(:install)
 else
   # install from rubygems
-  prerelease =
-    node['encrypted_attributes']['version'].is_a?(String) &&
-    node['encrypted_attributes']['version'].match(/^[0-9.]+$/).nil?
   chef_gem 'chef-encrypted-attributes' do
     if node['encrypted_attributes']['version'].is_a?(String)
       version node['encrypted_attributes']['version']
     end
-    options('--prerelease') if prerelease
+    options(gem_options.join(' '))
   end
 end
 

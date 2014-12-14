@@ -26,11 +26,13 @@ platforms:
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
+  run_list: ["recipe[apt]"]
 
 - name: debian-7-0-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
+  run_list: ["recipe[apt]"]
 
 - name: fedora-19-x64
   driver_plugin: digitalocean
@@ -46,16 +48,19 @@ platforms:
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
+  run_list: ["recipe[apt]"]
 
 - name: ubuntu-12-04-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
+  run_list: ["recipe[apt]"]
 
 - name: ubuntu-14-04-x64
   driver_plugin: digitalocean
   driver_config:
     flavor: 512MB
+  run_list: ["recipe[apt]"]
 
 - name: amazon-2011.02.1
   driver_plugin: ec2

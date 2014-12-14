@@ -19,6 +19,8 @@
 # limitations under the License.
 #
 
+# TODO: this will force compiletime updates and is only required sometimes, when
+# `build-essentials` cookbook will be included.
 if node['platform'] == 'freebsd'
   default['freebsd']['compiletime_portsnap'] = true
 elsif %w(debian ubuntu).include?(node['platform'])

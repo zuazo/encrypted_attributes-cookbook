@@ -62,10 +62,9 @@ describe 'encrypted_attributes::default', order: :random do
     it 'installs chef-encrypted-attributes gem prerelease version' do
       expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
         .with_version(version)
-        .with_options('--prerelease')
+        .with_options(/--prerelease/)
     end
   end
-
   context 'with FreeBSD' do
     let(:chef_runner) do
       ChefSpec::ServerRunner.new(platform: 'freebsd', version: '9.2')
@@ -77,4 +76,45 @@ describe 'encrypted_attributes::default', order: :random do
     end
   end # context with FreeBSD
 
+  [
+    { chef_version: '12.0.0',  gem_version: nil,     builds: false },
+    { chef_version: '12.0.0',  gem_version: '0.4.0', builds: false },
+    { chef_version: '11.16.4', gem_version: nil,     builds: false },
+    { chef_version: '11.16.4', gem_version: '0.4.0', builds: false },
+    { chef_version: '11.16.4', gem_version: '0.3.0', builds: true  },
+    { chef_version: '11.12.8', gem_version: nil,     builds: true  },
+    { chef_version: '11.12.8', gem_version: '0.4.0', builds: true  },
+    { chef_version: '11.12.8', gem_version: '0.3.0', builds: false }
+  ].each do |test|
+    context "with Chef #{test[:chef_version].inspect} and gem version"\
+            " #{test[:gem_version].inspect}" do
+      before do
+        stub_const('Chef::VERSION', test[:chef_version])
+        node.set['encrypted_attributes']['version'] = test[:gem_version]
+      end
+
+      if test[:builds]
+        it 'includes build-essential recipe' do
+          expect(chef_run).to include_recipe('build-essential')
+        end
+
+        it 'installs chef-encrypted-attributes dependencies' do
+          expect(chef_run).to_not install_chef_gem('chef-encrypted-attributes')
+            .with_version(test[:gem_version])
+            .with_options(/--ignore-dependencies/)
+        end
+      else
+        it 'includes build-essential recipe' do
+          expect(chef_run).to_not include_recipe('build-essential')
+        end
+
+        it 'installs chef-encrypted-attributes dependencies' do
+          expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
+            .with_version(test[:gem_version])
+            .with_options(/--ignore-dependencies/)
+        end
+      end # else test[:builds]
+
+    end # context with Chef x and gem version y
+  end # each test
 end

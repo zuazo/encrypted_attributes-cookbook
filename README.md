@@ -3,8 +3,8 @@ Description
 [![Cookbook Version](https://img.shields.io/cookbook/v/encrypted_attributes.svg?style=flat)](https://supermarket.getchef.com/cookbooks/encrypted_attributes)
 [![Dependency Status](http://img.shields.io/gemnasium/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://gemnasium.com/onddo/encrypted_attributes-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://codeclimate.com/github/onddo/encrypted_attributes-cookbook)
-[![Build Status](http://img.shields.io/travis/onddo/encrypted_attributes-cookbook/0.5.0.svg?style=flat)](https://travis-ci.org/onddo/encrypted_attributes-cookbook)
-[![Coverage Status](http://img.shields.io/coveralls/onddo/encrypted_attributes-cookbook/0.5.0.svg?style=flat)](https://coveralls.io/r/onddo/encrypted_attributes-cookbook?branch=0.5.0)
+[![Build Status](http://img.shields.io/travis/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://travis-ci.org/onddo/encrypted_attributes-cookbook)
+[![Coverage Status](http://img.shields.io/coveralls/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://coveralls.io/r/onddo/encrypted_attributes-cookbook?branch=master)
 [![Inline docs](http://inch-ci.org/github/onddo/encrypted_attributes-cookbook.svg?branch=master&style=flat)](http://inch-ci.org/github/onddo/encrypted_attributes-cookbook)
 
 Installs and enables [`chef-encrypted-attributes`](http://onddo.github.io/chef-encrypted-attributes/) gem: Chef plugin to add Node encrypted attributes support using client keys.
@@ -65,7 +65,7 @@ Configures `chef-encrypted-attributes` Chef User keys reading them from a data b
 Helper Libraries
 ================
 
-See the [Chef::EncryptedAttributesHelpers documentation](http://www.rubydoc.info/github/onddo/encrypted_attributes-cookbook/0.5.0/Chef/EncryptedAttributesHelpers).
+See the [Chef::EncryptedAttributesHelpers documentation](http://www.rubydoc.info/github/onddo/encrypted_attributes-cookbook/master/Chef/EncryptedAttributesHelpers).
 
 Usage Examples
 ==============

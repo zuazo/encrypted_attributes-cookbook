@@ -17,11 +17,5 @@
 # limitations under the License.
 #
 
-begin
-  require 'chef/encrypted_attributes'
-rescue LoadError
-  require 'chef-encrypted-attributes'
-  Chef::Log.warn(
-    'Old chef-encrypted-attributes gem detected, please upgrade ASAP.'
-  )
-end
+require 'encrypted_attributes_requirements'
+Chef::EncryptedAttributesRequirements.load

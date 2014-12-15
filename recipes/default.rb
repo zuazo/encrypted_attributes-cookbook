@@ -62,11 +62,4 @@ else
   end
 end
 
-begin
-  require 'chef/encrypted_attributes'
-rescue LoadError
-  require 'chef-encrypted-attributes'
-  Chef::Log.warn(
-    'Old chef-encrypted-attributes gem detected, please upgrade ASAP.'
-  )
-end
+Chef::EncryptedAttributesRequirements.load

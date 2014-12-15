@@ -18,15 +18,7 @@
 #
 
 require 'spec_helper'
-
-class Chef
-  # make `Kernel#require` mockable
-  class Recipe
-    def require(string)
-      Kernel.require(string)
-    end
-  end
-end
+require 'encrypted_attributes_requirements'
 
 describe 'encrypted_attributes::default', order: :random do
   before do
@@ -40,8 +32,9 @@ describe 'encrypted_attributes::default', order: :random do
     expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
   end
 
-  it 'requires chef-encrypted-attributes gem' do
-    expect(Kernel).to receive(:require).with('chef/encrypted_attributes')
+  it 'loads chef-encrypted-attributes gem' do
+    expect(Chef::EncryptedAttributesRequirements)
+      .to receive(:require).with('chef/encrypted_attributes')
     chef_run
   end
 

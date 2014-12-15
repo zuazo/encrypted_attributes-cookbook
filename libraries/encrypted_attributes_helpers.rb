@@ -131,14 +131,7 @@ class Chef
     # @private
     def encrypted_attributes_include
       run_context.include_recipe 'encrypted_attributes'
-      begin
-        require 'chef/encrypted_attributes'
-      rescue LoadError
-        require 'chef-encrypted-attributes'
-        Chef::Log.warn(
-          'Old chef-encrypted-attributes gem detected, please upgrade ASAP.'
-        )
-      end
+      Chef::EncryptedAttributesRequirements.load
     end
 
     # Gets Chef Node attribute values.

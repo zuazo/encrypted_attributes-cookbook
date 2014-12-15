@@ -18,8 +18,8 @@
 #
 
 require 'spec_helper'
+require 'encrypted_attributes_helpers'
 require 'support/encrypted_attributes'
-require 'encrypted_attributes_helpers.rb'
 
 # A recipe which includes EncryptedAttributesHelpers
 class FakeRecipe
@@ -35,6 +35,20 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
     allow(helpers).to receive(:node).and_return(node)
     allow(helpers).to receive(:include_recipe).and_return(true)
   end
+
+  context '#encrypted_attributes_include' do
+    before { allow(Chef::EncryptedAttributesRequirements).to receive(:load) }
+    after { helpers.encrypted_attributes_include }
+
+    it 'includes encrypted_attributes recipe' do
+      expect(helpers).to receive(:include_recipe).with('encrypted_attributes')
+        .and_return(true)
+    end
+
+    it 'loads chef/encrypted_attributes' do
+      expect(Chef::EncryptedAttributesRequirements).to receive(:load).once
+    end
+  end # context #encrypted_attributes_include
 
   context '#config_set' do
     it 'does not raise an execption' do

@@ -101,21 +101,41 @@ class EncryptedAttributesCookbook
 
     # Checks if gem dependencies should be installed or not.
     #
-    # We should skip installing gem dependencies if already included by Chef.
-    #
     # | **Gem Version**       | **0.4.0** *(latest)* | **0.3.0** |
     # |-----------------------|----------------------|-----------|
     # | **Chef `12`**         | yes                  | -         |
-    # | **Chef `>= 11.16.4`** | yes                  | no        |
-    # | **Chef `< 11.16.4`**  | no                   | yes       |
+    # | **Chef `>= 11.16.4`** | yes                  | yes       |
+    # | **Chef `< 11.16.4`**  | yes                  | yes       |
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if dependencies installation should be skipped.
+    def self.skip_gem_dependencies?(_gem_version)
+      true
+    end
+
+    # Gets required gem dependencies.
+    #
+    # We should return no dependencies if already included by Chef.
+    #
+    # | **Gem Version**       | **0.4.0** *(latest)* | **0.3.0** |
+    # |-----------------------|----------------------|-----------|
+    # | **Chef `12`**         | -                    | -         |
+    # | **Chef `>= 11.16.4`** | -                    | yajl-ruby |
+    # | **Chef `< 11.16.4`**  | ffi-yajl             | -         |
+    #
+    # @param gem_version [String] gem version to install.
+    # @return [Hash<String, String>] list of gem dependencies required as
+    #   `Hash<Name, Version>`.
     # @raise [RuntimeError] if specified gem version is wrong.
-    def self.skip_gem_dependencies?(gem_version)
-      # == !require_build_essential?(gem_version)
-      chef12? || (chef11old? && oldgem?(gem_version)) ||
-        (chef11new? && newgem?(gem_version))
+    def self.required_depends(gem_version)
+      # TODO: Add dependency versions?
+      if chef11new? && oldgem?(gem_version)
+        { 'yajl-ruby' => nil }
+      elsif chef11old? && newgem?(gem_version)
+        { 'ffi-yajl' => nil }
+      else
+        {}
+      end
     end
 
     # Checks if the gem version to install is a prerelease version.

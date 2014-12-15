@@ -32,6 +32,14 @@ if EncryptedAttributesCookbook::Helpers.prerelease?(gem_version)
   gem_options << '--prerelease'
 end
 
+# Install the required dependencies
+depends = EncryptedAttributesCookbook::Helpers.required_depends(gem_version)
+depends.each do |dep, v|
+  chef_gem dep do
+    version v
+  end
+end
+
 if node['encrypted_attributes']['mirror_url'].is_a?(String) &&
    node['encrypted_attributes']['version'].is_a?(String)
   # install from a mirror

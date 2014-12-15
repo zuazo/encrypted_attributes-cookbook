@@ -46,6 +46,7 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
     end # each test
 
     it 'raises an error if gem version is wrong' do
+      stub_const('Chef::VERSION', '11.12.8')
       expect { helpers.require_build_essential?(Object.new) }
         .to raise_error(/EncryptedAttributesCookbook: Wrong gem version set/)
     end
@@ -53,14 +54,14 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
 
   context '.skip_gem_dependencies?' do
     [
-      { chef_version: '12.0.0',  gem_version: nil,     result: true  },
-      { chef_version: '12.0.0',  gem_version: '0.4.0', result: true  },
-      { chef_version: '11.16.4', gem_version: nil,     result: true  },
-      { chef_version: '11.16.4', gem_version: '0.4.0', result: true  },
-      { chef_version: '11.16.4', gem_version: '0.3.0', result: false },
-      { chef_version: '11.12.8', gem_version: nil,     result: false },
-      { chef_version: '11.12.8', gem_version: '0.4.0', result: false },
-      { chef_version: '11.12.8', gem_version: '0.3.0', result: true  }
+      { chef_version: '12.0.0',  gem_version: nil,     result: true },
+      { chef_version: '12.0.0',  gem_version: '0.4.0', result: true },
+      { chef_version: '11.16.4', gem_version: nil,     result: true },
+      { chef_version: '11.16.4', gem_version: '0.4.0', result: true },
+      { chef_version: '11.16.4', gem_version: '0.3.0', result: true },
+      { chef_version: '11.12.8', gem_version: nil,     result: true },
+      { chef_version: '11.12.8', gem_version: '0.4.0', result: true },
+      { chef_version: '11.12.8', gem_version: '0.3.0', result: true }
     ].each do |test|
       context "with Chef #{test[:chef_version].inspect} and gem version"\
               " #{test[:gem_version].inspect}" do
@@ -72,12 +73,37 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
         end
       end # context with Chef x and gem version y
     end # each test
+  end # context .skip_gem_dependencies?
+
+  context '.required_depends' do
+    [
+      { chef_version: '12.0.0',  gem_version: nil,     result: nil         },
+      { chef_version: '12.0.0',  gem_version: '0.4.0', result: nil         },
+      { chef_version: '11.16.4', gem_version: nil,     result: nil         },
+      { chef_version: '11.16.4', gem_version: '0.4.0', result: nil         },
+      { chef_version: '11.16.4', gem_version: '0.3.0', result: 'yajl-ruby' },
+      { chef_version: '11.12.8', gem_version: nil,     result: 'ffi-yajl'  },
+      { chef_version: '11.12.8', gem_version: '0.4.0', result: 'ffi-yajl'  },
+      { chef_version: '11.12.8', gem_version: '0.3.0', result: nil         }
+    ].each do |test|
+      context "with Chef #{test[:chef_version].inspect} and gem version"\
+              " #{test[:gem_version].inspect}" do
+        before { stub_const('Chef::VERSION', test[:chef_version]) }
+
+        it "returns #{test[:result].inspect} as dependency" do
+          result = test[:result].nil? ? {} : { test[:result] => nil }
+          expect(helpers.required_depends(test[:gem_version]))
+            .to eq(result)
+        end
+      end # context with Chef x and gem version y
+    end # each test
 
     it 'raises an error if gem version is wrong' do
-      expect { helpers.skip_gem_dependencies?(Object.new) }
+      stub_const('Chef::VERSION', '11.12.8')
+      expect { helpers.required_depends(Object.new) }
         .to raise_error(/EncryptedAttributesCookbook: Wrong gem version set/)
     end
-  end # context .skip_gem_dependencies?
+  end # context .required_depends
 
   context '.prerelease?' do
     {

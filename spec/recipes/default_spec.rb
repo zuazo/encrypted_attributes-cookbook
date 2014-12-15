@@ -70,43 +70,40 @@ describe 'encrypted_attributes::default', order: :random do
   end # context with FreeBSD
 
   [
-    { chef_version: '12.0.0',  gem_version: nil,     builds: false },
-    { chef_version: '12.0.0',  gem_version: '0.4.0', builds: false },
-    { chef_version: '11.16.4', gem_version: nil,     builds: false },
-    { chef_version: '11.16.4', gem_version: '0.4.0', builds: false },
-    { chef_version: '11.16.4', gem_version: '0.3.0', builds: true  },
-    { chef_version: '11.12.8', gem_version: nil,     builds: true  },
-    { chef_version: '11.12.8', gem_version: '0.4.0', builds: true  },
-    { chef_version: '11.12.8', gem_version: '0.3.0', builds: false }
+    { chef: '12.0.0',  gem: nil,     builds: false, depend: nil         },
+    { chef: '12.0.0',  gem: '0.4.0', builds: false, depend: nil         },
+    { chef: '11.16.4', gem: nil,     builds: false, depend: nil         },
+    { chef: '11.16.4', gem: '0.4.0', builds: false, depend: nil         },
+    { chef: '11.16.4', gem: '0.3.0', builds: true,  depend: 'yajl-ruby' },
+    { chef: '11.12.8', gem: nil,     builds: true,  depend: 'ffi-yajl'  },
+    { chef: '11.12.8', gem: '0.4.0', builds: true,  depend: 'ffi-yajl'  },
+    { chef: '11.12.8', gem: '0.3.0', builds: false, depend: nil         }
   ].each do |test|
-    context "with Chef #{test[:chef_version].inspect} and gem version"\
-            " #{test[:gem_version].inspect}" do
+    context "with Chef #{test[:chef].inspect} and gem version"\
+            " #{test[:gem].inspect}" do
       before do
-        stub_const('Chef::VERSION', test[:chef_version])
-        node.set['encrypted_attributes']['version'] = test[:gem_version]
+        stub_const('Chef::VERSION', test[:chef])
+        node.set['encrypted_attributes']['version'] = test[:gem]
       end
 
-      if test[:builds]
-        it 'includes build-essential recipe' do
-          expect(chef_run).to include_recipe('build-essential')
-        end
+      it 'includes build-essential recipe', if: test[:builds] do
+        expect(chef_run).to include_recipe('build-essential')
+      end
 
-        it 'installs chef-encrypted-attributes dependencies' do
-          expect(chef_run).to_not install_chef_gem('chef-encrypted-attributes')
-            .with_version(test[:gem_version])
-            .with_options(/--ignore-dependencies/)
-        end
-      else
-        it 'includes build-essential recipe' do
-          expect(chef_run).to_not include_recipe('build-essential')
-        end
+      it 'does not include build-essential recipe', unless: test[:builds] do
+        expect(chef_run).to_not include_recipe('build-essential')
+      end
 
-        it 'installs chef-encrypted-attributes dependencies' do
-          expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
-            .with_version(test[:gem_version])
-            .with_options(/--ignore-dependencies/)
-        end
-      end # else test[:builds]
+      it "installs #{test[:depend].inspect} dependency gem",
+         unless: test[:depend].nil? do
+        expect(chef_run).to install_chef_gem(test[:depend])
+      end
+
+      it 'installs chef-encrypted-attributes dependencies' do
+        expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
+          .with_version(test[:gem])
+          .with_options(/--ignore-dependencies/)
+      end
     end # context with Chef x and gem version y
   end # each test
 end

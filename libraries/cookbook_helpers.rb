@@ -85,11 +85,11 @@ class EncryptedAttributesCookbook
     #
     # This is used only for native gems compilation.
     #
-    # | *build-essential?*     | `0.4.0` (latest) | `0.3.0` |
-    # |------------------------|------------------|---------|
-    # | **Chef `12`**          | no               | -       |
-    # | **Chef `>= 11.16.4`**  | no               | yes     |
-    # | **Chef `< 11.16.4`**   | yes              | no      |
+    # | **Gem Version**       | **0.4.0** *(latest)* | **0.3.0** |
+    # |-----------------------|----------------------|-----------|
+    # | **Chef `12`**         | no                   | -         |
+    # | **Chef `>= 11.16.4`** | no                   | yes       |
+    # | **Chef `< 11.16.4`**  | yes                  | no        |
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if `build-essential` cookbook is required.
@@ -103,11 +103,11 @@ class EncryptedAttributesCookbook
     #
     # We should skip installing gem dependencies if already included by Chef.
     #
-    # | `--ignore-dependencies`      | `0.4.0` (latest) | `0.3.0` |
-    # |------------------------------|------------------|---------|
-    # | **Chef `12`**                | yes              | -       |
-    # | **Chef `>= 11.16.4`**        | yes              | no      |
-    # | **Chef `< 11.16.4`**         | no               | yes     |
+    # | **Gem Version**       | **0.4.0** *(latest)* | **0.3.0** |
+    # |-----------------------|----------------------|-----------|
+    # | **Chef `12`**         | yes                  | -         |
+    # | **Chef `>= 11.16.4`** | yes                  | no        |
+    # | **Chef `< 11.16.4`**  | no                   | yes       |
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if dependencies installation should be skipped.

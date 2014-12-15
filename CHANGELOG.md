@@ -3,6 +3,24 @@ encrypted_attributes CHANGELOG
 
 This file is used to list changes made in each version of the `encrypted_attributes` cookbook.
 
+## v0.5.0 (2014-12-15)
+
+* Add `::expose_key` recipe.
+* Update to work with `chef-encrypted-attributes` gem `0.4.0`.
+ * Use `build-essential` and install gem depends only when required.
+ * Add `Chef::EncryptedAttributesRequirements` class.
+ * Install gem dependencies explicitly.
+* Fix gem specific and prerelease versions install.
+* Fix integration tests for Chef `12.0.0` and `12.0.1`.
+* `encrypted_attributes_test`: Save the attribute as normal.
+* kitchen: Add suites for previous gem, Chef `11.12`, `11.16` and Chef `12`.
+* Update to RuboCop `0.28.0`.
+* travis.yml: Use the new build env.
+* Gemfile: Use fixed foodcritic and RuboCop versions.
+* Add Ruby documentation, integrated with yard and inch.
+ * Move `Chef::EncryptedAttributesHelpers` documentation to gem docs.
+* README: Add inch-ci documentation badge.
+
 ## v0.4.0 (2014-11-08)
 
 * Allow `Chef::EncryptedAttributesHelpers` to be used from LWRPs.

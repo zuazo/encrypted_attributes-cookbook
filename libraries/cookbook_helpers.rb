@@ -85,11 +85,28 @@ class EncryptedAttributesCookbook
     #
     # This is used only for native gems compilation.
     #
-    # | *build-essential?*     | `0.4.0` (latest) | `0.3.0` |
-    # |------------------------|------------------|---------|
-    # | **Chef `12`**          | no               | -       |
-    # | **Chef `>= 11.16.4`**  | no               | yes     |
-    # | **Chef `< 11.16.4`**   | yes              | no      |
+    # <table>
+    #   <tr>
+    #     <th><code>build-essential?</code></th>
+    #     <th><code>0.4.0</code> <em>(latest)</em></th>
+    #     <th><code>0.3.0</code></th>
+    #   </tr>
+    #   <tr>
+    #     <th>Chef <code>12</code></th>
+    #     <td>no</td>
+    #     <td>-</td>
+    #   </tr>
+    #   <tr>
+    #     <th>Chef <code>&ge; 11.16.4</code></th>
+    #     <td>no</td>
+    #     <td>yes</td>
+    #   </tr>
+    #   <tr>
+    #     <th>Chef <code>&lt; 11.16.4</code></th>
+    #     <td>yes</td>
+    #     <td>no</td>
+    #   </tr>
+    # </table>
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if `build-essential` cookbook is required.
@@ -103,11 +120,28 @@ class EncryptedAttributesCookbook
     #
     # We should skip installing gem dependencies if already included by Chef.
     #
-    # | `--ignore-dependencies`      | `0.4.0` (latest) | `0.3.0` |
-    # |------------------------------|------------------|---------|
-    # | **Chef `12`**                | yes              | -       |
-    # | **Chef `>= 11.16.4`**        | yes              | no      |
-    # | **Chef `< 11.16.4`**         | no               | yes     |
+    # <table>
+    #   <tr>
+    #     <th><code>--ignore-dependencies</code></th>
+    #     <th><code>0.4.0</code> <em>(latest)</em></th>
+    #     <th><code>0.3.0</code></th>
+    #   </tr>
+    #   <tr>
+    #     <th>Chef <code>12</code></th>
+    #     <td>yes</td>
+    #     <td>-</td>
+    #   </tr>
+    #   <tr>
+    #     <th>Chef <code>&ge; 11.16.4</code></th>
+    #     <td>yes</td>
+    #     <td>no</td>
+    #   </tr>
+    #   <tr>
+    #     <th>Chef <code>&lt; 11.16.4</code></th>
+    #     <td>no</td>
+    #     <td>yes</td>
+    #   </tr>
+    # </table>
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if dependencies installation should be skipped.

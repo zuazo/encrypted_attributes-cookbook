@@ -132,7 +132,7 @@ class EncryptedAttributesCookbook
       if chef11new? && oldgem?(gem_version)
         { 'yajl-ruby' => nil }
       elsif chef11old? && newgem?(gem_version)
-        { 'ffi-yajl' => nil }
+        { 'ffi-yajl' => '1.0.2' }
       else
         {}
       end

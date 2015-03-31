@@ -81,9 +81,12 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
       { chef_version: '12.0.0',  gem_version: '0.4.0', result: nil         },
       { chef_version: '11.16.4', gem_version: nil,     result: nil         },
       { chef_version: '11.16.4', gem_version: '0.4.0', result: nil         },
-      { chef_version: '11.16.4', gem_version: '0.3.0', result: 'yajl-ruby' },
-      { chef_version: '11.12.8', gem_version: nil,     result: 'ffi-yajl'  },
-      { chef_version: '11.12.8', gem_version: '0.4.0', result: 'ffi-yajl'  },
+      { chef_version: '11.16.4', gem_version: '0.3.0', result: 'yajl-ruby',
+        result_version: nil },
+      { chef_version: '11.12.8', gem_version: nil,     result: 'ffi-yajl',
+        result_version: '1.0.2' },
+      { chef_version: '11.12.8', gem_version: '0.4.0', result: 'ffi-yajl',
+        result_version: '1.0.2' },
       { chef_version: '11.12.8', gem_version: '0.3.0', result: nil         }
     ].each do |test|
       context "with Chef #{test[:chef_version].inspect} and gem version"\
@@ -91,7 +94,8 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
         before { stub_const('Chef::VERSION', test[:chef_version]) }
 
         it "returns #{test[:result].inspect} as dependency" do
-          result = test[:result].nil? ? {} : { test[:result] => nil }
+          result = test[:result].nil? ? {} : { test[:result] =>
+                                                   test[:result_version] }
           expect(helpers.required_depends(test[:gem_version]))
             .to eq(result)
         end

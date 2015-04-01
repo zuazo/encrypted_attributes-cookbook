@@ -33,9 +33,11 @@ describe Chef::EncryptedAttributesRequirements, order: :random do
       before do
         allow(Chef::EncryptedAttributesRequirements)
           .to receive('require').with('chef/encrypted_attributes')
-          .and_raise(LoadError.new(
-            'LoadError: cannot load such file -- chef/encrypted_attributes'
-          ))
+          .and_raise(
+            LoadError.new(
+              'LoadError: cannot load such file -- chef/encrypted_attributes'
+            )
+          )
         allow(Chef::EncryptedAttributesRequirements)
           .to receive('require').with('chef-encrypted-attributes')
           .and_return(true)

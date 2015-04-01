@@ -3,6 +3,12 @@ encrypted_attributes CHANGELOG
 
 This file is used to list changes made in each version of the `encrypted_attributes` cookbook.
 
+## v0.5.1 (2015-04-01)
+
+* Set `ffi_yajl` version to `1.0.2` ([issue #1](https://github.com/onddo/encrypted_attributes-cookbook/pull/1), thanks [@chhsiung](https://github.com/chhsiung)).
+* Berksfile: Fix `my_cookbook` variable value.
+* Gemfile: update vagrant-wrapper to `2`.
+
 ## v0.5.0 (2014-12-15)
 
 * Add `::expose_key` recipe.

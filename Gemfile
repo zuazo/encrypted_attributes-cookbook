@@ -23,10 +23,11 @@ group :unit do
   gem 'should_not', '~> 1.1'
   gem 'chefspec', '~> 4.1'
   gem 'chef-encrypted-attributes'
+  gem 'ohai', '~> 7.4' if RUBY_VERSION < '2'
 end
 
 group :integration do
-  gem 'vagrant-wrapper', '~> 1.2'
+  gem 'vagrant-wrapper', '~> 2.0'
   gem 'test-kitchen', '~> 1.2'
   gem 'kitchen-vagrant', '~> 0.10'
 end

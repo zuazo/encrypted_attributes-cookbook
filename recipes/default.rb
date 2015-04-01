@@ -25,6 +25,7 @@ gem_options = []
 if EncryptedAttributesCookbook::Helpers.require_build_essential?(gem_version)
   include_recipe 'build-essential'
 end
+
 if EncryptedAttributesCookbook::Helpers.skip_gem_dependencies?(gem_version)
   gem_options << '--ignore-dependencies'
 end

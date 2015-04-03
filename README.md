@@ -60,7 +60,7 @@ Exposes the Client Public Key in attributes. This is a workaround for the Chef C
 
 ## encrypted_attributes::users_data_bag
 
-Configures `chef-encrypted-attributes` Chef User keys reading them from a data bag. This is a workaround for the [Chef Users Limitation problem](http://onddo.github.io/chef-encrypted-attributes/#chef-users-limitation).
+Configures `chef-encrypted-attributes` Chef User keys reading them from a data bag. This is a workaround for the [Chef Users Limitation problem](http://onddo.github.io/chef-encrypted-attributes/#chef-user-keys-access-limitation).
 
 Helper Libraries
 ================

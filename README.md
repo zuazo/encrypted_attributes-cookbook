@@ -82,7 +82,7 @@ Don't forget to include the `encrypted_attributes` cookbook as a dependency in t
 
 ```ruby
 # metadata.rb
-[...]
+# [...]
 
 depends 'encrypted_attributes'
 ```
@@ -107,7 +107,8 @@ Another alternative is to include the default recipe in your *Run List*:
 ```ruby
 include_recipe 'encrypted_attributes'
 
-self.class.send(:include, Opscode::OpenSSL::Password) # include the #secure_password method
+# include the #secure_password method
+self.class.send(:include, Opscode::OpenSSL::Password)
 
 if Chef::EncryptedAttribute.exists?(node['myapp']['ftp_password'])
   # update with the new keys
@@ -122,6 +123,7 @@ else
 end
 
 # use `ftp_pass` for something here ...
+Chef::Log.debug("FTP password: #{ftp_pass}")
 ```
 
 You can also use the `Chef::EncryptedAttributesHelpers` helpers to simplify its use:
@@ -130,10 +132,12 @@ You can also use the `Chef::EncryptedAttributesHelpers` helpers to simplify its 
 include_recipe 'encrypted_attributes'
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
-ftp_pass = encrypted_attribute_write(['myapp', 'ftp_password']) do
+ftp_pass = encrypted_attribute_write(%w(myapp ftp_password)) do
   self.class.send(:include, Opscode::OpenSSL::Password)
   secure_password
 end
+
+Chef::Log.debug("FTP password: #{ftp_pass}")
 ```
 
 **Note:** This example requires the [openssl](https://supermarket.getchef.com/cookbooks/openssl) cookbook.
@@ -211,7 +215,8 @@ include_recipe 'encrypted_attributes'
 # Include the Encrypted Attributes cookbook helpers
 self.class.send(:include, Chef::EncryptedAttributesHelpers)
 
-# We can use an attribute to enable or disable encryption (recommended for tests)
+# We can use an attribute to enable or disable encryption
+# (recommended for tests)
 # self.encrypted_attributes_enabled = node['myapp']['encrypt_attributes']
 
 # Encrypted Attributes will be generated randomly and saved in in the

@@ -94,9 +94,8 @@ Another alternative is to include the default recipe in your *Run List*:
 ```json
 {
   "name": "ftp.onddo.com",
-  [...]
+  "[...]": "[...]",
   "run_list": [
-    [...]
     "recipe[encrypted_attributes]"
   ]
 }
@@ -170,12 +169,12 @@ The keys can be set in *array of strings* format if you prefer:
   "bob": [
     "-----BEGIN PUBLIC KEY-----",
     "MIIBIjANBgkqhkiG9w0BAQEFA...",
-    ...
+    "[...]"
   ],
   "alice": [
     "-----BEGIN PUBLIC KEY-----",
     "MIIBIjANBgkqhkiG9w0BAQEFA...",
-    ...
+    "[...]"
   ]
 }
 ```

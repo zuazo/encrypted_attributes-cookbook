@@ -23,89 +23,81 @@
 class EncryptedAttributesCookbook
   # Some helpers used in the `encrypted_attribute` cookbook.
   module Helpers
-    # Checks if we are in Chef 12.
-    #
-    # @return [Boolean] `true` if we are in Chef `>= 12`.
+    # The latest chef-encrypted-attributes gem version, or at least the latest
+    # that requires different installation steps.  This is used as a default
+    # when a nil version is specified.
     # @api private
-    def self.chef12?
-      Chef::VERSION.to_f >= 12
+    LATEST = '0.6.0'
+
+    # Determines which YAJL library is already available, based on the Chef
+    # version.
+    #
+    # @return [String] the YAJL library that Chef supplies
+    # @api private
+    def self.chef_yajl_library
+      if Gem::Requirement.new('< 11.13').satisfied_by?(
+        Gem::Version.new(Chef::VERSION)
+      )
+        'yajl-ruby'
+      else
+        'ffi-yajl'
+      end
     end
 
-    # Checks if we are in Chef `<= 11.12`.
+    # Determines which yajl library, if any, the gem depends on.
     #
-    # These versions of Chef have `yajl-ruby` gem as dependency.
-    #
-    # @return [Boolean] `true` if we are in Chef `<= 11.12`.
+    # @param [String] gem_version the chef-encrypted-attributes gem version
+    # @return [Hash<String, String>] the YAJL library that the gem depends on
     # @api private
-    def self.chef11old?
-      Chef::VERSION.to_f <= 11.12
+    def self.yajl_dependency_of_gem(gem_version)
+      version = make_gem_version(gem_version)
+
+      case
+      when Gem::Requirement.new('>= 0.6.0').satisfied_by?(version)
+        {}
+      when Gem::Requirement.new('>= 0.4.0').satisfied_by?(version)
+        { 'ffi-yajl' => '1.0.2' }
+      else
+        { 'yajl-ruby' => nil }
+      end
     end
 
-    # Checks if we are in Chef `>= 11.14`.
+    # Converts a string representing a gem version into a Gem::Version object
     #
-    # These versions of Chef have `ffi-yajl` gem as dependency.
-    #
-    # @return [Boolean] `true` if we are in Chef `>= 11.14`.
+    # @param [String] gem_version the chef-encrypted-attributes gem version
+    # @return [Gem::Version] an object representing the version
     # @api private
-    def self.chef11new?
-      !chef12? && !chef11old?
-    end
-
-    # Checks if we are going to install `chef-encrypted-attributes gem version
-    # `< 0.4`.
-    #
-    # Gem versions `< 0.4` have `yajl-ruby` gem as dependency.
-    #
-    # @param gem_version [String] gem version to install.
-    # @return [Boolean] `true` for gem version `< 0.4`.
-    # @raise [RuntimeError] if specified gem version is wrong.
-    # @api private
-    def self.oldgem?(gem_version)
-      return false if gem_version.nil?
-      gem_version.to_f < 0.4
-    rescue NoMethodError
+    def self.make_gem_version(gem_version)
+      Gem::Version.new(gem_version || LATEST)
+    rescue ArgumentError
       raise 'EncryptedAttributesCookbook: Wrong gem version set in '\
             'node["encrypted_attributes"]["version"].'
-    end
-
-    # Checks if we are going to install `chef-encrypted-attributes gem version
-    # `>= 0.4`.
-    #
-    # Gem versions `>= 0.4` have `ffi-yajl` gem as dependency.
-    #
-    # @param gem_version [String] gem version to install.
-    # @return [Boolean] `true` for gem version `>= 0.4`.
-    # @raise [RuntimeError] if specified gem version is wrong.
-    # @api private
-    def self.newgem?(gem_version)
-      !oldgem?(gem_version)
     end
 
     # Checks if `build-essential` cookbook is required.
     #
     # This is used only for native gems compilation.
     #
-    # | **Gem Version**       | **0.4.0** *(latest)* | **0.3.0** |
-    # |-----------------------|----------------------|-----------|
-    # | **Chef `12`**         | no                   | -         |
-    # | **Chef `>= 11.16.4`** | no                   | yes       |
-    # | **Chef `< 11.16.4`**  | yes                  | no        |
+    # | **Gem Version**       | **0.6.0** *(latest)* | **0.4.0** | **0.3.0** |
+    # |-----------------------|----------------------|-----------|-----------|
+    # | **Chef `12`**         | no                   | no        | -         |
+    # | **Chef `>= 11.16.4`** | no                   | no        | yes       |
+    # | **Chef `< 11.16.4`**  | no                   | yes       | no        |
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if `build-essential` cookbook is required.
     # @raise [RuntimeError] if specified gem version is wrong.
     def self.require_build_essential?(gem_version)
-      (chef11old? && newgem?(gem_version)) ||
-        (chef11new? && oldgem?(gem_version))
+      !required_depends(gem_version).empty?
     end
 
     # Checks if gem dependencies should be installed or not.
     #
-    # | **Gem Version**       | **0.4.0** *(latest)* | **0.3.0** |
-    # |-----------------------|----------------------|-----------|
-    # | **Chef `12`**         | yes                  | -         |
-    # | **Chef `>= 11.16.4`** | yes                  | yes       |
-    # | **Chef `< 11.16.4`**  | yes                  | yes       |
+    # | **Gem Version**       | **0.6.0** *(latest)* | **0.4.0** | **0.3.0** |
+    # |-----------------------|----------------------|-----------|-----------|
+    # | **Chef `12`**         | yes                  | yes       | -         |
+    # | **Chef `>= 11.16.4`** | yes                  | yes       | yes       |
+    # | **Chef `< 11.16.4`**  | yes                  | yes       | yes       |
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if dependencies installation should be skipped.
@@ -117,24 +109,19 @@ class EncryptedAttributesCookbook
     #
     # We should return no dependencies if already included by Chef.
     #
-    # | **Gem Version**       | **0.4.0** *(latest)* | **0.3.0** |
-    # |-----------------------|----------------------|-----------|
-    # | **Chef `12`**         | -                    | -         |
-    # | **Chef `>= 11.16.4`** | -                    | yajl-ruby |
-    # | **Chef `< 11.16.4`**  | ffi-yajl             | -         |
+    # | **Gem Version**       | **0.6.0** *(latest)* | **0.4.0** | **0.3.0** |
+    # |-----------------------|----------------------|-----------|-----------|
+    # | **Chef `12`**         | -                    | -         | -         |
+    # | **Chef `>= 11.16.4`** | -                    | -         | yajl-ruby |
+    # | **Chef `< 11.16.4`**  | -                    | ffi-yajl  | -         |
     #
     # @param gem_version [String] gem version to install.
     # @return [Hash<String, String>] list of gem dependencies required as
     #   `Hash<Name, Version>`.
     # @raise [RuntimeError] if specified gem version is wrong.
     def self.required_depends(gem_version)
-      # TODO: Add dependency versions?
-      if chef11new? && oldgem?(gem_version)
-        { 'yajl-ruby' => nil }
-      elsif chef11old? && newgem?(gem_version)
-        { 'ffi-yajl' => '1.0.2' }
-      else
-        {}
+      yajl_dependency_of_gem(gem_version).reject do |gem_name, _|
+        gem_name == chef_yajl_library
       end
     end
 

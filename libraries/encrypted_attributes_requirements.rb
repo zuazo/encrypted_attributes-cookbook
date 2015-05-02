@@ -20,7 +20,7 @@
 #
 
 class Chef
-  # Helpers to load the required.
+  # Helpers to load the required gem.
   class EncryptedAttributesRequirements
     # Loads the `encrypted_attributes` gem.
     #

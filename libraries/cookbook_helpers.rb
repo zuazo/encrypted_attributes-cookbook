@@ -23,11 +23,13 @@
 class EncryptedAttributesCookbook
   # Some helpers used in the `encrypted_attribute` cookbook.
   module Helpers
-    # The latest chef-encrypted-attributes gem version, or at least the latest
-    # that requires different installation steps.  This is used as a default
-    # when a nil version is specified.
-    # @api private
-    LATEST = '0.6.0'
+    unless defined?(LATEST)
+      # The latest chef-encrypted-attributes gem version, or at least the latest
+      # that requires different installation steps.  This is used as a default
+      # when a nil version is specified.
+      # @api private
+      LATEST = '0.6.0'
+    end
 
     # Determines which YAJL library is already available, based on the Chef
     # version.

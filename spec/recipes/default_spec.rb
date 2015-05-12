@@ -71,11 +71,14 @@ describe 'encrypted_attributes::default', order: :random do
 
   [
     { chef: '12.0.0',  gem: nil,     builds: false, depend: nil         },
+    { chef: '12.0.0',  gem: '0.6.0', builds: false, depend: nil         },
     { chef: '12.0.0',  gem: '0.4.0', builds: false, depend: nil         },
     { chef: '11.16.4', gem: nil,     builds: false, depend: nil         },
+    { chef: '11.16.4', gem: '0.6.0', builds: false, depend: nil         },
     { chef: '11.16.4', gem: '0.4.0', builds: false, depend: nil         },
     { chef: '11.16.4', gem: '0.3.0', builds: true,  depend: 'yajl-ruby' },
-    { chef: '11.12.8', gem: nil,     builds: true,  depend: 'ffi-yajl'  },
+    { chef: '11.12.8', gem: nil,     builds: false, depend: nil         },
+    { chef: '11.12.8', gem: '0.6.0', builds: false, depend: nil         },
     { chef: '11.12.8', gem: '0.4.0', builds: true,  depend: 'ffi-yajl'  },
     { chef: '11.12.8', gem: '0.3.0', builds: false, depend: nil         }
   ].each do |test|

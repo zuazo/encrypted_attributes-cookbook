@@ -26,13 +26,20 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
   context '.require_build_essential?' do
     [
       { chef_version: '12.0.0',  gem_version: nil,     result: false },
+      { chef_version: '12.0.0',  gem_version: '0.6.0', result: false },
       { chef_version: '12.0.0',  gem_version: '0.4.0', result: false },
       { chef_version: '11.16.4', gem_version: nil,     result: false },
+      { chef_version: '11.16.4', gem_version: '0.6.0', result: false },
       { chef_version: '11.16.4', gem_version: '0.4.0', result: false },
       { chef_version: '11.16.4', gem_version: '0.3.0', result: true  },
-      { chef_version: '11.12.8', gem_version: nil,     result: true  },
+      { chef_version: '11.12.8', gem_version: nil,     result: false },
+      { chef_version: '11.12.8', gem_version: '0.6.0', result: false },
       { chef_version: '11.12.8', gem_version: '0.4.0', result: true  },
-      { chef_version: '11.12.8', gem_version: '0.3.0', result: false }
+      { chef_version: '11.12.8', gem_version: '0.3.0', result: false },
+      { chef_version: '11.6.0',  gem_version: nil,     result: false },
+      { chef_version: '11.6.0',  gem_version: '0.6.0', result: false },
+      { chef_version: '11.6.0',  gem_version: '0.4.0', result: true  },
+      { chef_version: '11.6.0',  gem_version: '0.3.0', result: false }
     ].each do |test|
       context "with Chef #{test[:chef_version].inspect} and gem version"\
               " #{test[:gem_version].inspect}" do
@@ -55,13 +62,20 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
   context '.skip_gem_dependencies?' do
     [
       { chef_version: '12.0.0',  gem_version: nil,     result: true },
+      { chef_version: '12.0.0',  gem_version: '0.6.0', result: true },
       { chef_version: '12.0.0',  gem_version: '0.4.0', result: true },
       { chef_version: '11.16.4', gem_version: nil,     result: true },
+      { chef_version: '11.16.4', gem_version: '0.6.0', result: true },
       { chef_version: '11.16.4', gem_version: '0.4.0', result: true },
       { chef_version: '11.16.4', gem_version: '0.3.0', result: true },
       { chef_version: '11.12.8', gem_version: nil,     result: true },
+      { chef_version: '11.12.8', gem_version: '0.6.0', result: true },
       { chef_version: '11.12.8', gem_version: '0.4.0', result: true },
-      { chef_version: '11.12.8', gem_version: '0.3.0', result: true }
+      { chef_version: '11.12.8', gem_version: '0.3.0', result: true },
+      { chef_version: '11.6.0',  gem_version: nil,     result: true },
+      { chef_version: '11.6.0',  gem_version: '0.6.0', result: true },
+      { chef_version: '11.6.0',  gem_version: '0.4.0', result: true },
+      { chef_version: '11.6.0',  gem_version: '0.3.0', result: true }
     ].each do |test|
       context "with Chef #{test[:chef_version].inspect} and gem version"\
               " #{test[:gem_version].inspect}" do
@@ -78,16 +92,23 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
   context '.required_depends' do
     [
       { chef_version: '12.0.0',  gem_version: nil,     result: nil         },
+      { chef_version: '12.0.0',  gem_version: '0.6.0', result: nil         },
       { chef_version: '12.0.0',  gem_version: '0.4.0', result: nil         },
       { chef_version: '11.16.4', gem_version: nil,     result: nil         },
+      { chef_version: '11.16.4', gem_version: '0.6.0', result: nil         },
       { chef_version: '11.16.4', gem_version: '0.4.0', result: nil         },
       { chef_version: '11.16.4', gem_version: '0.3.0', result: 'yajl-ruby',
         result_version: nil },
-      { chef_version: '11.12.8', gem_version: nil,     result: 'ffi-yajl',
-        result_version: '1.0.2' },
+      { chef_version: '11.12.8', gem_version: nil,     result: nil         },
+      { chef_version: '11.12.8', gem_version: '0.6.0', result: nil         },
       { chef_version: '11.12.8', gem_version: '0.4.0', result: 'ffi-yajl',
         result_version: '1.0.2' },
-      { chef_version: '11.12.8', gem_version: '0.3.0', result: nil         }
+      { chef_version: '11.12.8', gem_version: '0.3.0', result: nil         },
+      { chef_version: '11.6.0',  gem_version: nil,     result: nil         },
+      { chef_version: '11.6.0',  gem_version: '0.6.0', result: nil         },
+      { chef_version: '11.6.0',  gem_version: '0.4.0', result: 'ffi-yajl',
+        result_version: '1.0.2' },
+      { chef_version: '11.6.0',  gem_version: '0.3.0', result: nil         }
     ].each do |test|
       context "with Chef #{test[:chef_version].inspect} and gem version"\
               " #{test[:gem_version].inspect}" do
@@ -116,7 +137,9 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
       '0.3.0' => false,
       '0.4.0.dev' => true,
       '0.4.0.beta.0' => true,
-      '0.4.0' => false
+      '0.4.0' => false,
+      '0.6.0.beta.2' => true,
+      '0.6.0' => false
     }.each do |version, result|
       context "with version #{version.inspect}" do
         it "returns #{result.inspect}" do

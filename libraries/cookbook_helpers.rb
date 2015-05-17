@@ -3,7 +3,7 @@
 # Cookbook Name:: encrypted_attributes
 # Library:: cookbook_helpers
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the 'License');
@@ -28,7 +28,16 @@ class EncryptedAttributesCookbook
       # that requires different installation steps.  This is used as a default
       # when a nil version is specified.
       # @api private
-      LATEST = '0.6.0'
+      LATEST = '0.6.0' # TODO: Update this
+    end
+
+    # Checks if the using Chef version meets a version requirement.
+    #
+    # @param req [String] Requirement string. For example: `'~> 12'
+    # @return [Boolean] `true` if the chef version meets the requirement.
+    # @api private
+    def self.chef_version_satisfies?(req)
+      Gem::Requirement.new(req).satisfied_by?(Gem::Version.new(Chef::VERSION))
     end
 
     # Determines which YAJL library is already available, based on the Chef
@@ -37,9 +46,7 @@ class EncryptedAttributesCookbook
     # @return [String] the YAJL library that Chef supplies
     # @api private
     def self.chef_yajl_library
-      if Gem::Requirement.new('< 11.13').satisfied_by?(
-        Gem::Version.new(Chef::VERSION)
-      )
+      if chef_version_satisfies?('< 11.13')
         'yajl-ruby'
       else
         'ffi-yajl'
@@ -80,16 +87,26 @@ class EncryptedAttributesCookbook
     #
     # This is used only for native gems compilation.
     #
-    # | **Gem Version**       | **0.6.0** *(latest)* | **0.4.0** | **0.3.0** |
-    # |-----------------------|----------------------|-----------|-----------|
-    # | **Chef `12`**         | no                   | no        | -         |
-    # | **Chef `>= 11.16.4`** | no                   | no        | yes       |
-    # | **Chef `< 11.16.4`**  | no                   | yes       | no        |
+    # | **Gem Version**       | **0.7.0** | **0.6.0** | **0.4.0** | **0.3.0** |
+    # |-----------------------|-----------|-----------|-----------|-----------|
+    # | **Chef `12`**         | no        | no        | no        | -         |
+    # | **Chef `>= 11.16.4`** | no        | yes*      | no        | yes       |
+    # | **Chef `< 11.16.4`**  | no        | yes*      | yes       | no        |
+    #
+    # [*] Using gem version `0.6.0` will return `true` only in Ruby `< 2`.
+    #     This is required by the old gem extension that installs some
+    #     dependencies dynamically.
     #
     # @param gem_version [String] gem version to install.
     # @return [Boolean] `true` if `build-essential` cookbook is required.
     # @raise [RuntimeError] if specified gem version is wrong.
     def self.require_build_essential?(gem_version)
+      gem_version_obj = make_gem_version(gem_version)
+      if RUBY_VERSION.to_i < 2 && chef_version_satisfies?('< 12') &&
+         Gem::Requirement.new('~> 0.6.0').satisfied_by?(gem_version_obj)
+        # Required by the old dynamic dependency installation gem extension.
+        return true
+      end
       !required_depends(gem_version).empty?
     end
 

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,6 +19,7 @@
 
 require 'spec_helper'
 require 'encrypted_attributes_requirements'
+require 'cookbook_helpers'
 
 describe 'encrypted_attributes::default', order: :random do
   before do
@@ -70,30 +71,53 @@ describe 'encrypted_attributes::default', order: :random do
   end # context with FreeBSD
 
   [
-    { chef: '12.0.0',  gem: nil,     builds: false, depend: nil         },
-    { chef: '12.0.0',  gem: '0.6.0', builds: false, depend: nil         },
-    { chef: '12.0.0',  gem: '0.4.0', builds: false, depend: nil         },
-    { chef: '11.16.4', gem: nil,     builds: false, depend: nil         },
-    { chef: '11.16.4', gem: '0.6.0', builds: false, depend: nil         },
-    { chef: '11.16.4', gem: '0.4.0', builds: false, depend: nil         },
-    { chef: '11.16.4', gem: '0.3.0', builds: true,  depend: 'yajl-ruby' },
-    { chef: '11.12.8', gem: nil,     builds: false, depend: nil         },
-    { chef: '11.12.8', gem: '0.6.0', builds: false, depend: nil         },
-    { chef: '11.12.8', gem: '0.4.0', builds: true,  depend: 'ffi-yajl'  },
-    { chef: '11.12.8', gem: '0.3.0', builds: false, depend: nil         }
+    { chef: '12.0.0',  gem: nil,     build: false, depend: nil         },
+    { chef: '12.0.0',  gem: '0.7.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '12.0.0',  gem: '0.7.0', ruby: '1.9.2', build: false, depend: nil },
+    { chef: '12.0.0',  gem: '0.6.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '12.0.0',  gem: '0.6.0', ruby: '1.9.2', build: false, depend: nil },
+    { chef: '12.0.0',  gem: '0.4.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '12.0.0',  gem: '0.4.0', ruby: '1.9.2', build: false, depend: nil },
+    { chef: '11.16.4', gem: nil,                    build: false, depend: nil },
+    { chef: '11.16.4', gem: '0.7.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '11.16.4', gem: '0.7.0', ruby: '1.9.2', build: false, depend: nil },
+    { chef: '11.16.4', gem: '0.6.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '11.16.4', gem: '0.6.0', ruby: '1.9.2', build: true,  depend: nil },
+    { chef: '11.16.4', gem: '0.4.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '11.16.4', gem: '0.4.0', ruby: '1.9.2', build: false, depend: nil },
+    { chef: '11.16.4', gem: '0.3.0', ruby: '2.1.0', build: true,
+      depend: 'yajl-ruby' },
+    { chef: '11.16.4', gem: '0.3.0', ruby: '1.9.2', build: true,
+      depend: 'yajl-ruby' },
+    { chef: '11.12.8', gem: nil,     build: false, depend: nil         },
+    { chef: '11.12.8', gem: '0.7.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '11.12.8', gem: '0.7.0', ruby: '1.9.2', build: false, depend: nil },
+    { chef: '11.12.8', gem: '0.6.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '11.12.8', gem: '0.6.0', ruby: '1.9.2', build: true,  depend: nil },
+    { chef: '11.12.8', gem: '0.4.0', ruby: '2.1.0', build: true,
+      depend: 'ffi-yajl' },
+    { chef: '11.12.8', gem: '0.4.0', ruby: '1.9.2', build: true,
+      depend: 'ffi-yajl' },
+    { chef: '11.12.8', gem: '0.3.0', ruby: '2.1.0', build: false, depend: nil },
+    { chef: '11.12.8', gem: '0.3.0', ruby: '1.9.2', build: false, depend: nil }
   ].each do |test|
-    context "with Chef #{test[:chef].inspect} and gem version"\
-            " #{test[:gem].inspect}" do
+    context "with Chef #{test[:chef].inspect}, gem version"\
+            " #{test[:gem].inspect} and ruby version"\
+            " #{test[:ruby].inspect}" do
       before do
         stub_const('Chef::VERSION', test[:chef])
+        unless test[:ruby].nil?
+          helpers_class = EncryptedAttributesCookbook::Helpers.name
+          stub_const("#{helpers_class}::RUBY_VERSION", test[:ruby])
+        end
         node.set['encrypted_attributes']['version'] = test[:gem]
       end
 
-      it 'includes build-essential recipe', if: test[:builds] do
+      it 'includes build-essential recipe', if: test[:build] do
         expect(chef_run).to include_recipe('build-essential')
       end
 
-      it 'does not include build-essential recipe', unless: test[:builds] do
+      it 'does not include build-essential recipe', unless: test[:build] do
         expect(chef_run).to_not include_recipe('build-essential')
       end
 

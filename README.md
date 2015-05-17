@@ -21,7 +21,9 @@ This cookbook has been tested on the following platforms:
 * Debian
 * Fedora
 * FreeBSD
+* openSUSE
 * RedHat
+* SUSE
 * Ubuntu
 
 Please, [let us know](https://github.com/onddo/encrypted_attributes-cookbook/issues/new?title=I%20have%20used%20it%20successfully%20on%20...) if you use it successfully on any other platform.
@@ -269,8 +271,9 @@ License and Author
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
 | **Author:**          | [Xabier de Zuazo](https://github.com/zuazo) (<xabier@onddo.com>)
-| **Contributor:**     | [@chhsiung](https://github.com/chhsiung)
-| **Copyright:**       | Copyright (c) 2014, Onddo Labs, SL. (www.onddo.com)
+| **Contributor:**     | [Crystal Hsiung](https://github.com/chhsiung)
+| **Contributor:**     | [Lisa Danz](https://github.com/ldanz)
+| **Copyright:**       | Copyright (c) 2014-2015, Onddo Labs, SL. (www.onddo.com)
 | **License:**         | Apache License, Version 2.0
 
     Licensed under the Apache License, Version 2.0 (the "License");

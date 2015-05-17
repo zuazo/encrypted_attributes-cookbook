@@ -40,64 +40,42 @@ platforms:
   run_list: ["recipe[apt]"]
 
 suites:
-- name: latest
-  run_list:
-    - recipe[encrypted_attributes_test::default]
-- name: chef11
-  run_list:
-    - recipe[encrypted_attributes_test::default]
-  provisioner:
-    require_chef_omnibus: 11.16.4
-- name: chef11old
-  run_list:
-    - recipe[encrypted_attributes_test::default]
-  provisioner:
-    require_chef_omnibus: 11.12.8
-- name: gem050
+<% %w(0.6.0 0.5.0 0.3.0).unshift(nil).each do |gemver| %>
+<%   if gemver.nil? ||
+        Gem::Requirement.new('> 0.3').satisfied_by?(Gem::Version.new(gemver)) %>
+     # chef-encrypted-attributes 0.3.0 only works with Chef 11 due to depends
+- name: gem<%= gemver || 'latest' %>
   run_list:
     - recipe[encrypted_attributes_test::default]
   attributes:
     encrypted_attributes:
-      version: 0.5.0
-- name: gem050-chef11
+    <% unless gemver.nil? %>
+      version: <%= gemver %>
+    <% end %>
+<%   end %>
+- name: gem<%= gemver || 'latest' %>-chef11
   provisioner:
     require_chef_omnibus: 11.16.4
   run_list:
     - recipe[encrypted_attributes_test::default]
   attributes:
     encrypted_attributes:
-      version: 0.5.0
-- name: gem050-chef11old
+    <% unless gemver.nil? %>
+      version: <%= gemver %>
+    <% end %>
+- name: gem<%= gemver || 'latest' %>-chef11old
+  excludes:
+  - opensuse-13.1
   provisioner:
     require_chef_omnibus: 11.12.8
   run_list:
     - recipe[encrypted_attributes_test::default]
   attributes:
     encrypted_attributes:
-      version: 0.5.0
-# chef-encrypted-attributes 0.3.0 only works with Chef 11 due to depends
-# - name: gem030
-#   run_list:
-#     - recipe[encrypted_attributes_test::default]
-#   attributes:
-#     encrypted_attributes:
-#       version: 0.3.0
-- name: gem030-chef11
-  provisioner:
-    require_chef_omnibus: 11.16.4
-  run_list:
-    - recipe[encrypted_attributes_test::default]
-  attributes:
-    encrypted_attributes:
-      version: 0.3.0
-- name: gem030-chef11old
-  provisioner:
-    require_chef_omnibus: 11.12.8
-  run_list:
-    - recipe[encrypted_attributes_test::default]
-  attributes:
-    encrypted_attributes:
-      version: 0.3.0
+    <% unless gemver.nil? %>
+      version: <%= gemver %>
+    <% end %>
+<% end %>
 - name: key
   run_list:
     - recipe[encrypted_attributes_test::expose_key]

@@ -1,7 +1,7 @@
 # encoding: UTF-8
 #
 # Author:: Xabier de Zuazo (<xabier@onddo.com>)
-# Copyright:: Copyright (c) 2014 Onddo Labs, SL. (www.onddo.com)
+# Copyright:: Copyright (c) 2014-2015 Onddo Labs, SL. (www.onddo.com)
 # License:: Apache License, Version 2.0
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,28 +25,53 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
 
   context '.require_build_essential?' do
     [
-      { chef_version: '12.0.0',  gem_version: nil,     result: false },
-      { chef_version: '12.0.0',  gem_version: '0.6.0', result: false },
-      { chef_version: '12.0.0',  gem_version: '0.4.0', result: false },
-      { chef_version: '11.16.4', gem_version: nil,     result: false },
-      { chef_version: '11.16.4', gem_version: '0.6.0', result: false },
-      { chef_version: '11.16.4', gem_version: '0.4.0', result: false },
-      { chef_version: '11.16.4', gem_version: '0.3.0', result: true  },
-      { chef_version: '11.12.8', gem_version: nil,     result: false },
-      { chef_version: '11.12.8', gem_version: '0.6.0', result: false },
-      { chef_version: '11.12.8', gem_version: '0.4.0', result: true  },
-      { chef_version: '11.12.8', gem_version: '0.3.0', result: false },
-      { chef_version: '11.6.0',  gem_version: nil,     result: false },
-      { chef_version: '11.6.0',  gem_version: '0.6.0', result: false },
-      { chef_version: '11.6.0',  gem_version: '0.4.0', result: true  },
-      { chef_version: '11.6.0',  gem_version: '0.3.0', result: false }
+      { chef: '12.0.0',  gem: nil,                    result: false },
+      { chef: '12.0.0',  gem: '0.7.0', ruby: '2.1.0', result: false },
+      { chef: '12.0.0',  gem: '0.7.0', ruby: '1.9.2', result: false },
+      { chef: '12.0.0',  gem: '0.6.0', ruby: '2.1.0', result: false },
+      { chef: '12.0.0',  gem: '0.6.0', ruby: '1.9.2', result: false },
+      { chef: '12.0.0',  gem: '0.4.0', ruby: '2.1.0', result: false },
+      { chef: '12.0.0',  gem: '0.4.0', ruby: '1.9.2', result: false },
+      { chef: '11.16.4', gem: nil,                    result: false },
+      { chef: '11.16.4', gem: '0.7.0', ruby: '2.1.0', result: false },
+      { chef: '11.16.4', gem: '0.7.0', ruby: '1.9.2', result: false },
+      { chef: '11.16.4', gem: '0.6.0', ruby: '2.1.0', result: false },
+      { chef: '11.16.4', gem: '0.6.0', ruby: '1.9.2', result: true  },
+      { chef: '11.16.4', gem: '0.4.0', ruby: '2.1.0', result: false },
+      { chef: '11.16.4', gem: '0.4.0', ruby: '1.9.2', result: false },
+      { chef: '11.16.4', gem: '0.3.0', ruby: '2.1.0', result: true  },
+      { chef: '11.16.4', gem: '0.3.0', ruby: '1.9.2', result: true  },
+      { chef: '11.12.8', gem: nil,                    result: false },
+      { chef: '11.12.8', gem: '0.7.0', ruby: '2.1.0', result: false },
+      { chef: '11.12.8', gem: '0.7.0', ruby: '1.9.2', result: false },
+      { chef: '11.12.8', gem: '0.6.0', ruby: '2.1.0', result: false },
+      { chef: '11.12.8', gem: '0.6.0', ruby: '1.9.2', result: true  },
+      { chef: '11.12.8', gem: '0.4.0', ruby: '2.1.0', result: true  },
+      { chef: '11.12.8', gem: '0.4.0', ruby: '1.9.2', result: true  },
+      { chef: '11.12.8', gem: '0.3.0', ruby: '2.1.0', result: false },
+      { chef: '11.12.8', gem: '0.3.0', ruby: '1.9.2', result: false },
+      { chef: '11.6.0',  gem: nil,                    result: false },
+      { chef: '11.6.0',  gem: '0.7.0', ruby: '2.1.0', result: false },
+      { chef: '11.6.0',  gem: '0.7.0', ruby: '1.9.2', result: false },
+      { chef: '11.6.0',  gem: '0.6.0', ruby: '2.1.0', result: false },
+      { chef: '11.6.0',  gem: '0.6.0', ruby: '1.9.2', result: true  },
+      { chef: '11.6.0',  gem: '0.4.0', ruby: '2.1.0', result: true  },
+      { chef: '11.6.0',  gem: '0.4.0', ruby: '1.9.2', result: true  },
+      { chef: '11.6.0',  gem: '0.3.0', ruby: '2.1.0', result: false },
+      { chef: '11.6.0',  gem: '0.3.0', ruby: '1.9.2', result: false }
     ].each do |test|
-      context "with Chef #{test[:chef_version].inspect} and gem version"\
-              " #{test[:gem_version].inspect}" do
-        before { stub_const('Chef::VERSION', test[:chef_version]) }
+      context "with Chef #{test[:chef].inspect}, gem version"\
+              " #{test[:gem].inspect} and ruby version"\
+              " #{test[:ruby].inspect}" do
+        before do
+          stub_const('Chef::VERSION', test[:chef])
+          unless test[:ruby].nil?
+            stub_const("#{helpers}::RUBY_VERSION", test[:ruby])
+          end
+        end
 
         it "returns #{test[:result].inspect}" do
-          expect(helpers.require_build_essential?(test[:gem_version]))
+          expect(helpers.require_build_essential?(test[:gem]))
             .to be(test[:result])
         end
       end # context with Chef x and gem version y
@@ -61,28 +86,28 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
 
   context '.skip_gem_dependencies?' do
     [
-      { chef_version: '12.0.0',  gem_version: nil,     result: true },
-      { chef_version: '12.0.0',  gem_version: '0.6.0', result: true },
-      { chef_version: '12.0.0',  gem_version: '0.4.0', result: true },
-      { chef_version: '11.16.4', gem_version: nil,     result: true },
-      { chef_version: '11.16.4', gem_version: '0.6.0', result: true },
-      { chef_version: '11.16.4', gem_version: '0.4.0', result: true },
-      { chef_version: '11.16.4', gem_version: '0.3.0', result: true },
-      { chef_version: '11.12.8', gem_version: nil,     result: true },
-      { chef_version: '11.12.8', gem_version: '0.6.0', result: true },
-      { chef_version: '11.12.8', gem_version: '0.4.0', result: true },
-      { chef_version: '11.12.8', gem_version: '0.3.0', result: true },
-      { chef_version: '11.6.0',  gem_version: nil,     result: true },
-      { chef_version: '11.6.0',  gem_version: '0.6.0', result: true },
-      { chef_version: '11.6.0',  gem_version: '0.4.0', result: true },
-      { chef_version: '11.6.0',  gem_version: '0.3.0', result: true }
+      { chef: '12.0.0',  gem: nil,     result: true },
+      { chef: '12.0.0',  gem: '0.6.0', result: true },
+      { chef: '12.0.0',  gem: '0.4.0', result: true },
+      { chef: '11.16.4', gem: nil,     result: true },
+      { chef: '11.16.4', gem: '0.6.0', result: true },
+      { chef: '11.16.4', gem: '0.4.0', result: true },
+      { chef: '11.16.4', gem: '0.3.0', result: true },
+      { chef: '11.12.8', gem: nil,     result: true },
+      { chef: '11.12.8', gem: '0.6.0', result: true },
+      { chef: '11.12.8', gem: '0.4.0', result: true },
+      { chef: '11.12.8', gem: '0.3.0', result: true },
+      { chef: '11.6.0',  gem: nil,     result: true },
+      { chef: '11.6.0',  gem: '0.6.0', result: true },
+      { chef: '11.6.0',  gem: '0.4.0', result: true },
+      { chef: '11.6.0',  gem: '0.3.0', result: true }
     ].each do |test|
-      context "with Chef #{test[:chef_version].inspect} and gem version"\
-              " #{test[:gem_version].inspect}" do
-        before { stub_const('Chef::VERSION', test[:chef_version]) }
+      context "with Chef #{test[:chef].inspect} and gem version"\
+              " #{test[:gem].inspect}" do
+        before { stub_const('Chef::VERSION', test[:chef]) }
 
         it "returns #{test[:result].inspect}" do
-          expect(helpers.skip_gem_dependencies?(test[:gem_version]))
+          expect(helpers.skip_gem_dependencies?(test[:gem]))
             .to be(test[:result])
         end
       end # context with Chef x and gem version y
@@ -91,33 +116,32 @@ describe EncryptedAttributesCookbook::Helpers, order: :random do
 
   context '.required_depends' do
     [
-      { chef_version: '12.0.0',  gem_version: nil,     result: nil         },
-      { chef_version: '12.0.0',  gem_version: '0.6.0', result: nil         },
-      { chef_version: '12.0.0',  gem_version: '0.4.0', result: nil         },
-      { chef_version: '11.16.4', gem_version: nil,     result: nil         },
-      { chef_version: '11.16.4', gem_version: '0.6.0', result: nil         },
-      { chef_version: '11.16.4', gem_version: '0.4.0', result: nil         },
-      { chef_version: '11.16.4', gem_version: '0.3.0', result: 'yajl-ruby',
-        result_version: nil },
-      { chef_version: '11.12.8', gem_version: nil,     result: nil         },
-      { chef_version: '11.12.8', gem_version: '0.6.0', result: nil         },
-      { chef_version: '11.12.8', gem_version: '0.4.0', result: 'ffi-yajl',
-        result_version: '1.0.2' },
-      { chef_version: '11.12.8', gem_version: '0.3.0', result: nil         },
-      { chef_version: '11.6.0',  gem_version: nil,     result: nil         },
-      { chef_version: '11.6.0',  gem_version: '0.6.0', result: nil         },
-      { chef_version: '11.6.0',  gem_version: '0.4.0', result: 'ffi-yajl',
-        result_version: '1.0.2' },
-      { chef_version: '11.6.0',  gem_version: '0.3.0', result: nil         }
+      { chef: '12.0.0',  gem: nil,     result: nil              },
+      { chef: '12.0.0',  gem: '0.6.0', result: nil              },
+      { chef: '12.0.0',  gem: '0.4.0', result: nil              },
+      { chef: '11.16.4', gem: nil,     result: nil              },
+      { chef: '11.16.4', gem: '0.6.0', result: nil              },
+      { chef: '11.16.4', gem: '0.4.0', result: nil              },
+      { chef: '11.16.4', gem: '0.3.0', result: 'yajl-ruby'      },
+      { chef: '11.12.8', gem: nil,     result: nil              },
+      { chef: '11.12.8', gem: '0.6.0', result: nil              },
+      { chef: '11.12.8', gem: '0.4.0', result: 'ffi-yajl@1.0.2' },
+      { chef: '11.12.8', gem: '0.3.0', result: nil              },
+      { chef: '11.6.0',  gem: nil,     result: nil              },
+      { chef: '11.6.0',  gem: '0.6.0', result: nil              },
+      { chef: '11.6.0',  gem: '0.4.0', result: 'ffi-yajl@1.0.2' },
+      { chef: '11.6.0',  gem: '0.3.0', result: nil              }
     ].each do |test|
-      context "with Chef #{test[:chef_version].inspect} and gem version"\
-              " #{test[:gem_version].inspect}" do
-        before { stub_const('Chef::VERSION', test[:chef_version]) }
+      result, result_version =
+        test[:result].is_a?(String) ? test[:result].split('@', 2) : nil
+
+      context "with Chef #{test[:chef].inspect} and gem version"\
+              " #{test[:gem].inspect}" do
+        before { stub_const('Chef::VERSION', test[:chef]) }
 
         it "returns #{test[:result].inspect} as dependency" do
-          result = test[:result].nil? ? {} : { test[:result] =>
-                                                   test[:result_version] }
-          expect(helpers.required_depends(test[:gem_version]))
+          result = result.nil? ? {} : { result => result_version }
+          expect(helpers.required_depends(test[:gem]))
             .to eq(result)
         end
       end # context with Chef x and gem version y

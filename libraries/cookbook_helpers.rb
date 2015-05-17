@@ -28,7 +28,7 @@ class EncryptedAttributesCookbook
       # that requires different installation steps.  This is used as a default
       # when a nil version is specified.
       # @api private
-      LATEST = '0.6.0' # TODO: Update this
+      LATEST = '0.7.0'
     end
 
     # Checks if the using Chef version meets a version requirement.

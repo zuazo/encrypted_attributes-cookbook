@@ -1,16 +1,7 @@
 AllCops:
+  Exclude:
+  - '.kitchen'
   Include:
-  - '**/*.gemspec'
-  - '**/*.podspec'
-  - '**/*.jbuilder'
-  - '**/*.rake'
-  - '**/Gemfile'
-  - '**/Rakefile'
-  - '**/Capfile'
-  - '**/Guardfile'
-  - '**/Podfile'
-  - '**/Thorfile'
-  - '**/Vagrantfile'
-  - '**/Berksfile'
-  - '**/Cheffile'
-  - '**/Vagabondfile'
+  - '**/*.rb.erb'
+Metrics/ModuleLength:
+  Max: 118

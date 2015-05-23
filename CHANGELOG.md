@@ -3,6 +3,27 @@ encrypted_attributes CHANGELOG
 
 This file is used to list changes made in each version of the `encrypted_attributes` cookbook.
 
+## v0.6.0 (2015-05-23)
+
+New features:
+
+* Improve `0.6.0`, `0.7.0` gem version support ([issue #2](https://github.com/onddo/encrypted_attributes-cookbook/pull/2), thanks [Lisa Danz](https://github.com/ldanz)).
+* Add SUSE as supported platform.
+* Add `ChefGem#compile_time(true)` call to avoid Chef `12.1` warning.
+
+Tests:
+
+* Refactor kitchen.yml file using ERB.
+* Update RuboCop to version `0.31.0`.
+
+Documentation:
+
+* Update links to point to *chef.io*.
+* README:
+  * Fix "chef users limitation" link.
+  * Fix all RuboCop offenses in examples.
+  * Update `mysql` cookbook example.
+
 ## v0.5.1 (2015-04-01)
 
 * Set `ffi_yajl` version to `1.0.2` ([issue #1](https://github.com/onddo/encrypted_attributes-cookbook/pull/1), thanks [@chhsiung](https://github.com/chhsiung)).

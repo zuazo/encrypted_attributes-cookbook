@@ -36,7 +36,8 @@ end
 # Install the required dependencies
 depends = EncryptedAttributesCookbook::Helpers.required_depends(gem_version)
 depends.each do |dep, v|
-  chef_gem dep do
+  chef_gem dep do # ~FC009
+    compile_time true if Chef::Resource::ChefGem.method_defined?(:compile_time)
     version v
   end
 end
@@ -63,7 +64,8 @@ if node['encrypted_attributes']['mirror_url'].is_a?(String) &&
   end.run_action(:install)
 else
   # install from rubygems
-  chef_gem 'chef-encrypted-attributes' do
+  chef_gem 'chef-encrypted-attributes' do # ~FC009
+    compile_time true if Chef::Resource::ChefGem.method_defined?(:compile_time)
     if node['encrypted_attributes']['version'].is_a?(String)
       version node['encrypted_attributes']['version']
     end

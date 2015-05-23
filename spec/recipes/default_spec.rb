@@ -28,9 +28,17 @@ describe 'encrypted_attributes::default', order: :random do
   let(:chef_runner) { ChefSpec::ServerRunner.new }
   let(:chef_run) { chef_runner.converge(described_recipe) }
   let(:node) { chef_runner.node }
+  helpers = EncryptedAttributesCookbook::Helpers
 
   it 'installs chef-encrypted-attributes gem' do
     expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
+  end
+
+  context 'in Chef > 12.1', if: helpers.chef_version_satisfies?('> 12.1') do
+    it 'installs chef-encrypted-attributes gem in compile time' do
+      expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
+        .with_compile_time(true)
+    end
   end
 
   it 'loads chef-encrypted-attributes gem' do
@@ -124,6 +132,14 @@ describe 'encrypted_attributes::default', order: :random do
       it "installs #{test[:depend].inspect} dependency gem",
          unless: test[:depend].nil? do
         expect(chef_run).to install_chef_gem(test[:depend])
+      end
+
+      context 'in Chef > 12.1', if: helpers.chef_version_satisfies?('> 12.1') do
+        it "installs #{test[:depend].inspect} dependency gem in compile time",
+           unless: test[:depend].nil? do
+          expect(chef_run).to install_chef_gem(test[:depend])
+            .with_compile_time(true)
+        end
       end
 
       it 'installs chef-encrypted-attributes dependencies' do

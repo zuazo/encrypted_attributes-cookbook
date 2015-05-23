@@ -21,8 +21,8 @@
 
 class Chef
   # Encrypted Attribute Helpers to use from Chef [Recipes]
-  # (http://docs.getchef.com/recipes.html) and [Resources]
-  # (http://docs.getchef.com/chef/resources.html).
+  # (http://docs.chef.io/recipes.html) and [Resources]
+  # (http://docs.chef.io/chef/resources.html).
   #
   # This library adds some helper methods to try to cover the more common use
   # cases.
@@ -148,7 +148,7 @@ class Chef
     # Sets Chef Node attribute values.
     #
     # Sets the attribute as [`normal` type]
-    # (http://docs.getchef.com/attributes.html#attribute-types) and saves the
+    # (http://docs.chef.io/attributes.html#attribute-types) and saves the
     # node.
     #
     # @param attr_ary [Array<String>] node attribute path as array of strings.

@@ -1,6 +1,6 @@
 Description
 ===========
-[![Cookbook Version](https://img.shields.io/cookbook/v/encrypted_attributes.svg?style=flat)](https://supermarket.getchef.com/cookbooks/encrypted_attributes)
+[![Cookbook Version](https://img.shields.io/cookbook/v/encrypted_attributes.svg?style=flat)](https://supermarket.chef.io/cookbooks/encrypted_attributes)
 [![Dependency Status](http://img.shields.io/gemnasium/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://gemnasium.com/onddo/encrypted_attributes-cookbook)
 [![Code Climate](http://img.shields.io/codeclimate/github/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://codeclimate.com/github/onddo/encrypted_attributes-cookbook)
 [![Build Status](http://img.shields.io/travis/onddo/encrypted_attributes-cookbook.svg?style=flat)](https://travis-ci.org/onddo/encrypted_attributes-cookbook)
@@ -30,7 +30,7 @@ Please, [let us know](https://github.com/onddo/encrypted_attributes-cookbook/iss
 
 ## Required Cookbooks
 
-* [build-essential](https://supermarket.getchef.com/cookbooks/build-essential)
+* [build-essential](https://supermarket.chef.io/cookbooks/build-essential)
 
 ## Required Applications
 
@@ -141,7 +141,7 @@ end
 Chef::Log.debug("FTP password: #{ftp_pass}")
 ```
 
-**Note:** This example requires the [openssl](https://supermarket.getchef.com/cookbooks/openssl) cookbook.
+**Note:** This example requires the [openssl](https://supermarket.chef.io/cookbooks/openssl) cookbook.
 
 See the [`chef-encrypted-attributes` gem Usage](http://onddo.github.io/chef-encrypted-attributes/#usage-in-recipes) section for more examples.
 
@@ -200,7 +200,7 @@ include_recipe 'encrypted_attributes::users_data_bag'
 
 ### Using Chef::EncryptedAttributesHelpers to Encrypt MySQL Passwords
 
-In the following example we use the official [mysql](https://supermarket.getchef.com/cookbooks/mysql) cookbook and its `mysql_service` resource to save the password encrypted in the following attribute:
+In the following example we use the official [mysql](https://supermarket.chef.io/cookbooks/mysql) cookbook and its `mysql_service` resource to save the password encrypted in the following attribute:
 
 * `node['myapp']['mysql']['server_root_password']`
 

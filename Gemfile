@@ -13,6 +13,7 @@ end
 group :test do
   gem 'rake'
   gem 'berkshelf', '~> 3.1'
+  gem 'rspec-rails', '~> 3.5', '>= 3.5.2'
 end
 
 group :style do

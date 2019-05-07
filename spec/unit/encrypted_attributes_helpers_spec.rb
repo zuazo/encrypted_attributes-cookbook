@@ -87,7 +87,7 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
     end
 
     it 'returns false when node["dev_mode"] set' do
-      node.set['dev_mode'] = true
+      node.default['dev_mode'] = true
       expect(helpers.encrypted_attributes_enabled?).to eq(false)
     end
   end
@@ -95,7 +95,7 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
   context '#encrypted_attribute_read' do
     let(:secret) { 's3Cr3T' }
     before do
-      node.set['ftp']['password'] = secret
+      node.default['ftp']['password'] = secret
       allow(Chef::EncryptedAttribute).to receive(:load).and_return('OK')
     end
 
@@ -122,7 +122,7 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
   context '#encrypted_attribute_read_from_node' do
     let(:secret) { 's3Cr3T' }
     before do
-      node.set['ftp']['password'] = secret
+      node.default['ftp']['password'] = secret
       allow(Chef::EncryptedAttribute).to receive(:load_from_node)
         .and_return('OK')
     end
@@ -155,7 +155,7 @@ describe Chef::EncryptedAttributesHelpers, order: :random do
     let(:secret) { 's3Cr3T' }
     let(:encrypted) { '3NcrYpt3D' }
     before do
-      node.set['ftp']['password'] = encrypted
+      node.default['ftp']['password'] = encrypted
       allow(node).to receive(:save)
       allow(Chef::EncryptedAttribute).to receive(:load).and_return('OK')
       allow(Chef::EncryptedAttribute).to receive(:exist?).and_return(false)

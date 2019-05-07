@@ -49,7 +49,7 @@ describe 'encrypted_attributes::default', order: :random do
 
   context 'with specific version' do
     let(:version) { '0.3.0' }
-    before { node.set['encrypted_attributes']['version'] = version }
+    before { node.default['encrypted_attributes']['version'] = version }
 
     it 'installs chef-encrypted-attributes gem specific version' do
       expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
@@ -59,7 +59,7 @@ describe 'encrypted_attributes::default', order: :random do
 
   context 'with prerelease version' do
     let(:version) { '0.5.0.beta' }
-    before { node.set['encrypted_attributes']['version'] = version }
+    before { node.default['encrypted_attributes']['version'] = version }
 
     it 'installs chef-encrypted-attributes gem prerelease version' do
       expect(chef_run).to install_chef_gem('chef-encrypted-attributes')
@@ -118,7 +118,7 @@ describe 'encrypted_attributes::default', order: :random do
           helpers_class = EncryptedAttributesCookbook::Helpers.name
           stub_const("#{helpers_class}::RUBY_VERSION", test[:ruby])
         end
-        node.set['encrypted_attributes']['version'] = test[:gem]
+        node.default['encrypted_attributes']['version'] = test[:gem]
       end
 
       it 'includes build-essential recipe', if: test[:build] do

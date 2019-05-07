@@ -168,7 +168,7 @@ class Chef
 
     # Gets writable attribute value from Node.
     #
-    # This gets the attribute value reference from `node.set` in order to be
+    # This gets the attribute value reference from `node.default` in order to be
     # able to use the `Hash#replace` method to overwrite its value. Subsequently
     # used to update encrypted attributes.
     #
@@ -176,7 +176,7 @@ class Chef
     # @return [Hash] attribute value.
     # @private
     def attr_writable_from_ary(attr_ary)
-      attr_ary.reduce(node.set) do |n, k|
+      attr_ary.reduce(node.default) do |n, k|
         n.respond_to?(:key?) && n.key?(k) ? n[k] : nil
       end
     end

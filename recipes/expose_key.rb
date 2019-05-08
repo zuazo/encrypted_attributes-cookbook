@@ -25,7 +25,7 @@ begin
     client = Chef::ApiClient.load(node.name)
     new_public_key = client.public_key
     unless cur_public_key == new_public_key
-      node.set['public_key'] = new_public_key.strip
+      node.default['public_key'] = new_public_key.strip
       node.save
     end
   end
